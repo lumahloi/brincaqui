@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(45) NOT NULL,
     user_telephone JSON NOT NULL,
-    user_email JSON NOT NULL,    
+    user_email VARCHAR(25) NOT NULL,    
     user_password VARCHAR(32) NOT NULL,
     user_active CHAR(1) NOT NULL,
     user_creation DATE NOT NULL,
