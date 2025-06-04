@@ -7,7 +7,7 @@ git clone https://www.github.com/lumahloi/brincaqui.git
 
 Troque de diretório
 ```bash
-cd brincaaqui
+cd brincaqui
 ```
 
 ## Alteração
@@ -18,7 +18,7 @@ Garanta que esteja na branch ```main```.
 git checkout main
 ```
 
-Verifique se há alterações da origem.
+Verifique se há alterações na origem.
 ```bash
 git pull origin main
 ```
