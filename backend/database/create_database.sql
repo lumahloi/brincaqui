@@ -3,10 +3,10 @@ USE Brincaqui;
 
 CREATE TABLE IF NOT EXISTS Usuario (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(255) NOT NULL,
+    user_name VARCHAR(45) NOT NULL,
     user_telephone JSON NOT NULL,
     user_email JSON NOT NULL,    
-    user_password VARCHAR(255) NOT NULL,
+    user_password VARCHAR(32) NOT NULL,
     user_active CHAR(1) NOT NULL,
     user_creation DATE NOT NULL,
     user_lastedit DATE NOT NULL
@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS Brinquedo (
   brin_discounts JSON NOT NULL,  
   brin_telephone JSON NOT NULL,  
   brin_email JSON NOT NULL,       
-  brin_name VARCHAR(255) NOT NULL,
-  brin_cnpj VARCHAR(20),
+  brin_name VARCHAR(45) NOT NULL,
+  brin_cnpj VARCHAR(14),
   brin_ages JSON NOT NULL,       
   Empresa_user_id INT NOT NULL,
   brin_faves INT,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS Brinquedo (
 
 CREATE TABLE IF NOT EXISTS Comodidade (
     com_id INT AUTO_INCREMENT,
-    com_title VARCHAR(255) NOT NULL,
+    com_title VARCHAR(30) NOT NULL,
     com_creation DATE NOT NULL,
     com_active CHAR(1) NOT NULL,
     com_lastedit DATE NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS Comodidade (
 
 CREATE TABLE IF NOT EXISTS Desconto (
     disc_id INT AUTO_INCREMENT,
-    disc_title VARCHAR(255) NOT NULL,
+    disc_title VARCHAR(100) NOT NULL,
     disc_creation DATE NOT NULL,
     disc_active CHAR(1) NOT NULL,
     disc_lastedit DATE NOT NULL,
@@ -70,14 +70,14 @@ CREATE TABLE IF NOT EXISTS Desconto (
 );
 
 CREATE TABLE IF NOT EXISTS Endereco (
-    add_cep VARCHAR(20) NOT NULL,
-    add_streetnum VARCHAR(20) NOT NULL,
-    add_city VARCHAR(100) NOT NULL,
-    add_neighborhood VARCHAR(100) NOT NULL,
-    add_plus VARCHAR(255),
+    add_cep VARCHAR(8) NOT NULL,
+    add_streetnum VARCHAR(100) NOT NULL,
+    add_city VARCHAR(20) NOT NULL,
+    add_neighborhood VARCHAR(20) NOT NULL,
+    add_plus VARCHAR(100),
     Brinquedo_brin_id INT NOT NULL,
-    add_state VARCHAR(50) NOT NULL,
-    add_country VARCHAR(50) NOT NULL,
+    add_state VARCHAR(30) NOT NULL,
+    add_country VARCHAR(20) NOT NULL,
     PRIMARY KEY (Brinquedo_brin_id),
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo(brin_id)
 );
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS Avaliacao (
 
 CREATE TABLE IF NOT EXISTS Notificacao (
     notif_id INT NOT NULL AUTO_INCREMENT,
-    notif_title VARCHAR(255) NOT NULL,
+    notif_title VARCHAR(60) NOT NULL,
     notif_description TEXT NOT NULL,
     notif_creation DATE NOT NULL,
     notif_active CHAR(1) NOT NULL,
