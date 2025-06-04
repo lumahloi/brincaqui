@@ -11,7 +11,9 @@ cd brincaaqui
 ```
 
 ## Alteração
-Antes de qualquer alteração, garanta que o repositório esteja atualizado. Garanta que esteja na branch ```main```.
+Antes de qualquer alteração, garanta que o repositório esteja atualizado. 
+
+Garanta que esteja na branch ```main```.
 ```bash
 git checkout main
 ```
