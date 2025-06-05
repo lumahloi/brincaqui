@@ -4,7 +4,8 @@ $data = [
     'email' => 'maria@email.com',
     'telephone' => '11999990000',
     'password' => '12345678',
-    'confirmPassword' => '12345678'
+    'confirmPassword' => '12345678',
+    'userType' => 1
 ];
 
 $options = [
