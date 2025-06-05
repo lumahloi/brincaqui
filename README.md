@@ -52,17 +52,10 @@ git commit -m "<mensagem>"
 ```
 
 ## Contribuição
-Crie sua branch. Adicione um nome descritivo.
-```bash
-git checkout -b <nome>
-```
-
 Dê push na branch.
 ```bash
-git push origin <nome>
+git push origin develop
 ```
-
-Crie um pull request à branch `develop` acessando [https://www.github.com/lumahloi/brincaqui](https://www.github.com/lumahloi/brincaqui).
 
 ## APIs
 Acesse a documentação completa clicando [aqui](./docs/apis.md).
