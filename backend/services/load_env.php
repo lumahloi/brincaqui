@@ -1,5 +1,5 @@
 <?php
-function loadEnv($path)
+function load_env($path)
 {
   if (!file_exists($path))
     return;
