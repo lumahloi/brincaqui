@@ -7,28 +7,22 @@ CREATE TABLE IF NOT EXISTS Usuario (
     user_telephone VARCHAR(11) NOT NULL,
     user_email VARCHAR(25) NOT NULL,    
     user_password VARCHAR(255) NOT NULL,
+    user_type INT NOT NULL,
     user_active CHAR(1) NOT NULL,
     user_creation DATE NOT NULL,
-    user_lastedit DATE NOT NULL
+    user_lastedit DATE NOT NULL,
+    FOREIGN KEY (user_type) REFERENCES TipoUsuario(id)
 );
 
-CREATE TABLE IF NOT EXISTS Admin (
-    user_id INT AUTO_INCREMENT NOT NULL,
-    PRIMARY KEY (user_id),
-    FOREIGN KEY (user_id) REFERENCES Usuario(user_id)
+CREATE TABLE IF NOT EXISTS TipoUsuario (
+    id INT PRIMARY KEY,
+    nome VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Cliente (
-    user_id INT AUTO_INCREMENT NOT NULL,
-    PRIMARY KEY (user_id),
-    FOREIGN KEY (user_id) REFERENCES Usuario(user_id)
-);
-
-CREATE TABLE IF NOT EXISTS Empresa (
-    user_id INT AUTO_INCREMENT NOT NULL,
-    PRIMARY KEY (user_id),
-    FOREIGN KEY (user_id) REFERENCES Usuario(user_id)
-);
+INSERT INTO TipoUsuario (id, nome) VALUES
+(1, 'cliente'),
+(2, 'empresa'),
+(3, 'admin');
 
 CREATE TABLE IF NOT EXISTS Brinquedo (
   brin_id INT AUTO_INCREMENT PRIMARY KEY,
