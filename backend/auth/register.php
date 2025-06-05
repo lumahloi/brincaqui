@@ -2,6 +2,7 @@
 require_once "../base_dir.php";
 require_once BASE_DIR . "/services/db_connection.php";
 require_once BASE_DIR . "/services/response_format.php";
+require_once BASE_DIR . "/services/validate_infos.php";
 
 date_default_timezone_set('America/Sao_Paulo');
 
@@ -12,82 +13,24 @@ $password = filter_input(INPUT_POST, "password");
 $confirmPassword = filter_input(INPUT_POST, "confirmPassword");
 $userType = filter_input(INPUT_POST, "userType");
 
-if (strlen($fullname) > 45) {
-  response_format(400, "Seu nome ultrapassa 45 caracteres.");
-  exit;
-}
-
-if (strlen($fullname) < 5) {
-  response_format(400, "Seu nome tem menos que 5 caracteres.");
-  exit;
-}
-
-if (strlen($telephone) > 11) {
-  response_format(400, "Seu telefone ultrapassa 11 caracteres.");
-  exit;
-}
-
-if (strlen($telephone) < 11) {
-  response_format(400, "Seu telefone tem menos que 11 caracteres.");
-  exit;
-}
-
-if (strlen($email) > 25) {
-  response_format(400, "Seu e-mail ultrapassa 25 caracteres.");
-  exit;
-}
-
-if (strlen($email) < 7) {
-  response_format(400, "Seu e-mail tem menos que 7 caracteres.");
-  exit;
-}
-
-if (strlen($password) > 25) {
-  response_format(400, "Sua senha ultrapassa 32 caracteres.");
-  exit;
-}
-
-if (strlen($password) < 8) {
-  response_format(400, "Sua senha tem menos que 8 caracteres.");
-  exit;
-}
+valid_fullname($fullname);
+valid_telephone($telephone);
+valid_email($email);
+valid_password($password);
+valid_user_type($userType);
 
 if ($password !== $confirmPassword) {
   response_format(400, "As senhas não coincidem.");
   exit;
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  response_format(400, "Insira um e-mail de formato válido.");
+if (unique_telephone($telephone)) {
+  response_format(400, "Já existe um usuário cadastrado com este telefone.");
   exit;
 }
 
-$pdo = DbConnection::connect();
-
-$p_check_user_type = $pdo->prepare("SELECT id FROM brincaqui.tipousuario WHERE id = :id;");
-$p_check_user_type->bindParam(":id", $userType, PDO::PARAM_STR);
-$p_check_user_type->execute();
-$user_type_exists = $p_check_user_type->fetch(PDO::FETCH_ASSOC);
-if (!$user_type_exists || $userType == 3) {
-  response_format(400, "Insira um tipo de usuário válido.");
-  exit;
-}
-
-$p_check_telephone = $pdo->prepare("SELECT * FROM brincaqui.usuario WHERE user_telephone = :user_telephone;");
-$p_check_telephone->bindParam(":user_telephone", $telephone, PDO::PARAM_STR);
-$p_check_telephone->execute();
-$telephone_exists = $p_check_telephone->fetch(PDO::FETCH_ASSOC);
-if ($telephone_exists) {
-  response_format(400, "Já há um usuário cadastrado com este telefone.");
-  exit;
-}
-
-$p_check_email = $pdo->prepare("SELECT * FROM brincaqui.usuario WHERE user_email = :user_email;");
-$p_check_email->bindParam(":user_email", $email, PDO::PARAM_STR);
-$p_check_email->execute();
-$email_exists = $p_check_email->fetch(PDO::FETCH_ASSOC);
-if ($email_exists) {
-  response_format(400, "Já há um usuário cadastrado com este e-mail.");
+if (unique_email($email)) {
+  response_format(400, "Já existe um usuário cadastrado com este e-mail.");
   exit;
 }
 

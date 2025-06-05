@@ -2,42 +2,15 @@
 require_once "../base_dir.php";
 require_once BASE_DIR . "/services/db_connection.php";
 require_once BASE_DIR . "/services/response_format.php";
+require_once BASE_DIR . "/services/validate_infos.php";
 
 $email = filter_input(INPUT_POST, "email");
 $password = filter_input(INPUT_POST, "password");
 
-if (strlen($email) > 25) {
-  response_format(400, "Seu e-mail ultrapassa 25 caracteres.");
-  exit;
-}
+valid_email($email);
+valid_password($password);
 
-if (strlen($email) < 7) {
-  response_format(400, "Seu e-mail tem menos que 7 caracteres.");
-  exit;
-}
-
-if (strlen($password) > 25) {
-  response_format(400, "Sua senha ultrapassa 32 caracteres.");
-  exit;
-}
-
-if (strlen($password) < 8) {
-  response_format(400, "Sua senha tem menos que 8 caracteres.");
-  exit;
-}
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  response_format(400, "Insira um e-mail de formato válido.");
-  exit;
-}
-
-$pdo = DbConnection::connect();
-
-$p_check_email = $pdo->prepare("SELECT * FROM brincaqui.usuario WHERE user_email = :user_email;");
-$p_check_email->bindParam(":user_email", $email, PDO::PARAM_STR);
-$p_check_email->execute();
-$email_exists = $p_check_email->fetch(PDO::FETCH_ASSOC);
-if (!$email_exists) {
+if (!unique_email($email)) {
   response_format(400, "Não existe usuário cadastrado com este e-mail.");
   exit;
 }
@@ -57,11 +30,10 @@ $p_get_user_info = $pdo->prepare("SELECT user_id, user_name, user_type FROM brin
 $p_get_user_info->bindParam(":user_email", $email, PDO::PARAM_STR);
 $p_get_user_info->execute();
 $user_info = $p_get_user_info->fetch(PDO::FETCH_ASSOC);
-
 session_start();
-$_SESSION["user_id"] =  $user_info['user_id'];
-$_SESSION["user_name"] =  $user_info['user_name'];
-$_SESSION["user_type"] =  $user_info['user_type'];
+$_SESSION["user_id"] = $user_info['user_id'];
+$_SESSION["user_name"] = $user_info['user_name'];
+$_SESSION["user_type"] = $user_info['user_type'];
 
 $return = [
   "logged_user_id" => $_SESSION["user_id"],
