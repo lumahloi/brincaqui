@@ -22,7 +22,7 @@ Atribua valor às variáveis do `.env`.
 - `DB_USER`: usuário do banco de dados;
 - `DB_PASSWORD`: senha do banco de dados.
 
-Em `localhost/phpmyadmin`, crie o banco de dados usando o script fornecido em `backend/database/create_database.sql`
+Em `localhost/phpmyadmin`, crie o banco de dados usando o script fornecido em `backend/utils/database_scripts/create_database.sql`
 
 ## Rodando localmente
 - Jogue todo o conteúdo para a pasta `htdocs` do `xampp`.
@@ -38,7 +38,7 @@ git checkout develop
 
 Verifique se há alterações na origem.
 ```bash
-git pull origin main
+git pull origin develop
 ```
 
 Faça as modificaçãos desejadas. Terminadas, adicione ao Git.
