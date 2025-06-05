@@ -1,8 +1,8 @@
 <?php
 require_once "../base_dir.php";
-require_once BASE_DIR . "/services/db_connection.php";
-require_once BASE_DIR . "/services/response_format.php";
-require_once BASE_DIR . "/services/validate_infos.php";
+require_once BASE_DIR . "/utils/db_connection.php";
+require_once BASE_DIR . "/utils/response_format.php";
+require_once BASE_DIR . "/utils/validate_infos.php";
 
 date_default_timezone_set('America/Sao_Paulo');
 

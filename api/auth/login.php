@@ -1,8 +1,8 @@
 <?php
 require_once "../base_dir.php";
-require_once BASE_DIR . "/services/db_connection.php";
-require_once BASE_DIR . "/services/response_format.php";
-require_once BASE_DIR . "/services/validate_infos.php";
+require_once BASE_DIR . "/utils/db_connection.php";
+require_once BASE_DIR . "/utils/response_format.php";
+require_once BASE_DIR . "/utils/validate_infos.php";
 
 $email = filter_input(INPUT_POST, "email");
 $password = filter_input(INPUT_POST, "password");
