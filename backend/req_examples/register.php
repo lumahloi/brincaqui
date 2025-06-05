@@ -9,13 +9,13 @@ $data = [
 
 $options = [
     'http' => [
-        'header'  => "Content-type: application/x-www-form-urlencoded",
-        'method'  => 'POST',
+        'header' => "Content-type: application/x-www-form-urlencoded",
+        'method' => 'POST',
         'content' => http_build_query($data),
         'ignore_errors' => true
     ]
 ];
 
-$context  = stream_context_create($options);
+$context = stream_context_create($options);
 $result = file_get_contents('http://localhost/brincaqui/backend/auth/register.php', false, $context);
 echo $result;
