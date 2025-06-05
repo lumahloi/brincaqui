@@ -1,17 +1,35 @@
 # BrincAqui
+
+## Pré-requisitos
+- **PHP**: instale a versão mais atual clicando ![aqui](https://www.php.net/downloads.php);
+- **xampp**: instale a versão mais atual clicando ![aqui](https://www.apachefriends.org/pt_br/download.html);
+
 ## Instalação
 Clone o repositório
 ```bash
 git clone https://www.github.com/lumahloi/brincaqui.git
 ```
 
-Troque de diretório
+## Configuração
+Para usar o **Backend**, copie o exemplo de ```.env``` para a pasta ```backend```.
 ```bash
-cd brincaqui
+cp .env.example backend/.env
 ```
 
+Atribua valor às variáveis do ```.env```.
+- ```DB_HOST```: nome do host;
+- ```DB_NAME```: nome do banco de dados;
+- ```DB_USER```: usuário do banco de dados;
+- ```DB_PASSWORD```: senha do banco de dados.
+
+Em ````localhost/phpmyadmin```, crie o banco de dados usando o script fornecido em ```backend/database/create_database.sql```
+
+## Rodando localmente
+- Jogue todo o conteúdo para a pasta ```htdocs``` do ```xampp```.
+- Acesse ```localhost/brincaqui``` pelo navegador.
+
 ## Alteração
-Antes de qualquer alteração, garanta que o repositório esteja atualizado. 
+⚠️ **Antes de qualquer alteração, garanta que o repositório esteja atualizado.** 
 
 Garanta que esteja na branch ```main```.
 ```bash
@@ -44,4 +62,9 @@ Dê push na branch.
 git push origin <nome>
 ```
 
-Crie um pull request acessando https://www.github.com/lumahloi/brincaqui.
+Crie um pull request acessando ![https://www.github.com/lumahloi/brincaqui](https://www.github.com/lumahloi/brincaqui).
+
+## APIs
+Acesse a documentação completa clicando ![aqui](./docs/apis.md).
+
+## Autores
