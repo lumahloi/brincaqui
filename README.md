@@ -31,9 +31,9 @@ Em `localhost/phpmyadmin`, crie o banco de dados usando o script fornecido em `b
 ## Alteração
 ⚠️ **Antes de qualquer alteração, garanta que o repositório esteja atualizado.** 
 
-Garanta que esteja na branch `main`.
+Garanta que esteja na branch `develop`.
 ```bash
-git checkout main
+git checkout develop
 ```
 
 Verifique se há alterações na origem.
@@ -62,7 +62,7 @@ Dê push na branch.
 git push origin <nome>
 ```
 
-Crie um pull request acessando [https://www.github.com/lumahloi/brincaqui](https://www.github.com/lumahloi/brincaqui).
+Crie um pull request à branch `develop` acessando [https://www.github.com/lumahloi/brincaqui](https://www.github.com/lumahloi/brincaqui).
 
 ## APIs
 Acesse a documentação completa clicando [aqui](./docs/apis.md).
