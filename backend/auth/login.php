@@ -17,6 +17,7 @@ if (!unique_email($email)) {
 
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
+$pdo = DbConnection::connect();
 $p_check_password = $pdo->prepare("SELECT user_password FROM brincaqui.usuario WHERE user_email = :user_email;");
 $p_check_password->bindParam(":user_email", $email, PDO::PARAM_STR);
 $p_check_password->execute();

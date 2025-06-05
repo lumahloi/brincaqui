@@ -39,6 +39,7 @@ $telephone = preg_replace('/\D/', '', $telephone);
 $hash = password_hash($password, PASSWORD_DEFAULT);
 $date = date('Y/m/d');
 
+$pdo = DbConnection::connect();
 $p_insert = $pdo->prepare("INSERT INTO brincaqui.usuario (user_name, user_telephone, user_email, user_password, user_active, user_creation, user_lastedit, user_type) VALUES (:user_name, :user_telephone, :user_email, :user_password, 1, :user_creation, :user_lastedit, :user_type);");
 $p_insert->bindParam(":user_name", $fullname, PDO::PARAM_STR);
 $p_insert->bindParam(":user_telephone", $telephone, PDO::PARAM_STR);
