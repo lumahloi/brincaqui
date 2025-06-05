@@ -1,33 +1,27 @@
 CREATE DATABASE IF NOT EXISTS Brincaqui;
 USE Brincaqui;
 
+CREATE TABLE IF NOT EXISTS TipoUsuario (
+    id INT PRIMARY KEY,
+    nome VARCHAR(20) NOT NULL
+);
+
+INSERT INTO TipoUsuario (id, nome) VALUES
+(1, 'cliente'),
+(2, 'empresa'),
+(3, 'admin');
+
 CREATE TABLE IF NOT EXISTS Usuario (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(45) NOT NULL,
     user_telephone VARCHAR(11) NOT NULL,
     user_email VARCHAR(25) NOT NULL,    
     user_password VARCHAR(255) NOT NULL,
+    user_type INT NOT NULL,
     user_active CHAR(1) NOT NULL,
     user_creation DATE NOT NULL,
-    user_lastedit DATE NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS Admin (
-    user_id INT AUTO_INCREMENT NOT NULL,
-    PRIMARY KEY (user_id),
-    FOREIGN KEY (user_id) REFERENCES Usuario(user_id)
-);
-
-CREATE TABLE IF NOT EXISTS Cliente (
-    user_id INT AUTO_INCREMENT NOT NULL,
-    PRIMARY KEY (user_id),
-    FOREIGN KEY (user_id) REFERENCES Usuario(user_id)
-);
-
-CREATE TABLE IF NOT EXISTS Empresa (
-    user_id INT AUTO_INCREMENT NOT NULL,
-    PRIMARY KEY (user_id),
-    FOREIGN KEY (user_id) REFERENCES Usuario(user_id)
+    user_lastedit DATE NOT NULL,
+    FOREIGN KEY (user_type) REFERENCES TipoUsuario(id)
 );
 
 CREATE TABLE IF NOT EXISTS Brinquedo (
@@ -45,10 +39,10 @@ CREATE TABLE IF NOT EXISTS Brinquedo (
   brin_name VARCHAR(45) NOT NULL,
   brin_cnpj VARCHAR(14),
   brin_ages JSON NOT NULL,       
-  Empresa_user_id INT NOT NULL,
+  Usuario_user_id INT NOT NULL,
   brin_faves INT,
   brin_visits INT,
-  FOREIGN KEY (Empresa_user_id) REFERENCES Empresa(user_id)
+  FOREIGN KEY (Usuario_user_id) REFERENCES Usuario(user_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Comodidade (
@@ -83,15 +77,15 @@ CREATE TABLE IF NOT EXISTS Endereco (
 );
 
 CREATE TABLE IF NOT EXISTS Favorito (
-    Cliente_user_id INT NOT NULL,
+    Usuario_user_id INT NOT NULL,
     Brinquedo_brin_id INT NOT NULL,
-    PRIMARY KEY (Cliente_user_id, Brinquedo_brin_id),
-    FOREIGN KEY (Cliente_user_id) REFERENCES Cliente(user_id),
+    PRIMARY KEY (Usuario_user_id, Brinquedo_brin_id),
+    FOREIGN KEY (Usuario_user_id) REFERENCES Usuario(user_id),
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo(brin_id)
 );
 
 CREATE TABLE IF NOT EXISTS Avaliacao (
-    Cliente_user_id INT NOT NULL,
+    Usuario_user_id INT NOT NULL,
     Brinquedo_brin_id INT NOT NULL,
     aval_id INT NOT NULL AUTO_INCREMENT,
     aval_description TEXT,
@@ -103,7 +97,7 @@ CREATE TABLE IF NOT EXISTS Avaliacao (
     aval_grade_5 FLOAT NOT NULL,
     aval_grade_6 FLOAT NOT NULL,
     PRIMARY KEY (aval_id),
-    FOREIGN KEY (Cliente_user_id) REFERENCES Cliente(user_id),
+    FOREIGN KEY (Usuario_user_id) REFERENCES Usuario(user_id),
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo(brin_id)
 );
 
@@ -118,10 +112,10 @@ CREATE TABLE IF NOT EXISTS Notificacao (
 );
 
 CREATE TABLE IF NOT EXISTS Visita (
-    Cliente_user_id INT NOT NULL,
+    Usuario_user_id INT NOT NULL,
     Brinquedo_brin_id INT NOT NULL,
     visit_date DATE NOT NULL,
-    PRIMARY KEY (Cliente_user_id, Brinquedo_brin_id, visit_date),
-    FOREIGN KEY (Cliente_user_id) REFERENCES Cliente(user_id),
+    PRIMARY KEY (Usuario_user_id, Brinquedo_brin_id, visit_date),
+    FOREIGN KEY (Usuario_user_id) REFERENCES Usuario(user_id),
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo(brin_id)
 );
