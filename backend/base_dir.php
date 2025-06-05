@@ -1,2 +1,2 @@
-<?php 
-define("BASE_DIR", __DIR__);
+<?php
+define('BASE_DIR', __DIR__);
