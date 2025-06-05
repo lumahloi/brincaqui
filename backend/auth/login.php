@@ -15,14 +15,12 @@ if (!unique_email($email)) {
   exit;
 }
 
-$hash = password_hash($password, PASSWORD_DEFAULT);
-
 $pdo = DbConnection::connect();
 $p_check_password = $pdo->prepare("SELECT user_password FROM brincaqui.usuario WHERE user_email = :user_email;");
 $p_check_password->bindParam(":user_email", $email, PDO::PARAM_STR);
 $p_check_password->execute();
-$password = $p_check_password->fetch(PDO::FETCH_ASSOC);
-if ($password != $hash) {
+$password_from_db = $p_check_password->fetch(PDO::FETCH_ASSOC);
+if (!$password_from_db || !password_verify($password, $password_from_db['user_password'])) {
   response_format(400, "Senha inválida.");
   exit;
 }
