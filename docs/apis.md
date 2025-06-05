@@ -4,15 +4,15 @@
 ### URL
 `backend/auth/register.php`
 ### Cabeçalhos
-- `Content-Type`: `application/x-www-form-urlencoded`;
+- `Content-Type`: `application/x-www-form-urlencoded`.
 ### Corpo (JSON)
 ```bash
   {
-    'fullname' => 'Maria Silva',
-    'email' => 'maria@email.com',
-    'telephone' => '11999990000',
-    'password' => '12345678',
-    'confirmPassword' => '12345678'
+    "fullname": "Maria Silva",
+    "email": "maria@email.com",
+    "telephone": "11999990000",
+    "password": "12345678",
+    "confirmPassword": "12345678"
   }
 ```
 ### Resposta (JSON)
@@ -20,7 +20,7 @@
 - `400`: ocorreu um erro entre as informações fornecidas.
 ```bash
   {
-    'message': '<mensagem referente ao erro>',
-    'return': null
+    "message": "<mensagem referente>",
+    "return": null
   }
 ```
