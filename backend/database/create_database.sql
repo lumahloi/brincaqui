@@ -6,6 +6,11 @@ CREATE TABLE IF NOT EXISTS TipoUsuario (
     nome VARCHAR(20) NOT NULL
 );
 
+INSERT INTO TipoUsuario (id, nome) VALUES
+(1, 'cliente'),
+(2, 'empresa'),
+(3, 'admin');
+
 CREATE TABLE IF NOT EXISTS Usuario (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(45) NOT NULL,
