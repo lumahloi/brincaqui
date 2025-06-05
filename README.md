@@ -11,9 +11,9 @@ git clone https://www.github.com/lumahloi/brincaqui.git
 ```
 
 ## Configuração
-Para usar o **Backend**, copie o exemplo de `.env` para a pasta `backend`.
+Para usar o **Backend**, copie o exemplo de `.env` para a pasta `api`.
 ```bash
-cp .env.example backend/.env
+cp .env.example api/.env
 ```
 
 Atribua valor às variáveis do `.env`.
@@ -22,7 +22,7 @@ Atribua valor às variáveis do `.env`.
 - `DB_USER`: usuário do banco de dados;
 - `DB_PASSWORD`: senha do banco de dados.
 
-Em `localhost/phpmyadmin`, crie o banco de dados usando o script fornecido em `backend/utils/database_scripts/create_database.sql`
+Em `localhost/phpmyadmin`, crie o banco de dados usando o script fornecido em `api/utils/database_scripts/create_database.sql`
 
 ## Rodando localmente
 - Jogue todo o conteúdo para a pasta `htdocs` do `xampp`.

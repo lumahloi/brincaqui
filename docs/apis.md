@@ -2,7 +2,7 @@
 
 ## 1. Cadastro de usuário
 ### URL
-`backend/auth/register.php`
+`api/auth/register.php`
 ### Cabeçalhos
 - `Content-Type`: `application/x-www-form-urlencoded`.
 ### Corpo (JSON)
@@ -27,7 +27,7 @@
 
 ## 2. Login de usuário
 ### URL
-`backend/auth/login.php`
+`api/auth/login.php`
 ### Cabeçalhos
 - `Content-Type`: `application/x-www-form-urlencoded`.
 ### Corpo (JSON)

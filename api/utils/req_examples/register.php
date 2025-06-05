@@ -18,5 +18,5 @@ $options = [
 ];
 
 $context = stream_context_create($options);
-$result = file_get_contents('http://localhost/brincaqui/backend/auth/register.php', false, $context);
+$result = file_get_contents('http://localhost/brincaqui/api/auth/register.php', false, $context);
 echo $result;
