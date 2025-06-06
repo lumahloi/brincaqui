@@ -116,30 +116,6 @@ function valid_times($times)
   }
 }
 
-function valid_emails_from_array($array)
-{
-  foreach ($array as $email) {
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      response_format(400, "Endereço de e-mail inválido: $email");
-      exit;
-    }
-  }
-}
-
-function valid_telephones_from_array($array)
-{
-  foreach ($array as &$tel) {
-    $tel = preg_replace('/\D/', '', $tel);
-
-    if (!preg_match('/^\D$/', $tel)) {
-      response_format(400, "Número de telefone inválido: $tel");
-      exit;
-    }
-  }
-
-  unset($tel);
-}
-
 function valid_json_data(array $json_array, array $expected_fields)
 {
   foreach ($json_array as $index => $item) {
@@ -181,17 +157,7 @@ function unique_telephone_from_user($telephone)
   return $telephone_exists;
 }
 
-function unique_telephone_from_play($telephone)
-{
-  $pdo = DbConnection::connect();
-  $p_check_telephone = $pdo->prepare("SELECT * FROM brincaqui.brinquedo WHERE brin_telephone = :brin_telephone;");
-  $p_check_telephone->bindParam(":brin_telephone", $telephone, PDO::PARAM_STR);
-  $p_check_telephone->execute();
-  $telephone_exists = $p_check_telephone->fetch(PDO::FETCH_ASSOC);
-  return $telephone_exists;
-}
-
-function unique_email($email)
+function unique_email_from_user($email)
 {
   $pdo = DbConnection::connect();
   $p_check_email = $pdo->prepare("SELECT * FROM brincaqui.usuario WHERE user_email = :user_email;");
