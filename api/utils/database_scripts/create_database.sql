@@ -120,7 +120,7 @@ INSERT INTO TipoUsuario (id, nome) VALUES
   (2, 'empresa'),
   (3, 'admin');
 
-INSERT INTO Comodidade (com_title, com_creation, com_active, com_latedit) VALUES
+INSERT INTO Comodidade (com_title, com_creation, com_active, com_lastedit) VALUES
   ('Ambiente climatizado', CURDATE(), 1, CURDATE()),
   ('Vídeo Games', CURDATE(), 1, CURDATE()),
   ('Oficina de Artes', CURDATE(), 1, CURDATE()),
@@ -146,23 +146,23 @@ INSERT INTO Comodidade (com_title, com_creation, com_active, com_latedit) VALUES
   ('Programações Pedagógicas', CURDATE(), 1, CURDATE()),
   ('Lanche Gratuito', CURDATE(), 1, CURDATE()),
   ('Presença de Monitores', CURDATE(), 1, CURDATE()),
-  ('Ambiente Esterilizado', CURDATE(), 1, CURDATE())
+  ('Ambiente Esterilizado', CURDATE(), 1, CURDATE());
 
 INSERT INTO Desconto (disc_title, disc_creation, disc_active, disc_lastedit) VALUES
-  ('Gestantes', CURDATE(), 1, CURDATE())
-  ('Lactantes', CURDATE(), 1, CURDATE())
-  ('Pessoas com Criança de Colo', CURDATE(), 1, CURDATE())
-  ('Pessoas com deficiência (PCD)', CURDATE(), 1, CURDATE())
-  ('Neurodivergentes', CURDATE(), 1, CURDATE())
-  ('Idosos', CURDATE(), 1, CURDATE())
-  ('Famílias de Baixa Renda', CURDATE(), 1, CURDATE())
-  ('Estudantes', CURDATE(), 1, CURDATE())
-  ('Combo Familiar', CURDATE(), 1, CURDATE())
-  ('Aniversário', CURDATE(), 1, CURDATE())
-  ('Parceria com Escolas ou Empresas', CURDATE(), 1, CURDATE())
-  ('Plano Fidelidade', CURDATE(), 1, CURDATE())
-  ('Reserva Online', CURDATE(), 1, CURDATE())
+  ('Gestantes', CURDATE(), 1, CURDATE()),
+  ('Lactantes', CURDATE(), 1, CURDATE()),
+  ('Pessoas com Criança de Colo', CURDATE(), 1, CURDATE()),
+  ('Pessoas com deficiência (PCD)', CURDATE(), 1, CURDATE()),
+  ('Neurodivergentes', CURDATE(), 1, CURDATE()),
+  ('Idosos', CURDATE(), 1, CURDATE()),
+  ('Famílias de Baixa Renda', CURDATE(), 1, CURDATE()),
+  ('Estudantes', CURDATE(), 1, CURDATE()),
+  ('Combo Familiar', CURDATE(), 1, CURDATE()),
+  ('Aniversário', CURDATE(), 1, CURDATE()),
+  ('Parceria com Escolas ou Empresas', CURDATE(), 1, CURDATE()),
+  ('Plano Fidelidade', CURDATE(), 1, CURDATE()),
+  ('Reserva Online', CURDATE(), 1, CURDATE());
 
 INSERT INTO Notificacao (notif_title, notif_description, notif_creation, notif_active, notif_lastedit) VALUES
-  ('Avalie sua experiência!', 'Sua opinião é muito importante para nós e outros pais. Avalie sua experiência em {brinquedo}.', CURDATE(), 1, CURDATE())
-  ('{brinquedo} te aguarda', 'Que tal visitar {brinquedo} novamente?', CURDATE(), 1, CURDATE())
+  ('Avalie sua experiência!', 'Sua opinião é muito importante para nós e outros pais. Avalie sua experiência em {brinquedo}.', CURDATE(), 1, CURDATE()),
+  ('{brinquedo} te aguarda', 'Que tal visitar {brinquedo} novamente?', CURDATE(), 1, CURDATE());
