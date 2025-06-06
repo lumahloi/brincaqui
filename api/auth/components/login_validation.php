@@ -7,7 +7,7 @@ require_once BASE_DIR . "/utils/validate_infos.php";
 valid_email($input_email);
 valid_password($input_password);
 
-if (!unique_email($input_email)) {
+if (!unique_email_from_user($input_email)) {
   response_format(400, "Não existe usuário cadastrado com este e-mail.");
   exit;
 }

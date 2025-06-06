@@ -19,7 +19,7 @@ if (unique_telephone_from_user($input_telephone)) {
   exit;
 }
 
-if (unique_email($input_email)) {
+if (unique_email_from_user($input_email)) {
   response_format(400, "Já existe um usuário cadastrado com este e-mail.");
   exit;
 }
