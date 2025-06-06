@@ -28,7 +28,7 @@ function valid_telephone($telephone)
 
 function valid_email($email)
 {
-  if (strlen($email) > 25) {
+  if (strlen($email) > 40) {
     response_format(400, "Seu e-mail ultrapassa 25 caracteres.");
     exit;
   }
@@ -91,10 +91,10 @@ function valid_cnpj($cnpj)
   }
 }
 
-function valid_array($array)
+function valid_array($array, $field_name = '')
 {
   if (!is_array($array)) {
-    response_format(400, "Formato inválido para $array.");
+    response_format(400, "Formato inválido para o campo " . ($field_name ?: 'desconhecido'));
     exit;
   }
 }
@@ -131,13 +131,15 @@ function valid_json_data(array $json_array, array $expected_fields)
 function json_field_non_empty(array $json_array, string $field)
 {
   foreach ($json_array as $index => $item) {
-    if (!isset($item[$field]) || !is_string($item[$field]) || trim($item[$field]) === '') {
+    if (
+      !isset($item[$field]) ||
+      (empty($item[$field]) && $item[$field] !== 0 && $item[$field] !== '0')
+    ) {
       response_format(400, "Campo '$field' no item #$index não pode ser vazio.");
       exit;
     }
   }
 }
-
 
 function valid_number($number)
 {
