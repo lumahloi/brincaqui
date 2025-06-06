@@ -119,7 +119,7 @@
 
 ### Resposta (JSON)
 
-- `200`: cadastro realizado com sucesso;
+- `201`: cadastro realizado com sucesso;
 - `400`: ocorreu um erro entre as informações fornecidas.
 
 ```bash
