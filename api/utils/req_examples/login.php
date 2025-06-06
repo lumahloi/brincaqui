@@ -6,9 +6,9 @@ $data = [
 
 $options = [
   'http' => [
-    'header' => "Content-type: application/x-www-form-urlencoded",
+    'header' => "Content-type: application/json",
     'method' => 'POST',
-    'content' => http_build_query($data),
+    'content' => json_encode($data),
     'ignore_errors' => true
   ]
 ];
