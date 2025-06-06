@@ -17,26 +17,7 @@ switch ($_SERVER['REQUEST_METHOD'])
     $input_confirm_password = filter_var($data['confirmPassword']) ?? '';
     $input_user_type = filter_var($data['userType']) ?? '';
 
-    valid_fullname($input_fullname);
-    valid_telephone($input_telephone);
-    valid_email($input_email);
-    valid_password($input_password);
-    valid_user_type($input_user_type);
-
-    if ($input_password !== $input_confirm_password) {
-      response_format(400, "As senhas não coincidem.");
-      exit;
-    }
-
-    if (unique_telephone($input_telephone)) {
-      response_format(400, "Já existe um usuário cadastrado com este telefone.");
-      exit;
-    }
-
-    if (unique_email($input_email)) {
-      response_format(400, "Já existe um usuário cadastrado com este e-mail.");
-      exit;
-    }
+    require_once "./components/register_validation.php";
 
     $input_fullname = preg_replace('/[^a-zA-ZÀ-ÿ\s]/u', '', $input_fullname);
 

@@ -12,24 +12,7 @@ switch ($_SERVER['REQUEST_METHOD'])
     $input_email = filter_var($data['email']) ?? '';
     $input_password = filter_var($data['password']) ?? '';
     
-    valid_email($input_email);
-    valid_password($input_password);
-    
-    if (!unique_email($input_email)) {
-      response_format(400, "Não existe usuário cadastrado com este e-mail.");
-      exit;
-    }
-    
-    $pdo = DbConnection::connect();
-    $p_check_password = $pdo->prepare("SELECT user_password FROM brincaqui.usuario WHERE user_email = :user_email;");
-    $p_check_password->bindParam(":user_email", $input_email, PDO::PARAM_STR);
-    $p_check_password->execute();
-    $password_from_db = $p_check_password->fetch(PDO::FETCH_ASSOC);
-    
-    if (!$password_from_db || !password_verify($input_password, $password_from_db['user_password'])) {
-      response_format(400, "Senha inválida.");
-      exit;
-    }
+    require_once "./components/login_validation.php";
     
     $p_get_user_info = $pdo->prepare("SELECT user_id, user_name, user_type FROM brincaqui.usuario WHERE user_email = :user_email;");
     $p_get_user_info->bindParam(":user_email", $input_email, PDO::PARAM_STR);
