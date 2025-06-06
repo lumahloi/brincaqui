@@ -9,12 +9,13 @@ switch ($_SERVER['REQUEST_METHOD'])
   case 'POST': 
     date_default_timezone_set('America/Sao_Paulo');
 
-    $input_fullname = filter_var($_POST["fullname"]) ?? '';
-    $input_email = filter_var($_POST["email"]) ?? '';
-    $input_telephone = filter_var($_POST["telephone"]) ?? '';
-    $input_password = filter_var($_POST["password"]) ?? '';
-    $input_confirm_password = filter_var($_POST["confirmPassword"]) ?? '';
-    $input_user_type = filter_var($_POST["userType"]) ?? '';
+    $data = json_decode(file_get_contents("php://input"), true);
+    $input_fullname = filter_var($data['fullname']) ?? '';
+    $input_email = filter_var($data['email']) ?? '';
+    $input_telephone = filter_var($data['telephone']) ?? '';
+    $input_password = filter_var($data['password']) ?? '';
+    $input_confirm_password = filter_var($data['confirmPassword']) ?? '';
+    $input_user_type = filter_var($data['userType']) ?? '';
 
     valid_fullname($input_fullname);
     valid_telephone($input_telephone);

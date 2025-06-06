@@ -8,8 +8,9 @@ require_once BASE_DIR . "/utils/validate_infos.php";
 switch ($_SERVER['REQUEST_METHOD'])
 {
   case 'POST': 
-    $input_email = filter_var($_POST["email"]) ?? '';
-    $input_password = filter_var($_POST["password"]) ?? '';
+    $data = json_decode(file_get_contents("php://input"), true);
+    $input_email = filter_var($data['email']) ?? '';
+    $input_password = filter_var($data['password']) ?? '';
     
     valid_email($input_email);
     valid_password($input_password);
