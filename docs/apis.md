@@ -4,11 +4,11 @@
 
 ### URL
 
-`api/auth/register.php`
+POST `api/auth/register.php`
 
 ### Cabeçalhos
 
-- `Content-Type`: `application/x-www-form-urlencoded`.
+- `Content-Type`: `application/json`.
 
 ### Corpo (JSON)
 
@@ -34,11 +34,44 @@
   }
 ```
 
-## 2. Login de usuário
+## 2. Atualização de usuário
 
 ### URL
 
-`api/auth/login.php`
+PUT `api/auth/register.php`
+
+### Cabeçalhos
+
+- `Content-Type`: `application/json`.
+- `Cookie`: valor do ID da sessão.
+
+### Corpo (JSON)
+
+```bash
+  {
+    "email": "maria@email.com",
+    "telephone": "11999990000",
+    "password": "12345678",
+    "confirmPassword": "12345678"
+  }
+```
+
+### Resposta (JSON)
+
+- `200`: usuário atualizado com sucesso;
+- `400`: ocorreu um erro entre as informações fornecidas.
+
+```bash
+  {
+    "message": "<mensagem referente>"
+  }
+```
+
+## 3. Login de usuário
+
+### URL
+
+POST `api/auth/login.php`
 
 ### Cabeçalhos
 
@@ -69,11 +102,11 @@
   }
 ```
 
-## 3. Cadastro de brinquedo
+## 4. Cadastro de brinquedo
 
 ### URL
 
-`api/play/register.php`
+POST `api/play/register.php`
 
 ### Cabeçalhos
 
