@@ -49,9 +49,24 @@ function valid_email($email)
     response_format(400, "Insira um e-mail de formato válido.");
     
   }
-
   if (db_select_where(['user_id'], 'usuario', ['user_email'], [$email])) {
     response_format(400, "Já existe um usuário cadastrado com este e-mail.");
+    
+  }
+}
+
+function valid_email_characters($email)
+{
+  if (strlen($email) > 40) {
+    response_format(400, "Seu e-mail ultrapassa 25 caracteres.");
+    
+  }
+  if (strlen($email) < 7) {
+    response_format(400, "Seu e-mail tem menos que 7 caracteres.");
+    
+  }
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    response_format(400, "Insira um e-mail de formato válido.");
     
   }
 }
