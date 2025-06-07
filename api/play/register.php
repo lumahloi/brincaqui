@@ -55,13 +55,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     if (!$insert_play) {
       response_format(400, "Não foi possível cadastrar seu brinquedo, revise seus dados e tente novamente.");
-      exit;
     }
 
     response_format(201, "Brinquedo criado com sucesso.");
+
     break;
 
   default:
     response_format(405, "Apenas POST permitido.");
-    exit;
 }

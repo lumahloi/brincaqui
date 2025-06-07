@@ -33,5 +33,4 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
   default:
     response_format(405, "Apenas POST permitido.");
-    exit;
 }
