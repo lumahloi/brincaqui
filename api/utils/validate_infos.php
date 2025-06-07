@@ -5,40 +5,42 @@ require_once BASE_DIR . "/utils/db_functions.php";
 
 function valid_fullname($fullname)
 {
-  if (strlen($fullname) > 45) {
+  $sanitized = preg_replace('/[^a-zA-ZÀ-ÿ\s]/u', '', $fullname);
+
+  if (strlen($sanitized) > 45) {
     response_format(400, "Seu nome ultrapassa 45 caracteres.");
     
   }
-  if (strlen($fullname) < 5) {
+  if (strlen($sanitized) < 5) {
     response_format(400, "Seu nome tem menos que 5 caracteres.");
   }
 
-  return preg_replace('/[^a-zA-ZÀ-ÿ\s]/u', '', $fullname);
+  return $sanitized;
 }
 
 function valid_telephone($telephone)
 {
-  if (strlen($telephone) > 11) {
+  $sanitized = preg_replace('/\D/', '', $telephone);
+
+  if (strlen($sanitized) > 11) {
     response_format(400, "Seu telefone ultrapassa 11 caracteres.");
-    
   }
-  if (strlen($telephone) < 11) {
+
+  if (strlen($sanitized) < 11) {
     response_format(400, "Seu telefone tem menos que 11 caracteres.");
-    
   }
 
-  if (db_select_where(['user_id'], 'usuario', ['user_telephone'], [$telephone])) {
+  if (db_select_where(['user_id'], 'usuario', ['user_telephone'], [$sanitized])) {
     response_format(400, "Já existe um usuário cadastrado com este telefone.");
-    
   }
 
-  return preg_replace('/\D/', '', $telephone);
+  return $sanitized;
 }
 
 function valid_email($email)
 {
   if (strlen($email) > 40) {
-    response_format(400, "Seu e-mail ultrapassa 25 caracteres.");
+    response_format(400, "Seu e-mail ultrapassa 40 caracteres.");
     
   }
   if (strlen($email) < 7) {
@@ -51,7 +53,6 @@ function valid_email($email)
   }
   if (db_select_where(['user_id'], 'usuario', ['user_email'], [$email])) {
     response_format(400, "Já existe um usuário cadastrado com este e-mail.");
-    
   }
 }
 
@@ -105,16 +106,18 @@ function valid_description($description)
 
 function valid_cnpj($cnpj)
 {
-  if (strlen($cnpj) > 14) {
+  $sanitized = preg_replace('/\D/', '', $cnpj);
+
+  if (strlen($sanitized) > 14) {
     response_format(400, "Seu CNPJ ultrapassa 14 caracteres.");
     
   }
-  if (strlen($cnpj) < 14) {
+  if (strlen($sanitized) < 14) {
     response_format(400, "Seu CNPJ tem menos que 14 caracteres.");
     
   }
   
-  return preg_replace('/\D/', '', $cnpj);
+  return $sanitized;
 }
 
 function valid_array($array, $field_name = '')
