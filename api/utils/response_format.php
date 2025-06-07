@@ -1,4 +1,5 @@
 <?php
+
 function response_format($code, $message, $return = null)
 {
   http_response_code($code);
@@ -11,4 +12,5 @@ function response_format($code, $message, $return = null)
   }
 
   echo json_encode($response);
+  exit;
 }
