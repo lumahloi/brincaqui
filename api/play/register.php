@@ -25,7 +25,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $input_discounts = $data['discounts'] ?? [];
     $input_ages = $data['ages'] ?? [];
 
-    require_once "./components/register_validation.php";
+    require_once "./components/register_post_validation.php";
 
     $input_cnpj = preg_replace('/\D/', '', $input_cnpj);
     $input_pictures = json_encode($input_pictures);
