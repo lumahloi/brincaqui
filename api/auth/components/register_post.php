@@ -1,6 +1,6 @@
 <?php
 require_once "../base_dir.php";
-require_once "./components/register_validation.php";
+require_once "./components/register_post_validation.php";
 require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/response_format.php";
 

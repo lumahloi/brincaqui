@@ -12,11 +12,11 @@ $input_user_type = filter_var($data['userType']) ?? '';
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
-    require_once "./components/post_register.php";
+    require_once "./components/register_post.php";
     break;
 
   case 'PUT':
-    require_once "./components/put_register.php";
+    require_once "./components/register_put.php";
     break;
 
   default:
