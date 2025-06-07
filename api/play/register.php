@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "../base_dir.php";
-require_once BASE_DIR . "/utils/db_connection.php";
+require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/permission.php";
 check_permission(2);
@@ -25,7 +25,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $input_discounts = $data['discounts'] ?? [];
     $input_ages = $data['ages'] ?? [];
 
-    require_once "./components/register_validation.php";
+    require_once "./components/register_post_validation.php";
 
     $input_cnpj = preg_replace('/\D/', '', $input_cnpj);
     $input_pictures = json_encode($input_pictures);
@@ -36,32 +36,19 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $input_discounts = json_encode($input_discounts);
     $input_ages = json_encode($input_ages);
 
-    $pdo = DbConnection::connect();
-    $p_insert = $pdo->prepare("INSERT INTO brincaqui.brinquedo (brin_pictures, brin_socials, brin_description, brin_times, brin_commodities, brin_prices, brin_discounts, brin_telephone, brin_email, brin_name, brin_cnpj, brin_ages, Usuario_user_id) VALUES (:brin_pictures, :brin_socials, :brin_description, :brin_times, :brin_commodities, :brin_prices, :brin_discounts, :brin_telephone, :brin_email, :brin_name, :brin_cnpj, :brin_ages, :Usuario_user_id);");
-    $p_insert->bindParam(":brin_pictures", $input_pictures, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_socials", $input_socials, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_description", $input_description, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_times", $input_times, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_commodities", $input_commodities, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_prices", $input_prices, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_discounts", $input_discounts, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_telephone", $input_telephone, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_email", $input_email, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_name", $input_name, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_cnpj", $input_cnpj, PDO::PARAM_STR);
-    $p_insert->bindParam(":brin_ages", $input_ages, PDO::PARAM_STR);
-    $p_insert->bindParam(":Usuario_user_id", $_SESSION['user_id'], PDO::PARAM_STR);
-    $insert_play = $p_insert->execute();
+    $insert_play = db_insert_into(
+      'brinquedo',
+      ['brin_pictures', 'brin_socials', 'brin_description', 'brin_times', 'brin_commodities', 'brin_prices', 'brin_discounts', 'brin_telephone', 'brin_email', 'brin_name', 'brin_cnpj', 'brin_ages', 'Usuario_user_id'],
+      [$input_pictures, $input_socials, $input_description, $input_times, $input_commodities, $input_prices, $input_discounts, $input_telephone, $input_email, $input_name, $input_cnpj, $input_ages, $_SESSION['user_id']]);
 
     if (!$insert_play) {
       response_format(400, "Não foi possível cadastrar seu brinquedo, revise seus dados e tente novamente.");
-      exit;
     }
 
     response_format(201, "Brinquedo criado com sucesso.");
+
     break;
 
   default:
     response_format(405, "Apenas POST permitido.");
-    exit;
 }

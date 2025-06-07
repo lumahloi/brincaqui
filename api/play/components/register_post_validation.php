@@ -1,7 +1,5 @@
 <?php
 require_once "../base_dir.php";
-require_once BASE_DIR . "/utils/db_connection.php";
-require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/validate_infos.php";
 
 valid_description($input_description);
@@ -9,10 +7,6 @@ valid_description($input_description);
 valid_fullname($input_name);
 
 valid_cnpj($input_cnpj);
-if (unique_cnpj($input_cnpj)) {
-  response_format(400, "Já existe uma empresa cadastrada com este CNPJ.");
-  exit;
-}
 
 valid_array($input_pictures, 'pictures');
 valid_json_data($input_pictures, ['picture_name']); 
