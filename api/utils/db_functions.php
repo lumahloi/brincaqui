@@ -18,7 +18,7 @@ function db_select_where(array $selectedColumns, string $table, array $columns, 
   }
   $selectClause = implode(",", $selectedTemp);
 
-  $sql = "SELECT $selectClause FROM brincaqui.$table WHERE $whereClause;";
+  $sql = "SELECT ($selectClause) FROM brincaqui.$table WHERE $whereClause;";
   $stmt = $pdo->prepare($sql);
 
   foreach ($columns as $col) {
@@ -31,4 +31,33 @@ function db_select_where(array $selectedColumns, string $table, array $columns, 
   $stmt->execute();
 
   return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function db_insert_into(string $table, array $columns, array $values)
+{
+  $pdo = DbConnection::connect();
+
+  $temp = [];
+  foreach ($columns as $col) {
+    $temp[] = "$col";
+  }
+  $columnsClause = implode(",", $temp);
+
+  $temp = [];
+  foreach ($values as $col) {
+    $temp[] = ":$col";
+  }
+  $valuesClause = implode(",", $temp);
+
+  $sql = "INSERT INTO brincaqui.$table ($columnsClause) VALUES ($valuesClause)";
+  $stmt = $pdo->prepare($sql);
+
+  foreach ($columns as $col) {
+    if (!array_key_exists($col, $values)) {
+      throw new Exception("Faltando valor para a coluna '$col'");
+    }
+    $stmt->bindValue(":$col", $values[$col], PDO::PARAM_STR);
+  }
+
+  return $stmt->execute();
 }
