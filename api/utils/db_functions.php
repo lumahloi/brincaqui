@@ -61,3 +61,29 @@ function db_insert_into(string $table, array $columns, array $values)
 
   return $stmt->execute();
 }
+
+function db_update($table, array $columnsSet, array $valuesSet, $whereColumn, $whereValue)
+{
+  $pdo = DbConnection::connect();
+
+  if (count($columnsSet) !== count($valuesSet)) {
+    throw new Exception("Número de colunas e valores não corresponde.");
+  }
+
+  $setParts = [];
+  foreach ($columnsSet as $col) {
+    $setParts[] = "$col = :$col";
+  }
+  $setClause = implode(", ", $setParts);
+
+  $sql = "UPDATE $table SET $setClause WHERE $whereColumn = :where_param;";
+  $stmt = $pdo->prepare($sql);
+
+  foreach ($columnsSet as $index => $col) {
+    $stmt->bindValue(":$col", $valuesSet[$index], PDO::PARAM_STR);
+  }
+
+  $stmt->bindValue(":where_param", $whereValue, PDO::PARAM_STR);
+
+  return $stmt->execute();
+}
