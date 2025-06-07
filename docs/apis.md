@@ -38,7 +38,8 @@ POST `api/auth/register.php`
 
 ### URL
 
-PUT `api/auth/register.php`
+PUT `api/auth/register.php?params=email,telephone,password`
+⚠️ **Não precisa ser nessa ordem e nenhum dos `params` é obrigatório, só que haja pelo menos um.**
 
 ### Cabeçalhos
 
