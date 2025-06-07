@@ -1,9 +1,9 @@
 <?php
 session_start();
 require_once "../base_dir.php";
-require_once BASE_DIR . "/utils/db_connection.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/validate_infos.php";
+require_once BASE_DIR . "/utils/db_functions.php";
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
@@ -13,10 +13,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     require_once "./components/login_validation.php";
 
-    $p_get_user_info = $pdo->prepare("SELECT user_id, user_name, user_type FROM brincaqui.usuario WHERE user_email = :user_email;");
-    $p_get_user_info->bindParam(":user_email", $input_email, PDO::PARAM_STR);
-    $p_get_user_info->execute();
-    $user_info = $p_get_user_info->fetch(PDO::FETCH_ASSOC);
+    $user_info = db_select_where(['user_id', 'user_type', 'user_name'], 'usuario', ['user_email'], $input_email);
 
     $_SESSION["user_id"] = $user_info['user_id'];
     $_SESSION["user_type"] = $user_info['user_type'];
