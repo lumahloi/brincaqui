@@ -4,10 +4,8 @@ require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/permission.php";
-check_permission([1, 2]);
+check_permission([1, 2], $cookie);
 require_once BASE_DIR . "/utils/validate_infos.php";
-
-check_cookie($cookie);
 
 date_default_timezone_set('America/Sao_Paulo');
 $date = date('Y/m/d');
