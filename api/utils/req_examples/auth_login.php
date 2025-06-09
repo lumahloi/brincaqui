@@ -1,7 +1,7 @@
 <?php
 $data = [
-  'email' => 'maria@email.com',
-  'password' => '12345678'
+  'email' => 'email2@email.com',
+  'password' => '999999999'
 ];
 
 $ch = curl_init('http://localhost/brincaqui/api/auth/login.php');

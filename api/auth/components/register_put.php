@@ -7,6 +7,8 @@ require_once BASE_DIR . "/utils/permission.php";
 check_permission([1, 2]);
 require_once BASE_DIR . "/utils/validate_infos.php";
 
+check_cookies($cookie);
+
 if (!isset($_GET['params'])) {
   response_format(400, "Inclua pelo menos um atributo a ser alterado.");
 }
