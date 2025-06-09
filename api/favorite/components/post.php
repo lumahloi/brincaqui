@@ -29,4 +29,16 @@ if (!$insert_play) {
   response_format(400, "Não foi possível favoritar este brinquedo, tente novamente.");
 }
 
+$update_favs = db_update(
+  'brinquedo',
+  ['brin_faves'],
+  [db_get_total_faves_from_play($input_id)],
+  ['brin_id'],
+  [$input_id],
+);
+
+if (!$update_favs) {
+  response_format(400, "Não foi possível favoritar este brinquedo, tente novamente.");
+}
+
 response_format(201, "Brinquedo favoritado com sucesso.");

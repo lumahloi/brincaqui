@@ -359,3 +359,48 @@ function db_get_all_user_visited_plays(int $perPage, int $page, string $orderBy,
   $stmt->execute();
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function db_get_avg_from_play($play)
+{
+  $pdo = DbConnection::connect();
+
+  $stmt = $pdo->prepare("
+    SELECT AVG(aval_grade_1) as avg_grade
+    FROM brincaqui.avaliacao
+    WHERE Brinquedo_brin_id = :id
+  ");
+
+  $stmt->execute([':id' => $play]);
+
+  return $stmt->fetchColumn();
+}
+
+function db_get_total_visits_from_play($play)
+{
+  $pdo = DbConnection::connect();
+
+  $stmt = $pdo->prepare("
+    SELECT COUNT(*)
+    FROM brincaqui.visita
+    WHERE Brinquedo_brin_id = :id
+  ");
+
+  $stmt->execute([':id' => $play]);
+
+  return $stmt->fetchColumn();
+}
+
+function db_get_total_faves_from_play($play)
+{
+  $pdo = DbConnection::connect();
+
+  $stmt = $pdo->prepare("
+    SELECT COUNT(*)
+    FROM brincaqui.favorito
+    WHERE Brinquedo_brin_id = :id
+  ");
+
+  $stmt->execute([':id' => $play]);
+
+  return $stmt->fetchColumn();
+}

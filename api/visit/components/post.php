@@ -22,4 +22,16 @@ if (!$insert_visit) {
   response_format(400, "Não foi possível visitar este brinquedo, tente novamente.");
 }
 
+$update_visits = db_update(
+  'brinquedo',
+  ['brin_visits'],
+  [db_get_total_visits_from_play($input_id)],
+  ['brin_id'],
+  [$input_id],
+);
+
+if (!$update_visits) {
+  response_format(400, "Não foi possível visitar este brinquedo, tente novamente.");
+}
+
 response_format(201, "Visita marcada com sucesso.");

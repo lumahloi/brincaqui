@@ -31,3 +31,7 @@ if (isset($input_g5) && in_array(mb_strtolower($input_g5), array_map('mb_strtolo
 if (isset($input_g6) && in_array(mb_strtolower($input_g6), array_map('mb_strtolower', $allowedValues))) {
   $input_g6 = filter_var($data['grade_6'], FILTER_SANITIZE_STRING);
 }
+
+if (isset($input_g7) && in_array(mb_strtolower($input_g7), array_map('mb_strtolower', $allowedValues))) {
+  $input_g7 = filter_var($data['grade_7'], FILTER_SANITIZE_STRING);
+}
