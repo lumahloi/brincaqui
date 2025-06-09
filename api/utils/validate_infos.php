@@ -166,13 +166,6 @@ function array_contains_numbers($array)
   }
 }
 
-function check_cookie($cookie)
-{
-  if(!$cookie){
-    response_format(400, "Cookie não encontrado.");
-  }
-}
-
 function valid_play_name($name)
 {
   if (strlen($name) > 45) {
