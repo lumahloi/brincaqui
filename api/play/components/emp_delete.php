@@ -12,4 +12,8 @@ if (!db_delete('brinquedo', ['brin_id'], [$input_id])) {
   response_format(400, "Não foi possível deletar o brinquedo, revise seus dados e tente novamente.");
 }
 
+if (!db_delete('endereco', ['Brinquedo_brin_id'], [$input_id])) {
+  response_format(400, "Não foi possível deletar o brinquedo, revise seus dados e tente novamente.");
+}
+
 response_format(200, "Brinquedo deletado com sucesso.");
