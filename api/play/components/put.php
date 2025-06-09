@@ -1,5 +1,6 @@
 <?php
 require_once BASE_DIR . "/utils/validate_infos.php";
+require_once BASE_DIR . "/utils/db_functions.php";
 
 $params = valid_url_params();
 

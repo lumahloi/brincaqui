@@ -36,7 +36,7 @@ $data = [
   'ages' => [1]
 ];
 
-$ch = curl_init('http://localhost/brincaqui/api/play?params=description,name,telephone,email,pictures,socials,prices,times,commodities,discounts,ages');
+$ch = curl_init('http://localhost/brincaqui/api/play/params=description,name,telephone,email,pictures,socials,prices,times,commodities,discounts,ages');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch, CURLOPT_HTTPHEADER, [

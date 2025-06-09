@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "../base_dir.php";
-require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/permission.php";
 $cookie = filter_var($_COOKIE['PHPSESSID'] ?? '', FILTER_SANITIZE_STRING);
@@ -22,15 +21,23 @@ $input_commodities = $data['commodities'] ?? [];
 $input_discounts = $data['discounts'] ?? [];
 $input_ages = $data['ages'] ?? [];
 
-require_once "register_validation.php";
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
-    require_once "./components/register_post.php";
+    require_once "./components/validation.php";
+    require_once "./components/post.php";
     break;
 
   case 'PUT':
-    require_once "./components/register_put.php";
+    require_once "./components/validation.php";
+    require_once "./components/put.php";
+    break;
+
+  case 'DELETE':
+    $uri = $_SERVER['REQUEST_URI'];
+    $uri_parts = explode('/', trim($uri, '/'));
+    $input_id = $uri_parts[3] ?? null;
+    require_once "./components/delete.php";
     break;
 
   default:

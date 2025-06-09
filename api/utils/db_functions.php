@@ -87,3 +87,27 @@ function db_update(string $table, array $columnsSet, array $valuesSet, array $wh
 
   return $stmt->execute();
 }
+
+function db_delete(string $table, array $whereColumns, array $whereValues)
+{
+    $pdo = DbConnection::connect();
+
+    if (count($whereColumns) !== count($whereValues)) {
+        throw new Exception("Número de colunas e valores do WHERE não corresponde.");
+    }
+
+    $whereParts = [];
+    foreach ($whereColumns as $col) {
+        $whereParts[] = "$col = :where_$col";
+    }
+    $whereClause = implode(" AND ", $whereParts);
+
+    $sql = "DELETE FROM brincaqui.$table WHERE $whereClause;";
+    $stmt = $pdo->prepare($sql);
+
+    foreach ($whereColumns as $index => $col) {
+        $stmt->bindValue(":where_$col", $whereValues[$index], PDO::PARAM_STR);
+    }
+
+    return $stmt->execute();
+}
