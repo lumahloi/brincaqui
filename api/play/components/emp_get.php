@@ -31,6 +31,26 @@ if (isset($_GET['active'])) {
     $filters['brin_active'] = $_GET['active'];
 }
 
+    if (isset($_GET['cep'])) {
+      $filters['add_cep'] = $_GET['cep'];
+    }
+
+    if (isset($_GET['city'])) {
+      $filters['add_city'] = $_GET['city'];
+    }
+
+    if (isset($_GET['neighborhood'])) {
+      $filters['add_neighborhood'] = $_GET['neighborhood'];
+    }
+
+    if (isset($_GET['state'])) {
+      $filters['add_state'] = $_GET['state'];
+    }
+
+    if (isset($_GET['country'])) {
+      $filters['add_country'] = $_GET['country'];
+    }
+
 $results = db_select_plays_by_user($per_page, $page, $orderBy, $orderDir, $filters, $_SESSION['user_id']);
 
 response_format(200, "Informações extraídas com sucesso.", $results);

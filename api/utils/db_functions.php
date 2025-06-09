@@ -152,9 +152,12 @@ function db_select_plays_by_user(int $perPage, int $page, string $orderBy, strin
   $pdo = DbConnection::connect();
   $offset = $page * $perPage;
 
-  $sql = "SELECT * FROM brincaqui.brinquedo WHERE Usuario_user_id = :user_id";
-  $params = [':user_id' => $input_user_id];
+  $sql = "SELECT brinquedo.* 
+          FROM brincaqui.brinquedo 
+          JOIN brincaqui.endereco ON brinquedo.brin_id = endereco.Brinquedo_brin_id 
+          WHERE brinquedo.Usuario_user_id = :user_id";
 
+  $params = [':user_id' => $input_user_id];
   $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
 
   foreach ($filters as $column => $value) {
@@ -164,9 +167,13 @@ function db_select_plays_by_user(int $perPage, int $page, string $orderBy, strin
       }
       foreach ($value as $index => $val) {
         $param = ":{$column}_$index";
-        $sql .= " AND JSON_CONTAINS($column, $param)";
+        $sql .= " AND JSON_CONTAINS(brinquedo.$column, $param)";
         $params[$param] = json_encode((int) $val);
       }
+    } elseif (in_array($column, ['add_cep', 'add_city', 'add_neighborhood'])) {
+      $param = ":$column";
+      $sql .= " AND endereco.$column = $param";
+      $params[$param] = $value;
     } elseif (is_array($value)) {
       $placeholders = [];
       foreach ($value as $index => $val) {
@@ -174,15 +181,15 @@ function db_select_plays_by_user(int $perPage, int $page, string $orderBy, strin
         $placeholders[] = $key;
         $params[$key] = $val;
       }
-      $sql .= " AND $column IN (" . implode(", ", $placeholders) . ")";
+      $sql .= " AND brinquedo.$column IN (" . implode(", ", $placeholders) . ")";
     } else {
       $key = ":$column";
-      $sql .= " AND $column = $key";
+      $sql .= " AND brinquedo.$column = $key";
       $params[$key] = $value;
     }
   }
 
-  $sql .= " ORDER BY $orderBy $orderDir";
+  $sql .= " ORDER BY brinquedo.$orderBy $orderDir";
   $sql .= " LIMIT :limit OFFSET :offset";
 
   $stmt = $pdo->prepare($sql);
