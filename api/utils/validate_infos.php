@@ -172,3 +172,13 @@ function check_cookie($cookie)
     response_format(400, "Cookie não encontrado.");
   }
 }
+
+function valid_play_name($name)
+{
+  if (strlen($name) > 45) {
+    response_format(400, "Seu nome ultrapassa 45 caracteres.");
+  }
+  if (strlen($name) < 5) {
+    response_format(400, "Seu nome tem menos que 5 caracteres.");
+  }
+}
