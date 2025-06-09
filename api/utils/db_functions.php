@@ -46,7 +46,11 @@ function db_insert_into(string $table, array $columns, array $values)
     $stmt->bindValue(":$col", $values[$index], PDO::PARAM_STR);
   }
 
-  return $stmt->execute();
+  if ($stmt->execute($values)) {
+    return $pdo->lastInsertId(); 
+  }
+
+  return false;
 }
 
 function db_update(string $table, array $columnsSet, array $valuesSet, array $whereColumns, $whereValues)

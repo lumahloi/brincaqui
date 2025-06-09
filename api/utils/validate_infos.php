@@ -197,3 +197,27 @@ function check_ownership($user_id, $brin_id)
     response_format(400, "Você não é o dono deste brinquedo.");
   }
 }
+
+function valid_cep($cep)
+{
+  $sanitized = preg_replace('/\D/', '', $cep);
+
+  if (strlen($sanitized) > 10) {
+    response_format(400, "Seu CEP ultrapassa 11 caracteres.");
+  }
+
+  if (strlen($sanitized) < 10) {
+    response_format(400, "Seu CEP tem menos que 11 caracteres.");
+  }
+  
+  return $sanitized;
+}
+
+function valid_characters($min, $max, $var){
+  if (strlen($var) > $max) {
+    response_format(400, "$var ultrapassa $max caracteres.");
+  }
+  if (strlen($var) < $min) {
+    response_format(400, "$var tem menos que $min caracteres.");
+  }
+}

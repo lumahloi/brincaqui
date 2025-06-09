@@ -11,4 +11,14 @@ if (!$insert_play) {
   response_format(400, "Não foi possível cadastrar seu brinquedo, revise seus dados e tente novamente.");
 }
 
+$insert_add = db_insert_into(
+  'endereco',
+  ['add_cep', 'add_streetnum', 'add_city','add_neighborhood','add_plus','Brinquedo_brin_id','add_state','add_country'],
+  [$input_cep, $input_streetnum, $input_city, $input_neighborhood, $input_plus, $insert_play, $input_state, $input_country]
+);
+
+if (!$insert_add) {
+  response_format(400, "Não foi possível cadastrar seu brinquedo, revise seus dados e tente novamente.");
+}
+
 response_format(201, "Brinquedo criado com sucesso.");

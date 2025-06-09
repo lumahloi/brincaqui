@@ -83,3 +83,38 @@ if (isset($data['ages'])) {
     array_contains_numbers($input_ages);
     $input_ages = json_encode($input_ages);
 }
+
+if (isset($data['end_cep'])) {
+    $input_cep = filter_var($data['end_cep'], FILTER_SANITIZE_STRING);
+    $input_cep = valid_cep($input_cep);
+}
+
+if (isset($data['end_streetnum'])) {
+    $input_streetnum = filter_var($data['end_streetnum'], FILTER_SANITIZE_STRING);
+    valid_characters(10,60,$input_streetnum);
+}
+
+if (isset($data['end_city'])) {
+    $input_city = filter_var($data['end_city'], FILTER_SANITIZE_STRING);
+    valid_characters(5,58,$input_city);
+}
+
+if (isset($data['end_neighborhood'])) {
+    $input_neighborhood = filter_var($data['end_neighborhood'], FILTER_SANITIZE_STRING);
+    valid_characters(5,58,$input_neighborhood);
+}
+
+if (isset($data['end_plus'])) {
+    $input_plus = filter_var($data['end_plus'], FILTER_SANITIZE_STRING);
+    valid_characters(0,40,$input_plus);
+}
+
+if (isset($data['end_state'])) {
+    $input_state = filter_var($data['end_state'], FILTER_SANITIZE_STRING);
+    valid_characters(4,25,$input_state);
+}
+
+if (isset($data['end_country'])) {
+    $input_country = filter_var($data['end_country'], FILTER_SANITIZE_STRING);
+    valid_characters(1,41,$input_country);
+}
