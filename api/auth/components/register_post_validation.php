@@ -3,7 +3,7 @@ require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/validate_infos.php";
 
-check_cookies($cookie);
+check_cookie($cookie);
 $input_fullname = valid_fullname($input_fullname);
 $input_telephone = valid_telephone($input_telephone);
 valid_email($input_email);
