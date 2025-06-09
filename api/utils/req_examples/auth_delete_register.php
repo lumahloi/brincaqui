@@ -1,5 +1,7 @@
 <?php
-session_id('8724dqb3h4fe33q04c89it907o');
+require_once BASE_DIR . "/utils/load_env.php";
+load_env(BASE_DIR . '/.env');
+session_id(getenv('SESSION_ID'));
 session_start();
 
 $cookie = "PHPSESSID=" . session_id();
