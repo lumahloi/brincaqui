@@ -4,8 +4,8 @@ require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/permission.php";
-check_permission(2);
-check_cookie($cookie);
+$cookie = filter_var($_COOKIE['PHPSESSID'] ?? '', FILTER_SANITIZE_STRING);
+check_permission(2, $cookie);
 
 $data = json_decode(file_get_contents('php://input'), true);
 
