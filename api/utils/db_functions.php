@@ -47,7 +47,7 @@ function db_insert_into(string $table, array $columns, array $values)
   }
 
   if ($stmt->execute($values)) {
-    return $pdo->lastInsertId(); 
+    return $pdo->lastInsertId();
   }
 
   return false;
@@ -203,8 +203,12 @@ function db_select_all_active_plays(int $perPage, int $page, string $orderBy, st
   $pdo = DbConnection::connect();
   $offset = $page * $perPage;
 
-  $sql = "SELECT * FROM brincaqui.brinquedo WHERE brin_active = 1";
+  $sql = "SELECT brinquedo.* 
+          FROM brincaqui.brinquedo 
+          JOIN brincaqui.endereco ON brinquedo.brin_id = endereco.Brinquedo_brin_id 
+          WHERE brin_active = 1";
 
+  $params = [];
   $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
 
   foreach ($filters as $column => $value) {
@@ -214,9 +218,13 @@ function db_select_all_active_plays(int $perPage, int $page, string $orderBy, st
       }
       foreach ($value as $index => $val) {
         $param = ":{$column}_$index";
-        $sql .= " AND JSON_CONTAINS($column, $param)";
+        $sql .= " AND JSON_CONTAINS(brinquedo.$column, $param)";
         $params[$param] = json_encode((int) $val);
       }
+    } elseif (in_array($column, ['add_cep', 'add_city', 'add_neighborhood'])) {
+      $param = ":$column";
+      $sql .= " AND endereco.$column = $param";
+      $params[$param] = $value;
     } elseif (is_array($value)) {
       $placeholders = [];
       foreach ($value as $index => $val) {
@@ -224,15 +232,15 @@ function db_select_all_active_plays(int $perPage, int $page, string $orderBy, st
         $placeholders[] = $key;
         $params[$key] = $val;
       }
-      $sql .= " AND $column IN (" . implode(", ", $placeholders) . ")";
+      $sql .= " AND brinquedo.$column IN (" . implode(", ", $placeholders) . ")";
     } else {
       $key = ":$column";
-      $sql .= " AND $column = $key";
+      $sql .= " AND brinquedo.$column = $key";
       $params[$key] = $value;
     }
   }
 
-  $sql .= " ORDER BY $orderBy $orderDir";
+  $sql .= " ORDER BY brinquedo.$orderBy $orderDir";
   $sql .= " LIMIT :limit OFFSET :offset";
 
   $stmt = $pdo->prepare($sql);

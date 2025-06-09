@@ -29,6 +29,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
       $filters['brin_ages'] = $_GET['ages'];
     }
 
+    if (isset($_GET['cep'])) {
+      $filters['add_cep'] = $_GET['cep'];
+    }
+
+    if (isset($_GET['city'])) {
+      $filters['add_city'] = $_GET['city'];
+    }
+
+    if (isset($_GET['neighborhood'])) {
+      $filters['add_neighborhood'] = $_GET['neighborhood'];
+    }
+
     $results = db_select_all_active_plays($per_page, $page, $orderBy, $orderDir, $filters);
 
     response_format(200, "Informações extraídas com sucesso.", $results);
