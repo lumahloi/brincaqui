@@ -411,10 +411,11 @@ function db_select_fb_from_play(int $perPage, int $page, int $input_id)
   $offset = $page * $perPage;
 
   $sql = "
-    SELECT *
-    FROM brincaqui.avaliacao
-    WHERE Brinquedo_brin_id = :brin_id
-    ORDER BY aval_date DESC
+    SELECT a.*, u.user_name
+    FROM brincaqui.avaliacao a
+    INNER JOIN brincaqui.usuario u ON a.Usuario_user_id = u.user_id
+    WHERE a.Brinquedo_brin_id = :brin_id
+    ORDER BY a.aval_date DESC
     LIMIT :limit OFFSET :offset
   ";
 
