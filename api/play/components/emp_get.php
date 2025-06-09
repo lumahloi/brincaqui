@@ -31,6 +31,6 @@ if (isset($_GET['active'])) {
     $filters['brin_active'] = $_GET['active'];
 }
 
-$results = db_select_plays($per_page, $page, $orderBy, $orderDir, $filters, $_SESSION['user_id']);
+$results = db_select_plays_by_user($per_page, $page, $orderBy, $orderDir, $filters, $_SESSION['user_id']);
 
 response_format(200, "Informações extraídas com sucesso.", $results);

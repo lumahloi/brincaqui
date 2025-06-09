@@ -90,26 +90,26 @@ function db_update(string $table, array $columnsSet, array $valuesSet, array $wh
 
 function db_delete(string $table, array $whereColumns, array $whereValues)
 {
-    $pdo = DbConnection::connect();
+  $pdo = DbConnection::connect();
 
-    if (count($whereColumns) !== count($whereValues)) {
-        throw new Exception("Número de colunas e valores do WHERE não corresponde.");
-    }
+  if (count($whereColumns) !== count($whereValues)) {
+    throw new Exception("Número de colunas e valores do WHERE não corresponde.");
+  }
 
-    $whereParts = [];
-    foreach ($whereColumns as $col) {
-        $whereParts[] = "$col = :where_$col";
-    }
-    $whereClause = implode(" AND ", $whereParts);
+  $whereParts = [];
+  foreach ($whereColumns as $col) {
+    $whereParts[] = "$col = :where_$col";
+  }
+  $whereClause = implode(" AND ", $whereParts);
 
-    $sql = "DELETE FROM brincaqui.$table WHERE $whereClause;";
-    $stmt = $pdo->prepare($sql);
+  $sql = "DELETE FROM brincaqui.$table WHERE $whereClause;";
+  $stmt = $pdo->prepare($sql);
 
-    foreach ($whereColumns as $index => $col) {
-        $stmt->bindValue(":where_$col", $whereValues[$index], PDO::PARAM_STR);
-    }
+  foreach ($whereColumns as $index => $col) {
+    $stmt->bindValue(":where_$col", $whereValues[$index], PDO::PARAM_STR);
+  }
 
-    return $stmt->execute();
+  return $stmt->execute();
 }
 
 function db_toggle_active(string $table, string $column_to_toggle, array $where_columns, $where_values)
@@ -143,53 +143,103 @@ function db_toggle_active(string $table, string $column_to_toggle, array $where_
   return $stmt->execute();
 }
 
-function db_select_plays(int $perPage, int $page, string $orderBy, string $orderDir, array $filters = [], int $input_user_id)
+function db_select_plays_by_user(int $perPage, int $page, string $orderBy, string $orderDir, array $filters = [], int $input_user_id)
 {
-    $pdo = DbConnection::connect();
-    $offset = $page * $perPage;
+  $pdo = DbConnection::connect();
+  $offset = $page * $perPage;
 
-    $sql = "SELECT * FROM brincaqui.brinquedo WHERE Usuario_user_id = :user_id";
-    $params = [':user_id' => $input_user_id];
+  $sql = "SELECT * FROM brincaqui.brinquedo WHERE Usuario_user_id = :user_id";
+  $params = [':user_id' => $input_user_id];
 
-    $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
+  $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
 
-    foreach ($filters as $column => $value) {
-        if (in_array($column, $jsonArrayColumns)) {
-            if (!is_array($value)) {
-                $value = explode(',', $value);
-            }
-            foreach ($value as $index => $val) {
-                $param = ":{$column}_$index";
-                $sql .= " AND JSON_CONTAINS($column, $param)";
-                $params[$param] = json_encode((int) $val);
-            }
-        } elseif (is_array($value)) {
-            $placeholders = [];
-            foreach ($value as $index => $val) {
-                $key = ":{$column}_$index";
-                $placeholders[] = $key;
-                $params[$key] = $val;
-            }
-            $sql .= " AND $column IN (" . implode(", ", $placeholders) . ")";
-        } else {
-            $key = ":$column";
-            $sql .= " AND $column = $key";
-            $params[$key] = $value;
-        }
+  foreach ($filters as $column => $value) {
+    if (in_array($column, $jsonArrayColumns)) {
+      if (!is_array($value)) {
+        $value = explode(',', $value);
+      }
+      foreach ($value as $index => $val) {
+        $param = ":{$column}_$index";
+        $sql .= " AND JSON_CONTAINS($column, $param)";
+        $params[$param] = json_encode((int) $val);
+      }
+    } elseif (is_array($value)) {
+      $placeholders = [];
+      foreach ($value as $index => $val) {
+        $key = ":{$column}_$index";
+        $placeholders[] = $key;
+        $params[$key] = $val;
+      }
+      $sql .= " AND $column IN (" . implode(", ", $placeholders) . ")";
+    } else {
+      $key = ":$column";
+      $sql .= " AND $column = $key";
+      $params[$key] = $value;
     }
+  }
 
-    $sql .= " ORDER BY $orderBy $orderDir";
-    $sql .= " LIMIT :limit OFFSET :offset";
+  $sql .= " ORDER BY $orderBy $orderDir";
+  $sql .= " LIMIT :limit OFFSET :offset";
 
-    $stmt = $pdo->prepare($sql);
+  $stmt = $pdo->prepare($sql);
 
-    foreach ($params as $key => $value) {
-        $stmt->bindValue($key, $value, is_numeric(json_decode($value)) ? PDO::PARAM_STR : PDO::PARAM_STR);
+  foreach ($params as $key => $value) {
+    $stmt->bindValue($key, $value, is_numeric(json_decode($value)) ? PDO::PARAM_STR : PDO::PARAM_STR);
+  }
+
+  $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+  $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function db_select_all_active_plays(int $perPage, int $page, string $orderBy, string $orderDir, array $filters = [])
+{
+  $pdo = DbConnection::connect();
+  $offset = $page * $perPage;
+
+  $sql = "SELECT * FROM brincaqui.brinquedo WHERE brin_active = 1";
+
+  $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
+
+  foreach ($filters as $column => $value) {
+    if (in_array($column, $jsonArrayColumns)) {
+      if (!is_array($value)) {
+        $value = explode(',', $value);
+      }
+      foreach ($value as $index => $val) {
+        $param = ":{$column}_$index";
+        $sql .= " AND JSON_CONTAINS($column, $param)";
+        $params[$param] = json_encode((int) $val);
+      }
+    } elseif (is_array($value)) {
+      $placeholders = [];
+      foreach ($value as $index => $val) {
+        $key = ":{$column}_$index";
+        $placeholders[] = $key;
+        $params[$key] = $val;
+      }
+      $sql .= " AND $column IN (" . implode(", ", $placeholders) . ")";
+    } else {
+      $key = ":$column";
+      $sql .= " AND $column = $key";
+      $params[$key] = $value;
     }
+  }
 
-    $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+  $sql .= " ORDER BY $orderBy $orderDir";
+  $sql .= " LIMIT :limit OFFSET :offset";
 
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $stmt = $pdo->prepare($sql);
+
+  foreach ($params as $key => $value) {
+    $stmt->bindValue($key, $value, is_numeric(json_decode($value)) ? PDO::PARAM_STR : PDO::PARAM_STR);
+  }
+
+  $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+  $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

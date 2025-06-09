@@ -28,7 +28,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     break;
 
   case 'PUT':
-    require_once "alidation.php";
+    require_once "validation.php";
     require_once "emp_put.php";
     break;
 
