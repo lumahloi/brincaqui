@@ -7,7 +7,7 @@ session_start();
 
 $cookie = "PHPSESSID=" . session_id();
 
-$ch = curl_init('http://localhost/brincaqui/api/play/2');
+$ch = curl_init('http://localhost/brincaqui/api/play/3');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
 curl_setopt($ch, CURLOPT_HTTPHEADER, [

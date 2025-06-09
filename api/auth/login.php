@@ -8,8 +8,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
     $data = json_decode(file_get_contents("php://input"), true);
 
-    $input_email = filter_var($data['email']) ?? '';
-    $input_password = filter_var($data['password']) ?? '';
+    $input_email = null;
+    $input_password = null;
 
     require_once "./components/validation.php";
 
