@@ -11,14 +11,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
     require_once "./components/post.php";
     break;
 
-  case 'DELETE':
-    require_once "./components/delete.php";
-    break;
-
   case 'GET':
     require_once "./components/get.php";
     break;
 
   default:
-    response_format(405, "Apenas POST, DELETE e GET permitidos.");
+    response_format(405, "Apenas POST e GET permitidos.");
 }
