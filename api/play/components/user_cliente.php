@@ -41,6 +41,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
       $filters['add_neighborhood'] = $_GET['neighborhood'];
     }
 
+    if (isset($_GET['state'])) {
+      $filters['add_state'] = $_GET['state'];
+    }
+
+    if (isset($_GET['country'])) {
+      $filters['add_country'] = $_GET['country'];
+    }
+
     $results = db_select_all_active_plays($per_page, $page, $orderBy, $orderDir, $filters);
 
     response_format(200, "Informações extraídas com sucesso.", $results);
