@@ -63,6 +63,34 @@ foreach ($params as $param) {
       db_toggle_active('brinquedo', 'brin_active', ['brin_id'], $input_id);
       break;
 
+    case 'cep':
+      update('endereco', ['brin_cep'], [$input_cep], ['brin_id'], $input_id);
+      break;
+
+    case 'streetnum':
+      update('endereco', ['brin_streetnum'], [$input_streetnum], ['brin_id'], $input_id);
+      break;
+
+    case 'city':
+      update('endereco', ['brin_city'], [$input_city], ['brin_id'], $input_id);
+      break;
+
+    case 'neighborhood':
+      update('endereco', ['brin_neighborhood'], [$input_neighborhood], ['brin_id'], $input_id);
+      break;
+
+    case 'plus':
+      update('endereco', ['brin_plus'], [$input_plus], ['brin_id'], $input_id);
+      break;
+
+    case 'state':
+      update('endereco', ['brin_state'], [$input_state], ['brin_id'], $input_id);
+      break;
+
+    case 'country':
+      update('endereco', ['brin_country'], [$input_country], ['brin_id'], $input_id);
+      break;
+
     default:
       response_format(405, "Tipo de parâmetro inválido.");
   }
