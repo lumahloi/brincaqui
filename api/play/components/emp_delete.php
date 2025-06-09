@@ -1,6 +1,6 @@
 <?php
 require_once BASE_DIR . "/utils/db_functions.php";
-require_once "./components/ownership.php";
+require_once "./utils/validate_infos.php";
 
 if (!$input_id) {
   response_format(400, "ID do brinquedo não especificado.");

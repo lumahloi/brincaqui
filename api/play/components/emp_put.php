@@ -1,7 +1,7 @@
 <?php
 require_once BASE_DIR . "/utils/validate_infos.php";
 require_once BASE_DIR . "/utils/db_functions.php";
-require_once "ownership.php";
+require_once BASE_DIR . "/utils/validate_infos.php";
 
 check_ownership($_SESSION['user_id'], $input_id);
 
