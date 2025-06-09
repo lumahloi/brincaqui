@@ -404,3 +404,25 @@ function db_get_total_faves_from_play($play)
 
   return $stmt->fetchColumn();
 }
+
+function db_select_fb_from_play(int $perPage, int $page, int $input_id)
+{
+  $pdo = DbConnection::connect();
+  $offset = $page * $perPage;
+
+  $sql = "
+    SELECT *
+    FROM brincaqui.avaliacao
+    WHERE Brinquedo_brin_id = :brin_id
+    ORDER BY aval_date DESC
+    LIMIT :limit OFFSET :offset
+  ";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindValue(':brin_id', $input_id, PDO::PARAM_INT);
+  $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+  $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
