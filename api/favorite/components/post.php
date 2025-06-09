@@ -1,6 +1,14 @@
 <?php
 require_once BASE_DIR . "/utils/db_functions.php";
 
+$uri = $_SERVER['REQUEST_URI'];
+$uri_parts = explode('/', trim($uri, '/'));
+$input_id = $uri_parts[3] ?? null;
+
+if (!$input_id) {
+  response_format(400, "ID do brinquedo não especificado.");
+}
+
 $check_fav_exists = db_select_where(
   ['Usuario_user_id', 'Brinquedo_brin_id'], 
   $favorito, 

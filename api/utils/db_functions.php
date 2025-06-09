@@ -243,3 +243,62 @@ function db_select_all_active_plays(int $perPage, int $page, string $orderBy, st
   $stmt->execute();
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function db_get_active_fav_user_plays(int $perPage, int $page, string $orderBy, string $orderDir, array $filters = [])
+{
+  $userId = $_SESSION['user_id'];
+  $pdo = DbConnection::connect();
+  $offset = $page * $perPage;
+  $params = [];
+
+  $sql = "
+    SELECT b.* 
+    FROM brincaqui.brinquedo b
+    INNER JOIN brincaqui.favorito ub ON ub.Brinquedo_brin_id = b.brin_id
+    WHERE b.brin_active = 1
+      AND ub.Usuario_user_id = :userId
+  ";
+  $params[':userId'] = $userId;
+
+  $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
+
+  foreach ($filters as $column => $value) {
+    if (in_array($column, $jsonArrayColumns)) {
+      if (!is_array($value)) {
+        $value = explode(',', $value);
+      }
+      foreach ($value as $index => $val) {
+        $param = ":{$column}_$index";
+        $sql .= " AND JSON_CONTAINS(b.$column, $param)";
+        $params[$param] = json_encode((int) $val);
+      }
+    } elseif (is_array($value)) {
+      $placeholders = [];
+      foreach ($value as $index => $val) {
+        $key = ":{$column}_$index";
+        $placeholders[] = $key;
+        $params[$key] = $val;
+      }
+      $sql .= " AND b.$column IN (" . implode(", ", $placeholders) . ")";
+    } else {
+      $key = ":$column";
+      $sql .= " AND b.$column = $key";
+      $params[$key] = $value;
+    }
+  }
+
+  $sql .= " ORDER BY b.$orderBy $orderDir";
+  $sql .= " LIMIT :limit OFFSET :offset";
+
+  $stmt = $pdo->prepare($sql);
+
+  foreach ($params as $key => $value) {
+    $stmt->bindValue($key, $value, is_numeric(json_decode($value)) ? PDO::PARAM_STR : PDO::PARAM_STR);
+  }
+
+  $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+  $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
