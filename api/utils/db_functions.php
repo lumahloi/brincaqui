@@ -151,8 +151,19 @@ function db_select_plays(int $perPage, int $page, string $orderBy, string $order
     $sql = "SELECT * FROM brincaqui.brinquedo WHERE Usuario_user_id = :user_id";
     $params = [':user_id' => $input_user_id];
 
+    $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
+
     foreach ($filters as $column => $value) {
-        if (is_array($value)) {
+        if (in_array($column, $jsonArrayColumns)) {
+            if (!is_array($value)) {
+                $value = explode(',', $value);
+            }
+            foreach ($value as $index => $val) {
+                $param = ":{$column}_$index";
+                $sql .= " AND JSON_CONTAINS($column, $param)";
+                $params[$param] = json_encode((int) $val);
+            }
+        } elseif (is_array($value)) {
             $placeholders = [];
             foreach ($value as $index => $val) {
                 $key = ":{$column}_$index";
@@ -173,7 +184,7 @@ function db_select_plays(int $perPage, int $page, string $orderBy, string $order
     $stmt = $pdo->prepare($sql);
 
     foreach ($params as $key => $value) {
-        $stmt->bindValue($key, $value, PDO::PARAM_STR);
+        $stmt->bindValue($key, $value, is_numeric(json_decode($value)) ? PDO::PARAM_STR : PDO::PARAM_STR);
     }
 
     $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
@@ -182,4 +193,3 @@ function db_select_plays(int $perPage, int $page, string $orderBy, string $order
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-

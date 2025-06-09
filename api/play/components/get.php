@@ -15,10 +15,6 @@ $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'de
 
 $filters = [];
 
-if (isset($_GET['times'])) {
-    $filters['brin_times'] = $_GET['times'];
-}
-
 if (isset($_GET['commodities'])) {
     $filters['brin_commodities'] = $_GET['commodities'];
 }

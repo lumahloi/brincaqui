@@ -1,4 +1,6 @@
 <?php
+require_once "../base_dir.php";
+require_once BASE_DIR . "/utils/validate_infos.php";
 
 if (isset($data['fullname'])) {
   $input_fullname = filter_var($data['fullname'], FILTER_SANITIZE_STRING);
