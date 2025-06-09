@@ -111,3 +111,75 @@ function db_delete(string $table, array $whereColumns, array $whereValues)
 
     return $stmt->execute();
 }
+
+function db_toggle_active(string $table, string $column_to_toggle, array $where_columns, $where_values)
+{
+  $pdo = DbConnection::connect();
+
+  if (!is_array($where_values)) {
+    $where_values = [$where_values];
+  }
+
+  if (count($where_columns) !== count($where_values)) {
+    throw new Exception("Número de colunas e valores do WHERE não corresponde.");
+  }
+
+  $whereParts = [];
+  foreach ($where_columns as $col) {
+    $whereParts[] = "$col = :where_$col";
+  }
+  $whereClause = implode(" AND ", $whereParts);
+
+  $sql = "UPDATE brincaqui.$table
+          SET $column_to_toggle = CASE $column_to_toggle WHEN '1' THEN '0' ELSE '1' END
+          WHERE $whereClause;";
+
+  $stmt = $pdo->prepare($sql);
+
+  foreach ($where_columns as $index => $col) {
+    $stmt->bindValue(":where_$col", $where_values[$index], PDO::PARAM_STR);
+  }
+
+  return $stmt->execute();
+}
+
+function db_select_plays(int $perPage, int $page, string $orderBy, string $orderDir, array $filters = [], int $input_user_id)
+{
+    $pdo = DbConnection::connect();
+    $offset = $page * $perPage;
+
+    $sql = "SELECT * FROM brincaqui.brinquedo WHERE Usuario_user_id = :user_id";
+    $params = [':user_id' => $input_user_id];
+
+    foreach ($filters as $column => $value) {
+        if (is_array($value)) {
+            $placeholders = [];
+            foreach ($value as $index => $val) {
+                $key = ":{$column}_$index";
+                $placeholders[] = $key;
+                $params[$key] = $val;
+            }
+            $sql .= " AND $column IN (" . implode(", ", $placeholders) . ")";
+        } else {
+            $key = ":$column";
+            $sql .= " AND $column = $key";
+            $params[$key] = $value;
+        }
+    }
+
+    $sql .= " ORDER BY $orderBy $orderDir";
+    $sql .= " LIMIT :limit OFFSET :offset";
+
+    $stmt = $pdo->prepare($sql);
+
+    foreach ($params as $key => $value) {
+        $stmt->bindValue($key, $value, PDO::PARAM_STR);
+    }
+
+    $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+

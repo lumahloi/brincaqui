@@ -21,6 +21,10 @@ $input_commodities = null;
 $input_discounts = null;
 $input_ages = null;
 
+$uri = $_SERVER['REQUEST_URI'];
+$uri_parts = explode('/', trim($uri, '/'));
+$input_id = $uri_parts[3] ?? null;
+
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
     require_once "./components/validation.php";
@@ -29,17 +33,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
   case 'PUT':
     require_once "./components/validation.php";
-    $uri = $_SERVER['REQUEST_URI'];
-    $uri_parts = explode('/', trim($uri, '/'));
-    $input_id = $uri_parts[3] ?? null;
     require_once "./components/put.php";
     break;
 
   case 'DELETE':
-    $uri = $_SERVER['REQUEST_URI'];
-    $uri_parts = explode('/', trim($uri, '/'));
-    $input_id = $uri_parts[3] ?? null;
     require_once "./components/delete.php";
+    break;
+
+  case 'GET':
+    require_once "./components/get.php";
     break;
 
   default:

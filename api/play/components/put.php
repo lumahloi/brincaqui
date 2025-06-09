@@ -60,6 +60,10 @@ foreach ($params as $param) {
       update('brinquedo', ['brin_ages'], [$input_ages], ['brin_id'], $input_id);
       break;
 
+    case 'active':
+      db_toggle_active('brinquedo', 'brin_active', ['brin_id'], $input_id);
+      break;
+
     default:
       response_format(405, "Tipo de parâmetro inválido.");
   }
