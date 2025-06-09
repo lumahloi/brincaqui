@@ -19,6 +19,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
     require_once "./components/post.php";
     break;
 
+  case 'DELETE':
+    require_once "./components/delete.php";
+    break;
+
   default:
     response_format(405, "Apenas POST permitido.");
 }
