@@ -36,5 +36,5 @@ if (isset($data['confirmPassword'])) {
 
 if (isset($_COOKIE['PHPSESSID'])) {
   $cookie = filter_var($_COOKIE['PHPSESSID'], FILTER_SANITIZE_STRING);
-  check_permission([1, 2], $cookie);
+  check_permission([1,2,3], $cookie);
 }

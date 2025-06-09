@@ -7,13 +7,13 @@ require_once BASE_DIR . "/utils/permission.php";
 
 switch ($_SESSION['user_type']) {
   case 1:
+    // fazer, editar, deletar avaliações
     check_permission([1,3], $cookie);
-    require_once "./components/user_cliente.php";
     break;
 
   case 2:
-    check_permission([2,3], $cookie);
-    require_once "./components/user_empresa.php";
+    // ver avaliações
+    check_permission([1,2,3], $cookie);
     break;
 
   default:
