@@ -20,4 +20,4 @@ if (!db_update('usuario', ['user_active', 'user_lastedit'], [0, $date], ['user_i
   response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
 }
 
-response_format(200, "Atualização(s) feita com sucesso.");
+response_format(200, "Conta deletada com sucesso.");

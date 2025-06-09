@@ -13,7 +13,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     require_once "./components/login_validation.php";
 
-    $user_info = db_select_where(['user_id', 'user_type', 'user_name'], 'usuario', ['user_email'], [$input_email]);
+    $user_info = db_select_where(['user_id', 'user_type', 'user_name'], 'usuario', ['user_email', 'user_active'], [$input_email, 1]);
 
     $_SESSION["user_id"] = $user_info['user_id'];
     $_SESSION["user_type"] = $user_info['user_type'];
