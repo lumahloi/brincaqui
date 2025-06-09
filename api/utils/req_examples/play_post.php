@@ -1,5 +1,8 @@
 <?php
-session_id('o64pf5t1fve3bpvqt6aq75a9vl');
+require_once "../../base_dir.php";
+require_once BASE_DIR . "/utils/load_env.php";
+load_env(BASE_DIR . '/.env');
+session_id(getenv('SESSION_ID'));
 session_start();
 
 $cookie = "PHPSESSID=" . session_id();
@@ -37,7 +40,7 @@ $data = [
   'ages' => [5,6,7,8,9,10,11,12,13,14]
 ];
 
-$ch = curl_init('http://localhost/brincaqui/api/play/register.php');
+$ch = curl_init('http://localhost/brincaqui/api/play/');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [

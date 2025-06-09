@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS Brinquedo (
   Usuario_user_id INT NOT NULL,
   brin_faves INT,
   brin_visits INT,
+  brin_active CHAR(1),
   FOREIGN KEY (Usuario_user_id) REFERENCES Usuario(user_id)
 ) ENGINE=InnoDB;
 
