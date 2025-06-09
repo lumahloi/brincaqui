@@ -2,18 +2,7 @@
 require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/response_format.php";
-
-require_once "./components/register_post_validation.php";
-
-$input_pictures = json_encode($input_pictures);
-$input_socials = json_encode($input_socials);
-$input_times = json_encode($input_times);
-$input_commodities = json_encode($input_commodities);
-$input_prices = json_encode($input_prices);
-$input_discounts = json_encode($input_discounts);
-$input_ages = json_encode($input_ages);
-
-date_default_timezone_set('America/Sao_Paulo');
+require_once BASE_DIR . "/components/register_validation.php";
 
 $insert_play = db_insert_into(
   'brinquedo',

@@ -3,11 +3,7 @@ session_start();
 require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/response_format.php";
-require_once BASE_DIR . "/utils/permission.php";
-check_permission([2]);
-require_once BASE_DIR . "/utils/register_post_validation.php";
-
-check_cookie($cookie);
+require_once BASE_DIR . "/components/register_validation.php";
 
 if (!isset($_GET['params'])) {
   response_format(400, "Inclua pelo menos um atributo a ser alterado.");

@@ -5,6 +5,7 @@ require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/permission.php";
 check_permission(2);
+check_cookie($cookie);
 
 $data = json_decode(file_get_contents('php://input'), true);
 
