@@ -1,4 +1,5 @@
 <?php
+require_once "../../base_dir.php";
 require_once BASE_DIR . "/utils/load_env.php";
 load_env(BASE_DIR . '/.env');
 session_id(getenv('SESSION_ID'));
@@ -7,13 +8,35 @@ session_start();
 $cookie = "PHPSESSID=" . session_id();
 
 $data = [
-    'email' => 'email2@email.com',
-    'telephone' => '12345678901',
-    'password' => '999999999',
-    'confirmPassword' => '999999999',
+  'description' => 'testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  'name' => 'teste',
+  'telephone' => '12345678901',
+  'email' => 'teste@teste.com',
+  'pictures' => [
+    ['picture_name'=>'teste.jpg']
+  ],
+  'socials' => [
+    ['socials_name'=>'teste', 'socials_url'=>'https://www.facebook.com/paraisodascriancas']
+  ],
+  'prices' => [
+    ['prices_title'=>'Teste', 'prices_price'=>50]
+  ],
+  'times' => [
+    ['domingo' => '10:00-22:00'],
+    ['segunda' => '10:00-22:00'],
+    ['terca' => '10:00-22:00'],
+    ['quarta' => '10:00-22:00'],
+    ['quinta' => '10:00-22:00'],
+    ['sexta' => '10:00-22:00'],
+    ['sabado' => '10:00-22:00'],
+    ['feriado' => '10:00-22:00']
+  ],
+  'commodities' => [1],
+  'discounts' => [1],
+  'ages' => [1]
 ];
 
-$ch = curl_init('http://localhost/brincaqui/api/auth/register.php?params=email,telephone,password');
+$ch = curl_init('http://localhost/brincaqui/api/play/register.php?params=description,name,telephone,email,pictures,socials,prices,times,commodities,discounts,ages');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch, CURLOPT_HTTPHEADER, [

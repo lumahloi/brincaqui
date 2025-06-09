@@ -9,11 +9,11 @@ check_permission(2, $cookie);
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-$input_description = filter_var($data['description']) ?? '';
-$input_name = filter_var($data['name']) ?? '';
-$input_cnpj = filter_var($data['cnpj']) ?? '';
-$input_telephone = filter_var($data['telephone']) ?? '';
-$input_email = filter_var($data['email']) ?? '';
+$input_description = isset($data['description']) ? filter_var($data['description'], FILTER_SANITIZE_STRING) : '';
+$input_name = isset($data['name']) ? filter_var($data['name'], FILTER_SANITIZE_STRING) : '';
+$input_cnpj = isset($data['cnpj']) ? filter_var($data['cnpj'], FILTER_SANITIZE_STRING) : '';
+$input_telephone = isset($data['telephone']) ? filter_var($data['telephone'], FILTER_SANITIZE_STRING) : '';
+$input_email = isset($data['email']) ? filter_var($data['email'], FILTER_SANITIZE_EMAIL) : '';
 $input_pictures = $data['pictures'] ?? null;
 $input_socials = $data['socials'] ?? null;
 $input_prices = $data['prices'] ?? null;
@@ -32,5 +32,5 @@ switch ($_SERVER['REQUEST_METHOD']) {
     break;
 
   default:
-    response_format(405, "Apenas POST permitido.");
+    response_format(405, "Apenas POST e PUT permitido.");
 }

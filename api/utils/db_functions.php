@@ -58,7 +58,7 @@ function db_update(string $table, array $columnsSet, array $valuesSet, array $wh
     throw new Exception("Número de colunas e valores do SET não corresponde.");
   }
   if (!is_array($whereValues)) {
-    $whereValues = [$whereValues]; // Permitir valor único
+    $whereValues = [$whereValues];
   }
   if (count($whereColumns) !== count($whereValues)) {
     throw new Exception("Número de colunas e valores do WHERE não corresponde.");
