@@ -1,6 +1,5 @@
 <?php
-require_once "../base_dir.php";
-require_once BASE_DIR . "/utils/db_connection.php";
+require_once "db_connection.php";
 
 function db_select_where(array $selectedColumns, string $table, array $columns, array $values)
 {

@@ -6,7 +6,6 @@ function check_permission($expected_types, $cookie)
         echo $_SESSION['user_type'];
         response_format(403, "Acesso negado.");
     }
-
     if (!$cookie) {
         response_format(400, "Cookie não encontrado.");
 

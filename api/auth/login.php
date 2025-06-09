@@ -2,16 +2,22 @@
 session_start();
 require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/response_format.php";
-require_once BASE_DIR . "/utils/validate_infos.php";
 require_once BASE_DIR . "/utils/db_functions.php";
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
     $data = json_decode(file_get_contents("php://input"), true);
+
     $input_email = filter_var($data['email']) ?? '';
     $input_password = filter_var($data['password']) ?? '';
 
-    require_once "./components/login_validation.php";
+    require_once "./components/validation.php";
+
+    $password_from_db = db_select_where(['user_password'], 'usuario', ['user_email'], [$input_email]);
+
+    if (!$password_from_db || !password_verify($input_password, $password_from_db['user_password'])) {
+      response_format(400, "Senha inválida.");
+    }
 
     $user_info = db_select_where(['user_id', 'user_type', 'user_name'], 'usuario', ['user_email', 'user_active'], [$input_email, 1]);
 

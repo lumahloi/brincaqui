@@ -1,5 +1,4 @@
 <?php
-require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/db_functions.php";
 
@@ -9,7 +8,7 @@ function valid_fullname($fullname)
 
   if (strlen($sanitized) > 45) {
     response_format(400, "Seu nome ultrapassa 45 caracteres.");
-    
+
   }
   if (strlen($sanitized) < 5) {
     response_format(400, "Seu nome tem menos que 5 caracteres.");
@@ -46,7 +45,7 @@ function valid_email($email)
     response_format(400, "Seu e-mail tem menos que 7 caracteres.");
   }
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    response_format(400, "Insira um e-mail de formato válido."); 
+    response_format(400, "Insira um e-mail de formato válido.");
   }
   if (db_select_where(['user_id'], 'usuario', ['user_email'], [$email])) {
     response_format(400, "Já existe um usuário cadastrado com este e-mail.");
@@ -103,7 +102,7 @@ function valid_cnpj($cnpj)
   if (strlen($sanitized) < 14) {
     response_format(400, "Seu CNPJ tem menos que 14 caracteres.");
   }
-  
+
   return $sanitized;
 }
 
@@ -174,4 +173,19 @@ function valid_play_name($name)
   if (strlen($name) < 5) {
     response_format(400, "Seu nome tem menos que 5 caracteres.");
   }
+}
+
+function valid_url_params()
+{
+  if (!isset($_GET['params'])) {
+    response_format(400, "Inclua pelo menos um atributo a ser alterado.");
+  }
+
+  $params = explode(',', $_GET['params']);
+
+  if (empty($params)) {
+    response_format(400, "Inclua pelo menos um atributo a ser alterado.");
+  }
+
+  return $params;
 }

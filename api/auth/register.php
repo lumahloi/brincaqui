@@ -12,6 +12,8 @@ $input_password = filter_var($data['password'] ?? '', FILTER_SANITIZE_STRING);
 $input_confirm_password = filter_var($data['confirmPassword'] ?? '', FILTER_SANITIZE_STRING);
 $cookie = filter_var($_COOKIE['PHPSESSID'] ?? '', FILTER_SANITIZE_STRING);
 
+require_once "./components/validation.php";
+
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
     require_once "./components/register_post.php";

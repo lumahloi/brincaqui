@@ -1,8 +1,4 @@
 <?php
-require_once "../base_dir.php";
-require_once BASE_DIR . "/utils/db_functions.php";
-require_once BASE_DIR . "/utils/response_format.php";
-require_once "register_validation.php";
 
 $insert_play = db_insert_into(
   'brinquedo',

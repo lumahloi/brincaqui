@@ -22,6 +22,8 @@ $input_commodities = $data['commodities'] ?? [];
 $input_discounts = $data['discounts'] ?? [];
 $input_ages = $data['ages'] ?? [];
 
+require_once "register_validation.php";
+
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
     require_once "./components/register_post.php";

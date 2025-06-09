@@ -1,20 +1,7 @@
 <?php
-require_once "../base_dir.php";
-require_once BASE_DIR . "/utils/db_functions.php";
-require_once BASE_DIR . "/utils/response_format.php";
-require_once "register_validation.php";
+require_once BASE_DIR . "/utils/validate_infos.php";
 
-echo $_SESSION['user_id'];
-
-if (!isset($_GET['params'])) {
-  response_format(400, "Inclua pelo menos um atributo a ser alterado.");
-}
-
-$params = explode(',', $_GET['params']);
-
-if (empty($params)) {
-  response_format(400, "Inclua pelo menos um atributo a ser alterado.");
-}
+$params = valid_url_params();
 
 function update(string $table, array $columns_to_change, array $values_to_set, array $where_columns, string $where_value)
 {
@@ -22,7 +9,6 @@ function update(string $table, array $columns_to_change, array $values_to_set, a
     response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
   }
 }
-
 
 foreach ($params as $param) {
   switch ($param) {
