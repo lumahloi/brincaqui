@@ -1,5 +1,5 @@
 # APIs
-<!-- terminei na autenticacao -->
+<!-- terminei antes do deletar brinquedo -->
 ⚠️ **Todos os endpoints exigem este cabeçalho:**
 ```bash
 'content-type': 'application/json'
@@ -107,6 +107,183 @@ Todos são opcionais, exceto `confirmPassword` quando `password` existir.
 - **405**
     - Apenas POST permitido.
 ---
+## Brinquedo
+### Criar
+**POST** `/api/play/`
+#### Usuário
+Apenas usuários **empresa** fazem esta ação.
+#### Corpo
+```bash
+'description' => 'Por conseguinte, o início da atividade geral de formação de atitudes causa impacto indireto na reavaliação dos métodos utilizados na avaliação de resultados. Evidentemente, o comprometimento entre as equipes talvez venha a ressaltar a relatividade da gestão inovadora da qual fazemos parte',
+'cnpj' => '12345678000100',
+'name' => 'Paraíso das Crianças',
+'telephone' => '21978498626',
+'email' => 'contato@paraisodascriancas.com',
+'pictures' => [
+  ['picture_name'=>'foto1.jpg'],
+  ['picture_name'=>'foto2.jpg']
+],
+'socials' => [
+  ['socials_name'=>'facebook', 'socials_url'=>'https://www.facebook.com/paraisodascriancas'],
+  ['socials_name'=>'instagram', 'socials_url'=>'https://www.instagram.com/paraisodascriancas']
+],
+'prices' => [
+  ['prices_title'=>'Passaporte Diário', 'prices_price'=>50],
+  ['prices_title'=>'1 hora', 'prices_price'=>20],
+],
+'times' => [
+  ['domingo' => '10:00-22:00'],
+  ['segunda' => '10:00-22:00'],
+  ['terca' => '10:00-22:00'],
+  ['quarta' => '10:00-22:00'],
+  ['quinta' => '10:00-22:00'],
+  ['sexta' => '10:00-22:00'],
+  ['sabado' => '10:00-22:00'],
+  ['feriado' => '10:00-22:00']
+],
+'commodities' => <array de IDs de comodidades>,                           
+'discounts' => <array de IDs de descontos>,                             
+'ages' => [5,6,7,8,9,10,11,12,13,14],
+'cep' => '21339825',
+'streetnum' => 'Rua Palmeirense Agostinho 388',
+'city' => 'Rio de Janeiro',
+'neighborhood' => 'Belford Roxo',
+'plus' => 'Casa 2',
+'state' => 'Rio de Janeiro',
+'country' => 'Brasil'
+```
+#### Cabeçalho
+```bash
+'content-type': 'application/json',
+'cookie': 'PHPSESSID=<cookie>'
+```
+#### Resposta
+- **200**
+  - Brinquedo criado com sucesso.
+- **400**
+  - Não foi possível cadastrar seu brinquedo, revise os dados sobre o brinquedo e tente novamente.
+  - Não foi possível cadastrar seu brinquedo, revise os dados sobre o endereço e tente novamente.
+---
+### Atualizar
+**PUT** `/api/play/?params=<param>,<param>`
+#### Usuário
+Apenas usuários **empresa** fazem esta ação.
+#### Parâmetros da URL
+- `params`: lista de parâmetros separados por vírgula.
+  - opções: description, name, telephone, email, pictures, socials, prices, times, commodities, discounts, ages, active*, cep, streetnum, city, neighborhood, plus, state, country. 
+
+**active**
+: se o brinquedo está ativo. Por padrão é 1 (ativo), para desativar é 0.
+
+#### Corpo
+```bash
+'description' => 'Por conseguinte, o início da atividade geral de formação de atitudes causa impacto indireto na reavaliação dos métodos utilizados na avaliação de resultados. Evidentemente, o comprometimento entre as equipes talvez venha a ressaltar a relatividade da gestão inovadora da qual fazemos parte',
+'name' => 'Paraíso das Crianças',
+'telephone' => '21978498626',
+'email' => 'contato@paraisodascriancas.com',
+'pictures' => [
+  ['picture_name'=>'foto1.jpg'],
+  ['picture_name'=>'foto2.jpg']
+],
+'socials' => [
+  ['socials_name'=>'facebook', 'socials_url'=>'https://www.facebook.com/paraisodascriancas'],
+  ['socials_name'=>'instagram', 'socials_url'=>'https://www.instagram.com/paraisodascriancas']
+],
+'prices' => [
+  ['prices_title'=>'Passaporte Diário', 'prices_price'=>50],
+  ['prices_title'=>'1 hora', 'prices_price'=>20],
+],
+'times' => [
+  ['domingo' => '10:00-22:00'],
+  ['segunda' => '10:00-22:00'],
+  ['terca' => '10:00-22:00'],
+  ['quarta' => '10:00-22:00'],
+  ['quinta' => '10:00-22:00'],
+  ['sexta' => '10:00-22:00'],
+  ['sabado' => '10:00-22:00'],
+  ['feriado' => '10:00-22:00']
+],
+'commodities' => <array de IDs de comodidades>,                       
+'discounts' => <array de IDs de descontos>,                                
+'ages' => [5,6,7,8,9,10,11,12,13,14],
+'cep' => '21339825',
+'streetnum' => 'Rua Palmeirense Agostinho 388',
+'city' => 'Rio de Janeiro',
+'neighborhood' => 'Belford Roxo',
+'plus' => 'Casa 2',
+'state' => 'Rio de Janeiro',
+'country' => 'Brasil'
+```
+#### Cabeçalho
+```bash
+'content-type': 'application/json',
+'cookie': 'PHPSESSID=<cookie>'
+```
+#### Resposta
+- **200**
+  - Atualização(s) feita com sucesso.
+- **400**
+  - Não foi possível realizar sua atualização, revise seus dados e tente novamente.
+- **405**
+  - Tipo de parâmetro inválido.
+---
+### Listar (empresa)
+**GET** `/api/play/`
+#### Usuário
+Apenas usuários **empresa** fazem esta ação.
+#### Parâmetros da URL
+- `per_page`: quantidade de itens por página;
+- `page`: página;
+- `order_by`: name, grade, faves, visits;
+- `order_dir`: DESC, ASC;
+- `filters`: commodities, discounts, ages, active, cep, city, neighborhood, state, country.
+
+⚠️ **Todos são opcionais.**
+
+⚠️ **Padrão:**
+- `per_page`: 10;
+- `page`: 0;
+- `order_by`: name;
+- `order_dir`: ASC.
+
+#### Cabeçalho
+```bash
+  'content-type': 'application/json',
+  'cookie': 'PHPSESSID=<cookie>'
+```
+#### Resposta
+
+---
+### Deletar brinquedo
+**DELETE** `/api/play/<id>`
+#### Usuário
+Apenas usuários **empresa** fazem esta ação.
+#### Parâmetros da URL
+- `id`: informação do brinquedo que se deseja deletar.
+#### Cabeçalho
+```bash
+  'content-type': 'application/json',
+  'cookie': 'PHPSESSID=<cookie>'
+```
+#### Resposta
+
+---
+### Listar (cliente)
+**PUT** `/api/play/
+### Parâmetros da URL
+- `per_page`;
+- `page`;
+- `orderBy`: brin_name, brin_grade, brin_faves, brin_visits;
+- `orderDir`: DESC, ASC;
+- `filters`: commodities, discounts, ages, active, cep, city, neighborhood, state, country.
+#### Cabeçalho
+```bash
+  'content-type': 'application/json',
+  'cookie': 'PHPSESSID=<cookie>'
+```
+#### Resposta
+
+---
 ## Avaliação
 ### Criar
 **POST** `/api/feedback/<id>`
@@ -137,155 +314,6 @@ Apenas usuários **clientes** realizam esta ação.
 **GET** `/api/feedback/<id>.php`
 ### Parâmetros da URL
 - `id`: informação do brinquedo cujas avaliações desejam-se listar.
-#### Cabeçalho
-```bash
-  'content-type': 'application/json',
-  'cookie': 'PHPSESSID=<cookie>'
-```
-#### Resposta
-
----
-## Brinquedo
-### Criar
-**POST** `/api/play/`
-### Usuário
-Apenas usuários **empresa** fazem esta ação.
-#### Corpo
-```bash
-    'description' => 'Por conseguinte, o início da atividade geral de formação de atitudes causa impacto indireto na reavaliação dos métodos utilizados na avaliação de resultados. Evidentemente, o comprometimento entre as equipes talvez venha a ressaltar a relatividade da gestão inovadora da qual fazemos parte',
-    'cnpj' => '12345678000100',
-    'name' => 'Paraíso das Crianças',
-    'telephone' => '21978498626',
-    'email' => 'contato@paraisodascriancas.com',
-    'pictures' => [
-      ['picture_name'=>'foto1.jpg'],
-      ['picture_name'=>'foto2.jpg']
-    ],
-    'socials' => [
-      ['socials_name'=>'facebook', 'socials_url'=>'https://www.facebook.com/paraisodascriancas'],
-      ['socials_name'=>'instagram', 'socials_url'=>'https://www.instagram.com/paraisodascriancas']
-    ],
-    'prices' => [
-      ['prices_title'=>'Passaporte Diário', 'prices_price'=>50],
-      ['prices_title'=>'1 hora', 'prices_price'=>20],
-    ],
-    'times' => [
-      ['domingo' => '10:00-22:00'],
-      ['segunda' => '10:00-22:00'],
-      ['terca' => '10:00-22:00'],
-      ['quarta' => '10:00-22:00'],
-      ['quinta' => '10:00-22:00'],
-      ['sexta' => '10:00-22:00'],
-      ['sabado' => '10:00-22:00'],
-      ['feriado' => '10:00-22:00']
-    ],
-    'commodities' => [1,2,6,7],                           // consultar banco de dados
-    'discounts' => [4,5],                                 // consultar banco de dados
-    'ages' => [5,6,7,8,9,10,11,12,13,14],
-    'cep' => '21339825',
-    'streetnum' => 'Rua Palmeirense Agostinho 388',
-    'city' => 'Rio de Janeiro',
-    'neighborhood' => 'Belford Roxo',
-    'plus' => 'Casa 2',
-    'state' => 'Rio de Janeiro',
-    'country' => 'Brasil'
-```
-#### Cabeçalho
-```bash
-  'content-type': 'application/json',
-  'cookie': 'PHPSESSID=<cookie>'
-```
-#### Resposta
-
----
-### Atualizar
-**PUT** `/api/play/?params=<param>,<param>`
-### Parâmetros da URL
-- `params`
-  - description, name, telephone, email, pictures, socials, prices, times, commodities, discounts, ages, active, cep, streetnum, city, neighborhood, plus, state, country
-#### Corpo
-```bash
-    'description' => 'Por conseguinte, o início da atividade geral de formação de atitudes causa impacto indireto na reavaliação dos métodos utilizados na avaliação de resultados. Evidentemente, o comprometimento entre as equipes talvez venha a ressaltar a relatividade da gestão inovadora da qual fazemos parte',
-    'name' => 'Paraíso das Crianças',
-    'telephone' => '21978498626',
-    'email' => 'contato@paraisodascriancas.com',
-    'pictures' => [
-      ['picture_name'=>'foto1.jpg'],
-      ['picture_name'=>'foto2.jpg']
-    ],
-    'socials' => [
-      ['socials_name'=>'facebook', 'socials_url'=>'https://www.facebook.com/paraisodascriancas'],
-      ['socials_name'=>'instagram', 'socials_url'=>'https://www.instagram.com/paraisodascriancas']
-    ],
-    'prices' => [
-      ['prices_title'=>'Passaporte Diário', 'prices_price'=>50],
-      ['prices_title'=>'1 hora', 'prices_price'=>20],
-    ],
-    'times' => [
-      ['domingo' => '10:00-22:00'],
-      ['segunda' => '10:00-22:00'],
-      ['terca' => '10:00-22:00'],
-      ['quarta' => '10:00-22:00'],
-      ['quinta' => '10:00-22:00'],
-      ['sexta' => '10:00-22:00'],
-      ['sabado' => '10:00-22:00'],
-      ['feriado' => '10:00-22:00']
-    ],
-    'commodities' => [1,2,6,7],                           // consultar banco de dados
-    'discounts' => [4,5],                                 // consultar banco de dados
-    'ages' => [5,6,7,8,9,10,11,12,13,14],
-    'cep' => '21339825',
-    'streetnum' => 'Rua Palmeirense Agostinho 388',
-    'city' => 'Rio de Janeiro',
-    'neighborhood' => 'Belford Roxo',
-    'plus' => 'Casa 2',
-    'state' => 'Rio de Janeiro',
-    'country' => 'Brasil'
-```
-#### Cabeçalho
-```bash
-  'content-type': 'application/json',
-  'cookie': 'PHPSESSID=<cookie>'
-```
-#### Resposta
-
----
-### Listar (empresa)
-**GET** `/api/play/`
-### Parâmetros da URL
-- `per_page`;
-- `page`;
-- `orderBy`: brin_name, brin_grade, brin_faves, brin_visits;
-- `orderDir`: DESC, ASC;
-- `filters`: commodities, discounts, ages, active, cep, city, neighborhood, state, country.
-#### Cabeçalho
-```bash
-  'content-type': 'application/json',
-  'cookie': 'PHPSESSID=<cookie>'
-```
-#### Resposta
-
----
-### Deletar brinquedo
-**DELETE** `/api/play/<id>`
-### Parâmetros da URL
-- `id`: informação do brinquedo que se deseja deletar.
-#### Cabeçalho
-```bash
-  'content-type': 'application/json',
-  'cookie': 'PHPSESSID=<cookie>'
-```
-#### Resposta
-
----
-### Listar (cliente)
-**PUT** `/api/play/
-### Parâmetros da URL
-- `per_page`;
-- `page`;
-- `orderBy`: brin_name, brin_grade, brin_faves, brin_visits;
-- `orderDir`: DESC, ASC;
-- `filters`: commodities, discounts, ages, active, cep, city, neighborhood, state, country.
 #### Cabeçalho
 ```bash
   'content-type': 'application/json',
