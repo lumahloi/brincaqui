@@ -25,7 +25,7 @@ $delete_fav = db_delete(
   [$_SESSION['user_id'], $input_id]
 );
 
-if (!$delete_fav) {
+if ($delete_fav === false || $delete_fav === null) {
   response_format(400, "Não foi possível desfavoritar este brinquedo, tente novamente.");
 }
 
@@ -37,7 +37,7 @@ $update_favs = db_update(
   [$input_id],
 );
 
-if (!$update_favs) {
+if ($update_favs === false || $update_favs === null) {
   response_format(400, "Não foi possível favoritar este brinquedo, tente novamente.");
 }
 

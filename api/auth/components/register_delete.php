@@ -7,7 +7,9 @@ check_permission([1,2,3], $cookie);
 date_default_timezone_set('America/Sao_Paulo');
 $date = date('Y/m/d');
 
-if (!db_update('usuario', ['user_active', 'user_lastedit'], [0, $date], ['user_id'], $_SESSION['user_id'])) {
+$update = db_update('usuario', ['user_active', 'user_lastedit'], [0, $date], ['user_id'], $_SESSION['user_id']);
+
+if ($update == null || $update === false) {
   response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
 }
 

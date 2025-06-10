@@ -1,11 +1,5 @@
 <?php
-require_once "../../base_dir.php";
-require_once BASE_DIR . "/utils/load_env.php";
-load_env(BASE_DIR . '/.env');
-session_id(getenv('SESSION_ID'));
-session_start();
-
-$cookie = "PHPSESSID=" . session_id();
+require_once "test_auth_header.php";
 
 $data = [
   'description' => 'testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
@@ -33,10 +27,13 @@ $data = [
   ],
   'commodities' => [1],
   'discounts' => [1],
-  'ages' => [1]
+  'ages' => [1],
+  'active' => 0
 ];
 
-$ch = curl_init('http://localhost/brincaqui/api/play/4?params=description,name,telephone,email,pictures,socials,prices,times,commodities,discounts,ages,active');
+// ?params=description,name,telephone,email,pictures,socials,prices,times,commodities,discounts,ages,active
+
+$ch = curl_init('http://localhost/brincaqui/api/play/7?params=description,name,telephone,email,pictures,socials,prices,times,commodities,discounts,ages,active');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch, CURLOPT_HTTPHEADER, [

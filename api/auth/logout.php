@@ -3,7 +3,7 @@ session_start();
 require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/permission.php";
-check_permission([1,2,3], $cookie);
+require_once "./components/validation.php";
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':

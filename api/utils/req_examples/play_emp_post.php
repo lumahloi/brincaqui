@@ -1,11 +1,5 @@
 <?php
-require_once "../../base_dir.php";
-require_once BASE_DIR . "/utils/load_env.php";
-load_env(BASE_DIR . '/.env');
-session_id(getenv('SESSION_ID'));
-session_start();
-
-$cookie = "PHPSESSID=" . session_id();
+require_once "test_auth_header.php";
 
 $data = [
   'description' => 'Por conseguinte, o início da atividade geral de formação de atitudes causa impacto indireto na reavaliação dos métodos utilizados na avaliação de resultados. Evidentemente, o comprometimento entre as equipes talvez venha a ressaltar a relatividade da gestão inovadora da qual fazemos parte',
@@ -37,7 +31,14 @@ $data = [
   ],
   'commodities' => [1,2,6,7],
   'discounts' => [4,5],
-  'ages' => [5,6,7,8,9,10,11,12,13,14]
+  'ages' => [5,6,7,8,9,10,11,12,13,14],
+  'cep' => '21339825',
+  'streetnum' => 'Rua Palmeirense Agostinho 388',
+  'city' => 'Rio de Janeiro',
+  'neighborhood' => 'Belford Roxo',
+  'plus' => 'Casa 2',
+  'state' => 'Rio de Janeiro',
+  'country' => 'Brasil'
 ];
 
 $ch = curl_init('http://localhost/brincaqui/api/play/');

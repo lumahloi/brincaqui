@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 function check_permission($expected_types, $cookie)
 {

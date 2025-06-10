@@ -46,7 +46,7 @@ function db_insert_into(string $table, array $columns, array $values)
     $stmt->bindValue(":$col", $values[$index], PDO::PARAM_STR);
   }
 
-  if ($stmt->execute($values)) {
+  if ($stmt->execute()) {
     return $pdo->lastInsertId();
   }
 
@@ -152,10 +152,19 @@ function db_select_plays_by_user(int $perPage, int $page, string $orderBy, strin
   $pdo = DbConnection::connect();
   $offset = $page * $perPage;
 
-  $sql = "SELECT brinquedo.* 
-          FROM brincaqui.brinquedo 
-          JOIN brincaqui.endereco ON brinquedo.brin_id = endereco.Brinquedo_brin_id 
-          WHERE brinquedo.Usuario_user_id = :user_id";
+  $sql = "
+    SELECT brinquedo.*,
+      endereco.add_cep,
+      endereco.add_streetnum,
+      endereco.add_city,
+      endereco.add_neighborhood,
+      endereco.add_plus,
+      endereco.add_state,
+      endereco.add_country 
+    FROM brincaqui.brinquedo 
+    JOIN brincaqui.endereco ON brinquedo.brin_id = endereco.Brinquedo_brin_id 
+    WHERE brinquedo.Usuario_user_id = :user_id
+  ";
 
   $params = [':user_id' => $input_user_id];
   $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];

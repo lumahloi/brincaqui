@@ -7,8 +7,8 @@ $insert_play = db_insert_into(
   [$input_pictures, $input_socials, $input_description, $input_times, $input_commodities, $input_prices, $input_discounts, $input_telephone, $input_email, $input_name, $input_cnpj, $input_ages, $_SESSION['user_id'], 1]
 );
 
-if (!$insert_play) {
-  response_format(400, "Não foi possível cadastrar seu brinquedo, revise seus dados e tente novamente.");
+if ($insert_play === false || $insert_play === null) {
+  response_format(400, "Não foi possível cadastrar seu brinquedo, revise os dados sobre o brinquedo e tente novamente.");
 }
 
 $insert_add = db_insert_into(
@@ -17,8 +17,8 @@ $insert_add = db_insert_into(
   [$input_cep, $input_streetnum, $input_city, $input_neighborhood, $input_plus, $insert_play, $input_state, $input_country]
 );
 
-if (!$insert_add) {
-  response_format(400, "Não foi possível cadastrar seu brinquedo, revise seus dados e tente novamente.");
+if ($insert_add === false || $insert_add === null) {
+  response_format(400, "Não foi possível cadastrar seu brinquedo, revise os dados sobre o endereço e tente novamente.");
 }
 
 response_format(201, "Brinquedo criado com sucesso.");

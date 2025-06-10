@@ -13,20 +13,23 @@ $date = date('Y/m/d');
 foreach ($params as $param) {
   switch ($param) {
     case 'telephone':
-      if (!db_update('usuario', ['user_telephone', 'user_lastedit'], [$input_telephone, $date], ['user_id'], $_SESSION['user_id'])) {
+      $update = db_update('usuario', ['user_telephone', 'user_lastedit'], [$input_telephone, $date], ['user_id'], $_SESSION['user_id']);
+      if ($update === false || $update === null) {
         response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
       }
       break;
 
     case 'email':
-      if (!db_update('usuario', ['user_email', 'user_lastedit'], [$input_email, $date], ['user_id'], $_SESSION['user_id'])) {
+      $update = db_update('usuario', ['user_email', 'user_lastedit'], [$input_email, $date], ['user_id'], $_SESSION['user_id']);
+      if ($update === false || $update === null) {
         response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
       }
       break;
 
     case 'password':
       $hash = password_hash($input_password, PASSWORD_DEFAULT);
-      if (!db_update('usuario', ['user_password', 'user_lastedit'], [$hash, $date], ['user_id'], $_SESSION['user_id'])) {
+      $update = db_update('usuario', ['user_password', 'user_lastedit'], [$hash, $date], ['user_id'], $_SESSION['user_id']);
+      if ($update === false || $update === null) {
         response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
       }
       break;

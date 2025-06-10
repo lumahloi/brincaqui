@@ -28,7 +28,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       [$_SESSION['user_id'], $input_id, $input_description, $date, $input_g1, $input_g2, $input_g3, $input_g4, $input_g5, $input_g6]
     );
 
-    if (!$insert_fb) {
+    if ($insert_fb === false || $insert_fb === null) {
       response_format(400, "Não foi possível avaliar este brinquedo, revise seus dados e tente novamente.");
     }
 
@@ -40,7 +40,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       [$input_id]
     );
 
-    if (!$insert_grade) {
+    if ($insert_grade === false || $insert_fb === null) {
       response_format(400, "Não foi possível avaliar este brinquedo, revise seus dados e tente novamente.");
     }
 

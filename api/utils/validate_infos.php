@@ -202,12 +202,12 @@ function valid_cep($cep)
 {
   $sanitized = preg_replace('/\D/', '', $cep);
 
-  if (strlen($sanitized) > 10) {
-    response_format(400, "Seu CEP ultrapassa 11 caracteres.");
+  if (strlen($sanitized) > 8) {
+    response_format(400, "Seu CEP ultrapassa 8 caracteres.");
   }
 
-  if (strlen($sanitized) < 10) {
-    response_format(400, "Seu CEP tem menos que 11 caracteres.");
+  if (strlen($sanitized) < 8) {
+    response_format(400, "Seu CEP tem menos que 8 caracteres.");
   }
   
   return $sanitized;

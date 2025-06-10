@@ -1,14 +1,10 @@
 <?php
 $data = [
-    'fullname' => 'Maria Silva',
-    'email' => 'maria@email.com',
-    'telephone' => '11999990000',
-    'password' => '12345678',
-    'confirmPassword' => '12345678',
-    'userType' => 2
+  'email' => 'lumahcliente@gmail.com',
+  'password' => 'admin@123'
 ];
 
-$ch = curl_init('http://localhost/brincaqui/api/auth/register.php');
+$ch = curl_init('http://localhost/brincaqui/api/auth/login.php');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
