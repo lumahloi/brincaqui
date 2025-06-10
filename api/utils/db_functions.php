@@ -219,10 +219,20 @@ function db_select_all_active_plays(int $perPage, int $page, string $orderBy, st
   $pdo = DbConnection::connect();
   $offset = $page * $perPage;
 
-  $sql = "SELECT brinquedo.* 
-          FROM brincaqui.brinquedo 
-          JOIN brincaqui.endereco ON brinquedo.brin_id = endereco.Brinquedo_brin_id 
-          WHERE brin_active = 1";
+  $sql = "
+    SELECT 
+      brinquedo.*, 
+      endereco.add_cep,
+      endereco.add_streetnum,
+      endereco.add_city,
+      endereco.add_neighborhood,
+      endereco.add_plus,
+      endereco.add_state,
+      endereco.add_country
+    FROM brincaqui.brinquedo 
+    JOIN brincaqui.endereco ON brinquedo.brin_id = endereco.Brinquedo_brin_id 
+    WHERE brinquedo.brin_active = 1
+  ";
 
   $params = [];
   $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
@@ -280,12 +290,22 @@ function db_get_active_fav_user_plays(int $perPage, int $page, string $orderBy, 
   $params = [];
 
   $sql = "
-    SELECT b.* 
+    SELECT 
+      b.*, 
+      e.add_cep,
+      e.add_streetnum,
+      e.add_city,
+      e.add_neighborhood,
+      e.add_plus,
+      e.add_state,
+      e.add_country
     FROM brincaqui.brinquedo b
-    INNER JOIN brincaqui.favorito ub ON ub.Brinquedo_brin_id = b.brin_id
+    INNER JOIN brincaqui.favorito f ON f.Brinquedo_brin_id = b.brin_id
+    INNER JOIN brincaqui.endereco e ON e.Brinquedo_brin_id = b.brin_id
     WHERE b.brin_active = 1
-      AND ub.Usuario_user_id = :userId
+      AND f.Usuario_user_id = :userId
   ";
+
   $params[':userId'] = $userId;
 
   $jsonArrayColumns = ['brin_ages', 'brin_discounts', 'brin_commodities'];
@@ -300,6 +320,10 @@ function db_get_active_fav_user_plays(int $perPage, int $page, string $orderBy, 
         $sql .= " AND JSON_CONTAINS(b.$column, $param)";
         $params[$param] = json_encode((int) $val);
       }
+    } elseif (in_array($column, ['add_cep', 'add_city', 'add_neighborhood'])) {
+      $param = ":$column";
+      $sql .= " AND e.$column = $param";
+      $params[$param] = $value;
     } elseif (is_array($value)) {
       $placeholders = [];
       foreach ($value as $index => $val) {
