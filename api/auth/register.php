@@ -28,5 +28,5 @@ switch ($_SERVER['REQUEST_METHOD']) {
     break;
 
   default:
-    response_format(405, "Apenas POST, PUT e DELETE permitido.");
+    response_format(405, "Apenas POST, PUT e DELETE permitidos.");
 }

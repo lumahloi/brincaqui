@@ -10,7 +10,7 @@ $date = date('Y/m/d');
 $update = db_update('usuario', ['user_active', 'user_lastedit'], [0, $date], ['user_id'], $_SESSION['user_id']);
 
 if ($update == null || $update === false) {
-  response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
+  response_format(400, "Não foi possível realizar a deleção, revise seus dados e tente novamente.");
 }
 
 response_format(200, "Conta deletada com sucesso.");
