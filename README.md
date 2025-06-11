@@ -59,6 +59,6 @@ git push origin develop
 ```
 
 ## APIs
-Acesse a documentação completa clicando [aqui](./docs/apis.md).
+Acesse a documentação completa clicando [aqui](./docs/summary.md).
 
 ## Autores

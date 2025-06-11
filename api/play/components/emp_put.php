@@ -9,9 +9,7 @@ $params = valid_url_params();
 function update(string $table, array $columns_to_change, array $values_to_set, array $where_columns, string $where_value)
 {
   $update = db_update($table, $columns_to_change, $values_to_set, $where_columns, $where_value);
-  if ($update === false || $update === null) {
-    response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
-  }
+  not_null_or_false($update);
 }
 
 foreach ($params as $param) {

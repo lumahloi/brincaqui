@@ -6,12 +6,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $per_page = isset($_GET['per_page']) ? intval($_GET['per_page']) : 10;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
-    $allowedOrderColumns = ['brin_name', 'brin_grade', 'brin_faves', 'brin_visits'];
+    $allowedOrderColumns = ['name', 'grade', 'faves', 'visits'];
 
-    $orderBy = $_GET['order_by'] ?? 'brin_name';
+    $orderBy = $_GET['order_by'] ?? 'name';
     if (!in_array($orderBy, $allowedOrderColumns)) {
-      $orderBy = 'brin_name';
+      $orderBy = 'name';
     }
+    $orderBy = 'brin_' . $orderBy;
 
     $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'desc') ? 'DESC' : 'ASC';
 

@@ -15,9 +15,7 @@ $check_fav_exists = db_select_where(
   ['Usuario_user_id', 'Brinquedo_brin_id'], 
   [$_SESSION['user_id'], $input_id]);
 
-if($check_fav_exists === false || $check_fav_exists === null){
-  response_format(400, "Você já favoritou este brinquedo.");
-}
+not_null_or_false($check_fav_exists);
 
 $insert_play = db_insert_into(
   'favorito',
@@ -25,9 +23,7 @@ $insert_play = db_insert_into(
   [$_SESSION['user_id'], $input_id]
 );
 
-if ($insert_play === false || $insert_play == null) {
-  response_format(400, "Não foi possível favoritar este brinquedo, tente novamente.");
-}
+not_null_or_false($insert_play);
 
 $update_favs = db_update(
   'brinquedo',
@@ -37,8 +33,6 @@ $update_favs = db_update(
   [$input_id],
 );
 
-if ($update_favs === false || $update_favs === null) {
-  response_format(400, "Não foi possível favoritar este brinquedo, tente novamente.");
-}
+not_null_or_false($update_favs);
 
 response_format(201, "Brinquedo favoritado com sucesso.");

@@ -19,12 +19,12 @@ if (isset($data['cnpj'])) {
 
 if (isset($data['telephone'])) {
     $input_telephone = filter_var($data['telephone'], FILTER_SANITIZE_STRING);
-    valid_telephone($input_telephone);
+    valid_telephone_from_play($input_telephone);
 }
 
 if (isset($data['email'])) {
     $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-    valid_email($input_email);
+    valid_email_from_play($input_email);
 }
 
 if (isset($data['pictures'])) {

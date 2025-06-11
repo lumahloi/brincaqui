@@ -18,6 +18,11 @@ if (isset($data['email'])) {
   valid_email_characters($input_email);
 }
 
+if (isset($data['email']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+  $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+  valid_email($input_email);
+}
+
 if (isset($data['telephone'])) {
   $input_telephone = filter_var($data['telephone'], FILTER_SANITIZE_STRING);
   $input_telephone = valid_telephone($input_telephone);
@@ -33,9 +38,4 @@ if (isset($data['confirmPassword'])) {
   if (isset($input_password) && $input_password !== $input_confirm_password) {
     response_format(400, "As senhas não coincidem.");
   }
-}
-
-if (isset($_COOKIE['PHPSESSID'])) {
-  $cookie = filter_var($_COOKIE['PHPSESSID'], FILTER_SANITIZE_STRING);
-  check_permission([1,2,3], $cookie);
 }

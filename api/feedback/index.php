@@ -9,6 +9,10 @@ $uri = $_SERVER['REQUEST_URI'];
 $uri_parts = explode('/', trim($uri, '/'));
 $input_id = $uri_parts[3] ?? null;
 
+if (!$input_id) {
+  response_format(400, "ID do brinquedo não especificado.");
+}
+
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET':
     check_permission([1,2,3], $cookie);

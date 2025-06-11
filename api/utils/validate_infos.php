@@ -36,6 +36,21 @@ function valid_telephone($telephone)
   return $sanitized;
 }
 
+function valid_telephone_from_play($telephone)
+{
+  $sanitized = preg_replace('/\D/', '', $telephone);
+
+  if (strlen($sanitized) > 11) {
+    response_format(400, "Seu telefone ultrapassa 11 caracteres.");
+  }
+
+  if (strlen($sanitized) < 11) {
+    response_format(400, "Seu telefone tem menos que 11 caracteres.");
+  }
+
+  return $sanitized;
+}
+
 function valid_email($email)
 {
   if (strlen($email) > 40) {
@@ -49,6 +64,19 @@ function valid_email($email)
   }
   if (db_select_where(['user_id'], 'usuario', ['user_email'], [$email])) {
     response_format(400, "Já existe um usuário cadastrado com este e-mail.");
+  }
+}
+
+function valid_email_from_play($email)
+{
+  if (strlen($email) > 40) {
+    response_format(400, "Seu e-mail ultrapassa 40 caracteres.");
+  }
+  if (strlen($email) < 7) {
+    response_format(400, "Seu e-mail tem menos que 7 caracteres.");
+  }
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    response_format(400, "Insira um e-mail de formato válido.");
   }
 }
 
@@ -68,7 +96,7 @@ function valid_email_characters($email)
 function valid_password($password)
 {
   if (strlen($password) > 25) {
-    response_format(400, "Sua senha ultrapassa 32 caracteres.");
+    response_format(400, "Sua senha ultrapassa 25 caracteres.");
   }
   if (strlen($password) < 8) {
     response_format(400, "Sua senha tem menos que 8 caracteres.");
@@ -219,5 +247,12 @@ function valid_characters($min, $max, $var){
   }
   if (strlen($var) < $min) {
     response_format(400, "$var tem menos que $min caracteres.");
+  }
+}
+
+function not_null_or_false($var)
+{
+  if($var === null || $var === false){
+    return response_format(400, "Ocorreu um erro, por favor tente novamente mais tarde.");
   }
 }

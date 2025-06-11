@@ -18,9 +18,7 @@ $insert_visit = db_insert_into(
   [$_SESSION['user_id'], $input_id, $date]
 );
 
-if ($insert_visit === false || $insert_visit === null) {
-  response_format(400, "Não foi possível visitar este brinquedo, tente novamente.");
-}
+not_null_or_false($insert_visit);
 
 $update_visits = db_update(
   'brinquedo',
@@ -30,8 +28,6 @@ $update_visits = db_update(
   [$input_id],
 );
 
-if ($update_visits === false || $update_visits === null) {
-  response_format(400, "Não foi possível visitar este brinquedo, tente novamente.");
-}
+not_null_or_false($update_visits);
 
 response_format(201, "Visita marcada com sucesso.");
