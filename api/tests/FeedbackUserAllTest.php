@@ -1,5 +1,5 @@
 <?php
-<?php
+
 use PHPUnit\Framework\TestCase;
 
 class FeedbackUserAllTest extends TestCase
