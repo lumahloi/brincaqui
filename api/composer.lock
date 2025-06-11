@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05078300d1dad6e1d400b07c15a96592",
-    "packages": [],
+    "content-hash": "4c6c307e772cbfda4206f475adcc374a",
+    "packages": [
+        {
+            "name": "rector/jack",
+            "version": "0.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rectorphp/jack.git",
+                "reference": "fead492617e7f7dbe0a9a93cfe03d7b60a81de01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rectorphp/jack/zipball/fead492617e7f7dbe0a9a93cfe03d7b60a81de01",
+                "reference": "fead492617e7f7dbe0a9a93cfe03d7b60a81de01",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "bin": [
+                "bin/jack"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rector\\SwissKnife\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Swiss knife in pocket of every upgrade architect",
+            "support": {
+                "issues": "https://github.com/rectorphp/jack/issues",
+                "source": "https://github.com/rectorphp/jack/tree/0.2.3"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-06-01T13:44:41+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "myclabs/deep-copy",
