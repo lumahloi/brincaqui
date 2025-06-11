@@ -1,7 +1,7 @@
 <?php
 require_once BASE_DIR . "/utils/db_functions.php";
 
-$insert_play = db_insert_into(
+$insert_play = insertInto(
   'brinquedo',
   ['brin_pictures', 'brin_socials', 'brin_description', 'brin_times', 'brin_commodities', 'brin_prices', 'brin_discounts', 'brin_telephone', 'brin_email', 'brin_name', 'brin_cnpj', 'brin_ages', 'Usuario_user_id', 'brin_active'],
   [$input_pictures, $input_socials, $input_description, $input_times, $input_commodities, $input_prices, $input_discounts, $input_telephone, $input_email, $input_name, $input_cnpj, $input_ages, $_SESSION['user_id'], 1]
@@ -9,7 +9,7 @@ $insert_play = db_insert_into(
 
 not_null_or_false($insert_play);
 
-$insert_add = db_insert_into(
+$insert_add = insertInto(
   'endereco',
   ['add_cep', 'add_streetnum', 'add_city','add_neighborhood','add_plus','Brinquedo_brin_id','add_state','add_country'],
   [$input_cep, $input_streetnum, $input_city, $input_neighborhood, $input_plus, $insert_play, $input_state, $input_country]

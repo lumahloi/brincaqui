@@ -3,6 +3,6 @@
         "phpunit/phpunit": "^12.2"
     },
     "require": {
-        "rector/jack": "*"
+        "rector/jack": "^0.2.3"
     }
 }

@@ -13,7 +13,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     require_once "./components/validation.php";
 
-    $password_from_db = db_select_where(['user_password'], 'usuario', ['user_email'], [$input_email]);
+    $password_from_db = selectWhere(['user_password'], 'usuario', ['user_email'], [$input_email]);
 
     not_null_or_false($password_from_db);
 
@@ -21,7 +21,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       response_format(400, "Senha inválida.");
     }
 
-    $user_info = db_select_where(['user_id', 'user_type', 'user_name'], 'usuario', ['user_email', 'user_active'], [$input_email, 1]);
+    $user_info = selectWhere(['user_id', 'user_type', 'user_name'], 'usuario', ['user_email', 'user_active'], [$input_email, 1]);
 
     not_null_or_false($user_info);
 

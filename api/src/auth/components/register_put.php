@@ -13,18 +13,18 @@ $date = date('Y/m/d');
 foreach ($params as $param) {
   switch ($param) {
     case 'telephone':
-      $update = db_update('usuario', ['user_telephone', 'user_lastedit'], [$input_telephone, $date], ['user_id'], $_SESSION['user_id']);
+      $update = update('usuario', ['user_telephone', 'user_lastedit'], [$input_telephone, $date], ['user_id'], $_SESSION['user_id']);
       not_null_or_false($update);
       break;
 
     case 'email':
-      $update = db_update('usuario', ['user_email', 'user_lastedit'], [$input_email, $date], ['user_id'], $_SESSION['user_id']);
+      $update = update('usuario', ['user_email', 'user_lastedit'], [$input_email, $date], ['user_id'], $_SESSION['user_id']);
       not_null_or_false($update);
       break;
 
     case 'password':
       $hash = password_hash($input_password, PASSWORD_DEFAULT);
-      $update = db_update('usuario', ['user_password', 'user_lastedit'], [$hash, $date], ['user_id'], $_SESSION['user_id']);
+      $update = update('usuario', ['user_password', 'user_lastedit'], [$hash, $date], ['user_id'], $_SESSION['user_id']);
       not_null_or_false($update);
       break;
 

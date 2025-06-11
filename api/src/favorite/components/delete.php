@@ -9,7 +9,7 @@ if (!$input_id) {
   response_format(400, "ID do brinquedo não especificado.");
 }
 
-$check_fav_exists = db_select_where(
+$check_fav_exists = selectWhere(
   ['Usuario_user_id', 'Brinquedo_brin_id'], 
   'favorito', 
   ['Usuario_user_id', 'Brinquedo_brin_id'], 
@@ -17,7 +17,7 @@ $check_fav_exists = db_select_where(
 
 not_null_or_false($check_fav_exists);
 
-$delete_fav = db_delete(
+$delete_fav = delete(
   'favorito',
   ['Usuario_user_id', 'Brinquedo_brin_id'],
   [$_SESSION['user_id'], $input_id]
@@ -25,7 +25,7 @@ $delete_fav = db_delete(
 
 not_null_or_false($delete_fav);
 
-$update_favs = db_update(
+$update_favs = update(
   'brinquedo',
   ['brin_faves'],
   [db_get_total_faves_from_play($input_id)],

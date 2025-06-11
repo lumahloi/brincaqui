@@ -24,7 +24,14 @@ function valid_telephone($telephone, $isUser = null)
   $sanitized = preg_replace('/\D/', '', $telephone);
   valid_characters(11, 11, $sanitized);
   if ($isUser) {
-    if (selectWhere(['user_id'], 'usuario', ['user_telephone'], [$sanitized])) {
+    $db = new Database();
+    $result = $db->selectWhere(
+      ['user_id'], 
+      'usuario', 
+      ['user_telephone'], 
+      [$sanitized]
+    );
+    if ($result) {
       response_format(400, "Já existe um usuário cadastrado com este telefone.");
     }
   }
@@ -38,7 +45,14 @@ function valid_email($email, $isUser = null)
     response_format(400, "Insira um e-mail de formato válido.");
   }
   if ($isUser) {
-    if (selectWhere(['user_id'], 'usuario', ['user_email'], [$email])) {
+    $db = new Database();
+    $result = $db->selectWhere(
+      ['user_id'], 
+      'usuario', 
+      ['user_email'], 
+      [$email]
+    );
+    if ($result) {
       response_format(400, "Já existe um usuário cadastrado com este e-mail.");
     }
   }
@@ -51,7 +65,14 @@ function valid_password($password)
 
 function valid_user_type($userType)
 {
-  if (!selectWhere(['id'], 'tipousuario', ['id'], [$userType]) || $userType == 3) {
+  $db = new Database();
+  $result = $db->selectWhere(
+    ['id'], 
+    'tipousuario', 
+    ['id'], 
+    [$userType]
+  );
+  if (!$result || $userType == 3) {
     response_format(400, "Insira um tipo de usuário válido.");
   }
 }
@@ -145,7 +166,8 @@ function valid_url_params()
 
 function check_ownership($user_id, $brin_id)
 {
-  $user_id_from_db = selectWhere(['Usuario_user_id'], 'brinquedo', ['brin_id'], [$brin_id]);
+  $db = new Database();
+  $user_id_from_db = $db->selectWhere(['Usuario_user_id'], 'brinquedo', ['brin_id'], [$brin_id]);
   if ($user_id != $user_id_from_db['Usuario_user_id']) {
     response_format(400, "Você não é o dono deste brinquedo.");
   }
