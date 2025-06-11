@@ -16,11 +16,11 @@ if (!$input_id) {
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET':
     check_permission([1,2,3], $cookie);
-    require_once "./components/user_all.php"; 
+    require_once "./components/get.php"; 
     break;
   case 'POST':
     check_permission([1,3], $cookie);
-    require_once "./components/user_cli_only.php";
+    require_once "./components/post.php";
     break;
   default:
     response_format(400, "Sessão inválida, realize login e tente novamente.");

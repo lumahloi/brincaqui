@@ -16,6 +16,10 @@ require_once "./components/validation.php";
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
+    if (isset($data['email'])) {
+      $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+      valid_email($input_email, 1);
+    }
     require_once "./components/register_post.php";
     break;
 

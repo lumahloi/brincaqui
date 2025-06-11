@@ -13,16 +13,6 @@ if (isset($data['userType'])) {
   valid_user_type($input_user_type);
 }
 
-if (isset($data['email'])) {
-  $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-  valid_email_characters($input_email);
-}
-
-if (isset($data['email']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
-  $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-  valid_email($input_email);
-}
-
 if (isset($data['telephone'])) {
   $input_telephone = filter_var($data['telephone'], FILTER_SANITIZE_STRING);
   $input_telephone = valid_telephone($input_telephone);

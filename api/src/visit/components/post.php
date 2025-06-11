@@ -12,7 +12,8 @@ if (!$input_id) {
 date_default_timezone_set('America/Sao_Paulo');
 $date = date('Y/m/d');
 
-$insert_visit = insertInto(
+$db = new Database();
+$insert_visit = $db->insertInto(
   'visita',
   ['Usuario_user_id', 'Brinquedo_brin_id', 'visit_date'],
   [$_SESSION['user_id'], $input_id, $date]
@@ -20,10 +21,14 @@ $insert_visit = insertInto(
 
 not_null_or_false($insert_visit);
 
-$update_visits = update(
+$update_visits = $db->update(
   'brinquedo',
   ['brin_visits'],
-  [db_get_total_visits_from_play($input_id)],
+  [$db->getCount(
+    'visita',
+    'Brinquedo_brin_id',
+    $input_id
+  )],
   ['brin_id'],
   [$input_id],
 );

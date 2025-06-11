@@ -6,27 +6,37 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
 $allowedOrderColumns = ['brin_name', 'brin_grade', 'brin_faves', 'brin_visits'];
 
-$orderBy = $_GET['order_by'] ?? 'brin_name';
-if (!in_array($orderBy, $allowedOrderColumns)) {
-  $orderBy = 'brin_name';
+$orderBy = $_GET['order_by'] ?? 'name';
+if (!in_array("brin_$orderBy", $allowedOrderColumns)) {
+  $orderBy = 'name';
 }
+$orderBy = 'brin_' . $orderBy;
 
 $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'desc') ? 'DESC' : 'ASC';
 
 $filters = [];
+$whereClauses = ["Usuario_user_id = :user_id"];
+$filters[':user_id'] = $_SESSION['user_id'];
 
 if (isset($_GET['commodities'])) {
-  $filters['brin_commodities'] = $_GET['commodities'];
+  $whereClauses[] = "brin_commodities = :commodities";
+  $filters[':commodities'] = $_GET['commodities'];
 }
 
 if (isset($_GET['discounts'])) {
-  $filters['brin_discounts'] = $_GET['discounts'];
+  $whereClauses[] = "brin_discounts = :discounts";
+  $filters[':discounts'] = $_GET['discounts'];
 }
 
 if (isset($_GET['ages'])) {
-  $filters['brin_ages'] = $_GET['ages'];
+  $whereClauses[] = "brin_ages = :ages";
+  $filters[':ages'] = $_GET['ages'];
 }
 
-$results = db_get_active_fav_user_plays($per_page, $page, $orderBy, $orderDir, $filters);
+$whereSql = implode(" AND ", $whereClauses);
+$sql = "SELECT * FROM brincaqui.favorito WHERE $whereSql ORDER BY $orderBy $orderDir";
+
+$db = new Database();
+$results = $db->selectWithPagination($sql, $filters, $per_page, $page);
 
 response_format(200, "Informações extraídas com sucesso.", $results);

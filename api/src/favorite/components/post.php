@@ -9,7 +9,9 @@ if (!$input_id) {
   response_format(400, "ID do brinquedo não especificado.");
 }
 
-$check_fav_exists = selectWhere(
+$db = new Database();
+
+$check_fav_exists = $db->selectWhere(
   ['Usuario_user_id', 'Brinquedo_brin_id'], 
   'favorito', 
   ['Usuario_user_id', 'Brinquedo_brin_id'], 
@@ -17,7 +19,7 @@ $check_fav_exists = selectWhere(
 
 not_null_or_false($check_fav_exists);
 
-$insert_play = insertInto(
+$insert_play = $db->insertInto(
   'favorito',
   ['Usuario_user_id', 'Brinquedo_brin_id'],
   [$_SESSION['user_id'], $input_id]
@@ -25,10 +27,14 @@ $insert_play = insertInto(
 
 not_null_or_false($insert_play);
 
-$update_favs = update(
+$update_favs = $db->update(
   'brinquedo',
   ['brin_faves'],
-  [db_get_total_faves_from_play($input_id)],
+  [$db->getCount(
+    'favorito',
+    'Brinquedo_brin_id',
+    $input_id
+    )],
   ['brin_id'],
   [$input_id],
 );

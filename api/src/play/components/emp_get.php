@@ -4,10 +4,10 @@ require_once BASE_DIR . "/utils/db_functions.php";
 $per_page = isset($_GET['per_page']) ? intval($_GET['per_page']) : 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
-$allowedOrderColumns = ['name', 'grade', 'faves', 'visits'];
+$allowedOrderColumns = ['brin_name', 'brin_grade', 'brin_faves', 'brin_visits'];
 
 $orderBy = $_GET['order_by'] ?? 'name';
-if (!in_array($orderBy, $allowedOrderColumns)) {
+if (!in_array("brin_$orderBy", $allowedOrderColumns)) {
   $orderBy = 'name';
 }
 $orderBy = 'brin_' . $orderBy;
@@ -15,6 +15,8 @@ $orderBy = 'brin_' . $orderBy;
 $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'desc') ? 'DESC' : 'ASC';
 
 $filters = [];
+$whereClauses = ["Usuario_user_id = :user_id"];
+$filters[':user_id'] = $_SESSION['user_id'];
 
 if (isset($_GET['commodities'])) {
   $filters['brin_commodities'] = $_GET['commodities'];
@@ -52,6 +54,10 @@ if (isset($_GET['country'])) {
   $filters['add_country'] = $_GET['country'];
 }
 
-$results = db_select_plays_by_user($per_page, $page, $orderBy, $orderDir, $filters, $_SESSION['user_id']);
+$whereSql = implode(" AND ", $whereClauses);
+$sql = "SELECT * FROM brincaqui.brinquedo WHERE $whereSql ORDER BY $orderBy $orderDir";
+
+$db = new Database();
+$results = $db->selectWithPagination($sql, $filters, $per_page, $page);
 
 response_format(200, "Informações extraídas com sucesso.", $results);

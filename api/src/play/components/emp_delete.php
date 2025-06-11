@@ -8,10 +8,19 @@ if (!$input_id) {
 
 check_ownership($_SESSION['user_id'], $input_id);
 
-$delete = delete('endereco', ['Brinquedo_brin_id'], [$input_id]);
+$db = new Database();
+$delete = $db->delete(
+  'endereco', 
+  ['Brinquedo_brin_id'], 
+  [$input_id]
+);
 not_null_or_false($delete);
 
-$delete = delete('brinquedo', ['brin_id'], [$input_id]);
+$delete = $db->delete(
+  'brinquedo', 
+  ['brin_id'], 
+  [$input_id]
+);
 not_null_or_false($delete);
 
 

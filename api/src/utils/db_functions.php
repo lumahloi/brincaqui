@@ -143,26 +143,4 @@ class Database
     $stmt->execute([':val' => $value]);
     return (int) $stmt->fetchColumn();
   }
-
-  public function selectFeedbackFromPlay(int $playId, int $perPage, int $page): array
-  {
-    $offset = $page * $perPage;
-
-    $sql = "
-            SELECT a.*, u.user_name
-            FROM brincaqui.avaliacao a
-            INNER JOIN brincaqui.usuario u ON a.Usuario_user_id = u.user_id
-            WHERE a.Brinquedo_brin_id = :brin_id
-            ORDER BY a.aval_date DESC
-            LIMIT :limit OFFSET :offset
-        ";
-
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->bindValue(':brin_id', $playId, PDO::PARAM_INT);
-    $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
 }

@@ -23,25 +23,27 @@ if (!$input_id) {
 date_default_timezone_set('America/Sao_Paulo');
 $date = date('Y/m/d');
 
-
 require_once "validation.php";
 
-$insert_fb = insertInto(
+$db = new Database();
+
+$insert_fb = $db->insertInto(
   'avaliacao',
   ['Usuario_user_id', 'Brinquedo_brin_id', 'aval_description', 'aval_date', 'aval_grade_1', 'aval_grade_2', 'aval_grade_3', 'aval_grade_4', 'aval_grade_5', 'aval_grade_6'],
   [$_SESSION['user_id'], $input_id, $input_description, $date, $input_g1, $input_g2, $input_g3, $input_g4, $input_g5, $input_g6]
 );
 
-if ($insert_fb === false || $insert_fb === null) {
-  response_format(400, "Não foi possível avaliar este brinquedo, revise seus dados e tente novamente.");
-}
-
 not_null_or_false($insert_fb);
 
-$insert_grade = update(
+$insert_grade = $db->update(
   'brinquedo',
   ['brin_grade'],
-  [db_get_avg_from_play($input_id)],
+  [$db->getColumnAverage(
+    'avaliacao',
+    'aval_grade_1',
+    'Brinquedo_brin_id',
+    $input_id
+    )],
   ['brin_id'],
   [$input_id]
 );

@@ -6,10 +6,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $per_page = isset($_GET['per_page']) ? intval($_GET['per_page']) : 10;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
-    $allowedOrderColumns = ['name', 'grade', 'faves', 'visits'];
+    $allowedOrderColumns = ['brin_name', 'brin_grade', 'brin_faves', 'brin_visits'];
 
     $orderBy = $_GET['order_by'] ?? 'name';
-    if (!in_array($orderBy, $allowedOrderColumns)) {
+    if (!in_array("brin_$orderBy", $allowedOrderColumns)) {
       $orderBy = 'name';
     }
     $orderBy = 'brin_' . $orderBy;
@@ -50,7 +50,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
       $filters['add_country'] = $_GET['country'];
     }
 
-    $results = db_select_all_active_plays($per_page, $page, $orderBy, $orderDir, $filters);
+    $sql = "SELECT * FROM brincaqui.play ORDER BY $orderBy $orderDir";
+
+    $db = new Database();
+    $results = $db->selectWithPagination($sql, $filters, $per_page, $page);
 
     response_format(200, "Informações extraídas com sucesso.", $results);
     break;
