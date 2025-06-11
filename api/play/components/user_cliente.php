@@ -6,12 +6,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $per_page = isset($_GET['per_page']) ? intval($_GET['per_page']) : 10;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
-    $allowedOrderColumns = ['brin_name', 'brin_grade', 'brin_faves', 'brin_visits'];
+    $allowedOrderColumns = ['name', 'grade', 'faves', 'visits'];
 
-    $orderBy = $_GET['order_by'] ?? 'brin_name';
+    $orderBy = $_GET['order_by'] ?? 'name';
     if (!in_array($orderBy, $allowedOrderColumns)) {
-      $orderBy = 'brin_name';
+      $orderBy = 'name';
     }
+    $orderBy = 'brin_' . $orderBy;
 
     $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'desc') ? 'DESC' : 'ASC';
 
@@ -27,6 +28,26 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     if (isset($_GET['ages'])) {
       $filters['brin_ages'] = $_GET['ages'];
+    }
+
+    if (isset($_GET['cep'])) {
+      $filters['add_cep'] = $_GET['cep'];
+    }
+
+    if (isset($_GET['city'])) {
+      $filters['add_city'] = $_GET['city'];
+    }
+
+    if (isset($_GET['neighborhood'])) {
+      $filters['add_neighborhood'] = $_GET['neighborhood'];
+    }
+
+    if (isset($_GET['state'])) {
+      $filters['add_state'] = $_GET['state'];
+    }
+
+    if (isset($_GET['country'])) {
+      $filters['add_country'] = $_GET['country'];
     }
 
     $results = db_select_all_active_plays($per_page, $page, $orderBy, $orderDir, $filters);

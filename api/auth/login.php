@@ -15,11 +15,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     $password_from_db = db_select_where(['user_password'], 'usuario', ['user_email'], [$input_email]);
 
-    if (!$password_from_db || !password_verify($input_password, $password_from_db['user_password'])) {
+    not_null_or_false($password_from_db);
+
+    if (!password_verify($input_password, $password_from_db['user_password'])) {
       response_format(400, "Senha inválida.");
     }
 
     $user_info = db_select_where(['user_id', 'user_type', 'user_name'], 'usuario', ['user_email', 'user_active'], [$input_email, 1]);
+
+    not_null_or_false($user_info);
 
     $_SESSION["user_id"] = $user_info['user_id'];
     $_SESSION["user_type"] = $user_info['user_type'];

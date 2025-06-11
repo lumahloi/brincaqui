@@ -2,7 +2,7 @@
 session_start();
 require_once BASE_DIR . "/utils/db_functions.php";
 require_once BASE_DIR . "/utils/permission.php";
-check_permission([1, 2], $cookie);
+check_permission([1,2,3], $cookie);
 require_once BASE_DIR . "/utils/validate_infos.php";
 
 $params = valid_url_params();
@@ -13,22 +13,19 @@ $date = date('Y/m/d');
 foreach ($params as $param) {
   switch ($param) {
     case 'telephone':
-      if (!db_update('usuario', ['user_telephone', 'user_lastedit'], [$input_telephone, $date], ['user_id'], $_SESSION['user_id'])) {
-        response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
-      }
+      $update = db_update('usuario', ['user_telephone', 'user_lastedit'], [$input_telephone, $date], ['user_id'], $_SESSION['user_id']);
+      not_null_or_false($update);
       break;
 
     case 'email':
-      if (!db_update('usuario', ['user_email', 'user_lastedit'], [$input_email, $date], ['user_id'], $_SESSION['user_id'])) {
-        response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
-      }
+      $update = db_update('usuario', ['user_email', 'user_lastedit'], [$input_email, $date], ['user_id'], $_SESSION['user_id']);
+      not_null_or_false($update);
       break;
 
     case 'password':
       $hash = password_hash($input_password, PASSWORD_DEFAULT);
-      if (!db_update('usuario', ['user_password', 'user_lastedit'], [$hash, $date], ['user_id'], $_SESSION['user_id'])) {
-        response_format(400, "Não foi possível realizar sua atualização, revise seus dados e tente novamente.");
-      }
+      $update = db_update('usuario', ['user_password', 'user_lastedit'], [$hash, $date], ['user_id'], $_SESSION['user_id']);
+      not_null_or_false($update);
       break;
 
     default:

@@ -18,8 +18,16 @@ $insert_visit = db_insert_into(
   [$_SESSION['user_id'], $input_id, $date]
 );
 
-if (!$insert_visit) {
-  response_format(400, "Não foi possível visitar este brinquedo, tente novamente.");
-}
+not_null_or_false($insert_visit);
+
+$update_visits = db_update(
+  'brinquedo',
+  ['brin_visits'],
+  [db_get_total_visits_from_play($input_id)],
+  ['brin_id'],
+  [$input_id],
+);
+
+not_null_or_false($update_visits);
 
 response_format(201, "Visita marcada com sucesso.");

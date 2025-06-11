@@ -17,9 +17,21 @@ $input_commodities = null;
 $input_discounts = null;
 $input_ages = null;
 
+$input_cep = null;
+$input_streetnum = null;
+$input_city = null;
+$input_neighborhood = null;
+$input_plus = null;
+$input_state = null;
+$input_country = null;
+
 $uri = $_SERVER['REQUEST_URI'];
 $uri_parts = explode('/', trim($uri, '/'));
 $input_id = $uri_parts[3] ?? null;
+
+if (!$input_id) {
+  response_format(400, "ID do brinquedo não especificado.");
+}
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':

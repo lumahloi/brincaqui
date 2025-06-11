@@ -20,9 +20,10 @@ Atribua valor às variáveis do `.env`.
 - `DB_HOST`: nome do host;
 - `DB_NAME`: nome do banco de dados;
 - `DB_USER`: usuário do banco de dados;
-- `DB_PASSWORD`: senha do banco de dados.
+- `DB_PASSWORD`: senha do banco de dados;
+- `SESSION_ID`: string de sessão retornada ao realizar login, necessária para consumir a maioria das APIs.
 
-Em `localhost/phpmyadmin`, crie o banco de dados usando o script fornecido em `api/utils/database_scripts/create_database.sql`
+Em `localhost/phpmyadmin`, crie o banco de dados usando o script fornecido em `api/utils/create_database.sql`
 
 ## Rodando localmente
 - Jogue todo o conteúdo para a pasta `htdocs` do `xampp`.
@@ -58,6 +59,6 @@ git push origin develop
 ```
 
 ## APIs
-Acesse a documentação completa clicando [aqui](./docs/apis.md).
+Acesse a documentação completa clicando [aqui](./docs/summary.md).
 
 ## Autores

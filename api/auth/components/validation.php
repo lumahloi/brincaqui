@@ -1,6 +1,7 @@
 <?php
 require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/validate_infos.php";
+require_once BASE_DIR . "/utils/permission.php";
 
 if (isset($data['fullname'])) {
   $input_fullname = filter_var($data['fullname'], FILTER_SANITIZE_STRING);
@@ -15,6 +16,11 @@ if (isset($data['userType'])) {
 if (isset($data['email'])) {
   $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
   valid_email_characters($input_email);
+}
+
+if (isset($data['email']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+  $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+  valid_email($input_email);
 }
 
 if (isset($data['telephone'])) {
@@ -32,9 +38,4 @@ if (isset($data['confirmPassword'])) {
   if (isset($input_password) && $input_password !== $input_confirm_password) {
     response_format(400, "As senhas não coincidem.");
   }
-}
-
-if (isset($_COOKIE['PHPSESSID'])) {
-  $cookie = filter_var($_COOKIE['PHPSESSID'], FILTER_SANITIZE_STRING);
-  check_permission([1, 2], $cookie);
 }

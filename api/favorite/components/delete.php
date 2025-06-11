@@ -11,13 +11,11 @@ if (!$input_id) {
 
 $check_fav_exists = db_select_where(
   ['Usuario_user_id', 'Brinquedo_brin_id'], 
-  $favorito, 
+  'favorito', 
   ['Usuario_user_id', 'Brinquedo_brin_id'], 
   [$_SESSION['user_id'], $input_id]);
 
-if(!$check_fav_exists){
-  response_format(400, "Você não favoritou este brinquedo.");
-}
+not_null_or_false($check_fav_exists);
 
 $delete_fav = db_delete(
   'favorito',
@@ -25,8 +23,16 @@ $delete_fav = db_delete(
   [$_SESSION['user_id'], $input_id]
 );
 
-if (!$delete_fav) {
-  response_format(400, "Não foi possível desfavoritar este brinquedo, tente novamente.");
-}
+not_null_or_false($delete_fav);
 
-response_format(201, "Brinquedo favoritado com sucesso.");
+$update_favs = db_update(
+  'brinquedo',
+  ['brin_faves'],
+  [db_get_total_faves_from_play($input_id)],
+  ['brin_id'],
+  [$input_id],
+);
+
+not_null_or_false($update_favs);
+
+response_format(201, "Brinquedo desfavoritado com sucesso.");

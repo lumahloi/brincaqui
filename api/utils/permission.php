@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 function check_permission($expected_types, $cookie)
 {
@@ -7,7 +8,7 @@ function check_permission($expected_types, $cookie)
         response_format(403, "Acesso negado.");
     }
     if (!$cookie) {
-        response_format(400, "Cookie não encontrado.");
+        response_format(404, "Cookie não encontrado.");
 
     }
 }

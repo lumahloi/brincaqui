@@ -19,12 +19,12 @@ if (isset($data['cnpj'])) {
 
 if (isset($data['telephone'])) {
     $input_telephone = filter_var($data['telephone'], FILTER_SANITIZE_STRING);
-    valid_telephone($input_telephone);
+    valid_telephone_from_play($input_telephone);
 }
 
 if (isset($data['email'])) {
     $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-    valid_email($input_email);
+    valid_email_from_play($input_email);
 }
 
 if (isset($data['pictures'])) {
@@ -82,4 +82,39 @@ if (isset($data['ages'])) {
     valid_array($input_ages, 'ages');
     array_contains_numbers($input_ages);
     $input_ages = json_encode($input_ages);
+}
+
+if (isset($data['cep'])) {
+    $input_cep = filter_var($data['cep'], FILTER_SANITIZE_STRING);
+    $input_cep = valid_cep($input_cep);
+}
+
+if (isset($data['streetnum'])) {
+    $input_streetnum = filter_var($data['streetnum'], FILTER_SANITIZE_STRING);
+    valid_characters(10,60,$input_streetnum);
+}
+
+if (isset($data['city'])) {
+    $input_city = filter_var($data['city'], FILTER_SANITIZE_STRING);
+    valid_characters(5,58,$input_city);
+}
+
+if (isset($data['neighborhood'])) {
+    $input_neighborhood = filter_var($data['neighborhood'], FILTER_SANITIZE_STRING);
+    valid_characters(5,58,$input_neighborhood);
+}
+
+if (isset($data['plus'])) {
+    $input_plus = filter_var($data['plus'], FILTER_SANITIZE_STRING);
+    valid_characters(0,40,$input_plus);
+}
+
+if (isset($data['state'])) {
+    $input_state = filter_var($data['state'], FILTER_SANITIZE_STRING);
+    valid_characters(4,25,$input_state);
+}
+
+if (isset($data['country'])) {
+    $input_country = filter_var($data['country'], FILTER_SANITIZE_STRING);
+    valid_characters(1,41,$input_country);
 }
