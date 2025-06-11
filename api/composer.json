@@ -1,8 +1,0 @@
-{
-    "require-dev": {
-        "phpunit/phpunit": "^12.2"
-    },
-    "require": {
-        "rector/jack": "^0.2.3"
-    }
-}
