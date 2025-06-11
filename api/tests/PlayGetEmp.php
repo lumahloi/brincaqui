@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class EmpGetTest extends TestCase
+class EmpGet extends TestCase
 {
     private $loginUrl = 'http://localhost/brincaqui/api/auth/login.php';
     private $playUrl = 'http://localhost/brincaqui/api/play/1'; // O ID é necessário para acessar user_empresa.php

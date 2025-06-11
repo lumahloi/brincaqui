@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-class LogoutTest extends TestCase
+class Logout extends TestCase
 {
     private $url = 'http://localhost/brincaqui/api/auth/logout.php';
 

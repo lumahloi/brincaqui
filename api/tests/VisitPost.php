@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class VisitPostTest extends TestCase
+class VisitPost extends TestCase
 {
     private $loginUrl = 'http://localhost/brincaqui/api/auth/login.php';
     private $visitUrl = 'http://localhost/brincaqui/api/visit/'; // Exemplo: /visit/{id}

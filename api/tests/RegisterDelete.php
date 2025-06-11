@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class RegisterDeleteTest extends TestCase
+class RegisterDelete extends TestCase
 {
     private $loginUrl = 'http://localhost/brincaqui/api/auth/login.php';
     private $deleteUrl = 'http://localhost/brincaqui/api/auth/register.php';

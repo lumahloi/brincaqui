@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class EmpPostTest extends TestCase
+class EmpPost extends TestCase
 {
     private $loginUrl = 'http://localhost/brincaqui/api/auth/login.php';
     private $playUrl = 'http://localhost/brincaqui/api/play/1'; // O ID pode ser qualquer valor, pois será ignorado no POST

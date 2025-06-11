@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class FeedbackUserAllTest extends TestCase
+class FeedbackUserAll extends TestCase
 {
     private $urlBase = 'http://localhost/brincaqui/api/feedback/';
     

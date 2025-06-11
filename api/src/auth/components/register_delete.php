@@ -7,7 +7,8 @@ check_permission([1,2,3], $cookie);
 date_default_timezone_set('America/Sao_Paulo');
 $date = date('Y/m/d');
 
-$update = update('usuario', ['user_active', 'user_lastedit'], [0, $date], ['user_id'], $_SESSION['user_id']);
+$db = new Database();
+$update = $db->update('usuario', ['user_active', 'user_lastedit'], [0, $date], ['user_id'], $_SESSION['user_id']);
 
 not_null_or_false($update);
 

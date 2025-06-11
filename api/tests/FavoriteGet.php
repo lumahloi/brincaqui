@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class FavoriteGetTest extends TestCase
+class FavoriteGet extends TestCase
 {
     private $loginUrl = 'http://localhost/brincaqui/api/auth/login.php';
     private $favoriteUrl = 'http://localhost/brincaqui/api/favorite';

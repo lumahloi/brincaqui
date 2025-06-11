@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class FeedbackUserCliOnlyTest extends TestCase
+class FeedbackUserCliOnly extends TestCase
 {
     private $loginUrl = 'http://localhost/brincaqui/api/auth/login.php';
     private $feedbackUrl = 'http://localhost/brincaqui/api/feedback/'; // Exemplo: /feedback/{id}

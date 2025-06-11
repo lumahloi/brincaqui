@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class RegisterPutTest extends TestCase
+class RegisterPut extends TestCase
 {
     private $loginUrl = 'http://localhost/brincaqui/api/auth/login.php';
     private $putUrl = 'http://localhost/brincaqui/api/auth/register.php?params=telephone,email,password';

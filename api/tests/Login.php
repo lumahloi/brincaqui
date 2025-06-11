@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-class LoginTest extends TestCase
+class Login extends TestCase
 {
     private $url = 'http://localhost/brincaqui/api/auth/login.php';
 

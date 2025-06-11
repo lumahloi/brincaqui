@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class UserClienteTest extends TestCase
+class UserCliente extends TestCase
 {
     private $loginUrl = 'http://localhost/brincaqui/api/auth/login.php';
     private $playUrl = 'http://localhost/brincaqui/api/play';
