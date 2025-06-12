@@ -1,3 +1,10 @@
+$(document).ready(function () {
+  const userType = sessionStorage.getItem("user_type");
+  if (userType) {
+    $("#form-user-type").val(userType);
+  }
+});
+
 $("#form-submit").click(function () {
   var input_fullname = $("#form-fullname").val();
   var input_telephone = $("#form-telephone").val();
@@ -19,6 +26,7 @@ $("#form-submit").click(function () {
       userType: input_user_type,
     }),
     success: () => {
+      sessionStorage.removeItem("user_type");
       window.location = "login.php";
     },
     error: (xhr) => {
