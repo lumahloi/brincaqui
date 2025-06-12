@@ -9,22 +9,20 @@ $("#form-submit").click(function () {
   $.ajax({
     type: "POST",
     url: SERVER_URL + "auth/register.php",
-    data: {
-      input_fullname,
-      input_telephone,
-      input_email,
-      input_password,
-      input_confirm_password,
-      input_user_type,
+    contentType: "application/json",
+    data: JSON.stringify({
+      fullname: input_fullname,
+      telephone: input_telephone,
+      email: input_email,
+      password: input_password,
+      confirmPassword: input_confirm_password,
+      userType: input_user_type,
+    }),
+    success: () => {
+      window.location = "login.php";
     },
-    success: (response) => {
-      const modal = new bootstrap.Modal("#modal", {});
-      $("#modal-title").html("Deu tudo certo");
-      $("#modal-body").html(response);
-      modal.show();
-    },
-    error: (response) => {
-      error_validation(response);
+    error: (xhr) => {
+      error_validation(xhr);
     },
   });
 });

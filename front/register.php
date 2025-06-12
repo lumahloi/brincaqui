@@ -13,12 +13,12 @@ require_once BASE_DIR . "/components/header.php";
       <input type="text" class="form-control" id="form-fullname" placeholder="Seu nome completo">
     </div>
     <div class="mb-3">
-      <label for="form-telephone" class="form-label">Telefone</label>
-      <input type="text" class="form-control" id="form-telephone" placeholder="Seu telefone">
-    </div>
-    <div class="mb-3">
       <label for="form-email" class="form-label">E-mail</label>
       <input type="text" class="form-control" id="form-email" placeholder="Seu melhor e-mail">
+    </div>
+    <div class="mb-3">
+      <label for="form-telephone" class="form-label">Telefone</label>
+      <input type="text" class="form-control" id="form-telephone" placeholder="Seu telefone">
     </div>
     <div class="mb-3">
       <label for="form-password" class="form-label">Senha</label>
@@ -28,7 +28,7 @@ require_once BASE_DIR . "/components/header.php";
       <label for="form-confirm-password" class="form-label">Confirme sua senha</label>
       <input type="text" class="form-control" id="form-confirm-password" placeholder="Confirme sua senha">
     </div>
-    <div class="mb-3">
+    <div class="mb-3 d-none">
       <label for="form-user-type" class="form-label">Tipo de usuário</label>
       <input type="text" class="form-control" id="form-user-type" disabled readonly>
     </div>
