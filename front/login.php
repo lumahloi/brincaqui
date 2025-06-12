@@ -1,0 +1,31 @@
+<?php
+require_once "base_dir.php";
+require_once BASE_DIR . "/components/header.php";
+?>
+
+</head>
+
+<body>
+  <form>
+    <div class="mb-3">
+      <label for="form-email" class="form-label">E-mail</label>
+      <input type="text" class="form-control" id="form-email" placeholder="Seu melhor e-mail">
+    </div>
+    <div class="mb-3">
+      <label for="form-password" class="form-label">Senha</label>
+      <input type="text" class="form-control" id="form-password" placeholder="Sua senha">
+    </div>
+    <div class="mb-3">
+      <button type="button" class="btn btn-primary form-control" id="form-submit">Entrar</button>
+    </div>
+    <div class="mb-3">
+      <p><a href="initialPage.php">Não tenho uma conta</a></p>
+    </div>
+  </form>
+
+  <?php require_once BASE_DIR . "/components/modal.php"; ?>
+  <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
+  <script src="<?php echo BASE_URL ?>/scripts/apiLogin.js"></script>
+</body>
+
+</html>

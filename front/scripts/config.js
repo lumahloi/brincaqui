@@ -1,0 +1,1 @@
+const SERVER_URL = "http://localhost/brincaqui/api/src/";
