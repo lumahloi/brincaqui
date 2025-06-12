@@ -12,7 +12,6 @@ $("#form-submit").click(function () {
     }),
     success: () => {
       window.location = "index.php";
-      sessionStorage.removeItem("user_type");
     },
     error: (xhr) => {
       error_validation(xhr);
