@@ -2,27 +2,27 @@
 require_once BASE_DIR . "/utils/response_format.php";
 require_once BASE_DIR . "/utils/db_functions.php";
 
-function valid_characters($min, $max, $var)
+function valid_characters($min, $max, $value, $field_name)
 {
-  if (strlen($var) > $max) {
-    response_format(400, "$var ultrapassa $max caracteres.");
+  if (strlen($value) > $max) {
+    response_format(400, "O campo '$field_name' ultrapassa $max caracteres.");
   }
-  if (strlen($var) < $min) {
-    response_format(400, "$var tem menos que $min caracteres.");
+  if (strlen($value) < $min) {
+    response_format(400, "O campo '$field_name' precisa ter no mínimo $min caracteres.");
   }
 }
 
 function valid_fullname($fullname)
 {
   $sanitized = preg_replace('/[^a-zA-ZÀ-ÿ\s]/u', '', $fullname);
-  valid_characters(5, 45, $sanitized);
+  valid_characters(5, 45, $sanitized, 'Nome completo');
   return $sanitized;
 }
 
 function valid_telephone($telephone, $isUser = null)
 {
   $sanitized = preg_replace('/\D/', '', $telephone);
-  valid_characters(11, 11, $sanitized);
+  valid_characters(11, 11, $sanitized, 'Telefone');
   if ($isUser) {
     $db = new Database();
     $result = $db->selectWhere(
@@ -40,7 +40,7 @@ function valid_telephone($telephone, $isUser = null)
 
 function valid_email($email, $isUser = null)
 {
-  valid_characters(7, 40, $email);
+  valid_characters(7, 40, $email, 'E-mail');
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     response_format(400, "Insira um e-mail de formato válido.");
   }
@@ -60,7 +60,7 @@ function valid_email($email, $isUser = null)
 
 function valid_password($password)
 {
-  valid_characters(8, 25, $password);
+  valid_characters(8, 25, $password, 'Senha');
 }
 
 function valid_user_type($userType)
@@ -79,13 +79,13 @@ function valid_user_type($userType)
 
 function valid_description($description)
 {
-  valid_characters(200, 2000, $description);
+  valid_characters(200, 2000, $description, 'Descrição');
 }
 
 function valid_cnpj($cnpj)
 {
   $sanitized = preg_replace('/\D/', '', $cnpj);
-  valid_characters(14, 14, $sanitized);
+  valid_characters(14, 14, $sanitized, 'CNPJ');
   return $sanitized;
 }
 
@@ -149,7 +149,7 @@ function array_contains_numbers($array)
 
 function valid_play_name($name)
 {
-  valid_characters(5, 45, $name);
+  valid_characters(5, 45, $name, 'Nome');
 }
 
 function valid_url_params()
@@ -176,7 +176,7 @@ function check_ownership($user_id, $brin_id)
 function valid_cep($cep)
 {
   $sanitized = preg_replace('/\D/', '', $cep);
-  valid_characters(8, 8, $sanitized);
+  valid_characters(8, 8, $sanitized, 'CEP');
   return $sanitized;
 }
 

@@ -3,7 +3,7 @@ require_once BASE_DIR . "/utils/validate_infos.php";
 
 if (isset($data['description'])) {
   $input_description = filter_var($data['description'], FILTER_SANITIZE_STRING);
-  valid_characters(10, 200, $input_description);
+  valid_characters(10, 200, $input_description, 'Descrição');
 }
 
 if (isset($data['grade_1'])) {

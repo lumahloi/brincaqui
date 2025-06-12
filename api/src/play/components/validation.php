@@ -91,30 +91,30 @@ if (isset($data['cep'])) {
 
 if (isset($data['streetnum'])) {
     $input_streetnum = filter_var($data['streetnum'], FILTER_SANITIZE_STRING);
-    valid_characters(10,60,$input_streetnum);
+    valid_characters(10,60,$input_streetnum, 'Endereço');
 }
 
 if (isset($data['city'])) {
     $input_city = filter_var($data['city'], FILTER_SANITIZE_STRING);
-    valid_characters(5,58,$input_city);
+    valid_characters(5,58,$input_city, 'Cidade');
 }
 
 if (isset($data['neighborhood'])) {
     $input_neighborhood = filter_var($data['neighborhood'], FILTER_SANITIZE_STRING);
-    valid_characters(5,58,$input_neighborhood);
+    valid_characters(5,58,$input_neighborhood, 'Bairro');
 }
 
 if (isset($data['plus'])) {
     $input_plus = filter_var($data['plus'], FILTER_SANITIZE_STRING);
-    valid_characters(0,40,$input_plus);
+    valid_characters(0,40,$input_plus, 'Complemento');
 }
 
 if (isset($data['state'])) {
     $input_state = filter_var($data['state'], FILTER_SANITIZE_STRING);
-    valid_characters(4,25,$input_state);
+    valid_characters(4,25,$input_state, 'Estado');
 }
 
 if (isset($data['country'])) {
     $input_country = filter_var($data['country'], FILTER_SANITIZE_STRING);
-    valid_characters(1,41,$input_country);
+    valid_characters(1,41,$input_country, 'País');
 }

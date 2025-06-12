@@ -1,22 +1,23 @@
 <?php
 require_once BASE_DIR . "/utils/db_functions.php";
 
-$campos_obrigatorios = [
-  'Nome completo' => $input_fullname,
-  'Telefone' => $input_telephone,
-  'E-mail' => $input_email,
-  'Senha' => $input_password,
-  'Confirmação de senha' => $input_confirm_password,
-  'Tipo de usuário' => $input_user_type,
-];
-
-foreach ($campos_obrigatorios as $nome => $valor) {
-  if (empty($valor)) {
-    response_format(400, "O campo '{$nome}' é obrigatório.");
-  }
-}
 
 try {
+  $campos_obrigatorios = [
+    'Nome completo' => $input_fullname,
+    'Telefone' => $input_telephone,
+    'E-mail' => $input_email,
+    'Senha' => $input_password,
+    'Confirmação de senha' => $input_confirm_password,
+    'Tipo de usuário' => $input_user_type,
+  ];
+
+  foreach ($campos_obrigatorios as $nome => $valor) {
+    if (empty($valor)) {
+      response_format(400, "O campo '{$nome}' é obrigatório.");
+    }
+  }
+  
   $hash = password_hash($input_password, PASSWORD_DEFAULT);
 
   date_default_timezone_set('America/Sao_Paulo');
