@@ -276,8 +276,8 @@ INSERT INTO
 VALUES
   (
     'Admin',
-    '21973656922',
-    'admin@gmail.com',
+    '00000000000',
+    'admin@email.com',
     '$2y$12$WezFUYlkBAwUvXVdAGtAxusFsDhARODBw65kPDCy2w2TEI9t3E21.',
     3,
     1,
