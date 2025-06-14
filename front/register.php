@@ -23,7 +23,7 @@ require_once BASE_DIR . "/components/header.php";
       <div class="input-group">
         <input type="password" class="form-control" id="form-password" placeholder="********">
         <span class="input-group-text">
-          <i class="bi bi-eye"></i>
+          <i class="bi bi-eye toggle-password" data-target="#form-password"></i>
         </span>
       </div>
     </div>
@@ -32,7 +32,7 @@ require_once BASE_DIR . "/components/header.php";
       <div class="input-group">
         <input type="password" class="form-control" id="form-confirm-password" placeholder="********">
         <span class="input-group-text">
-          <i class="bi bi-eye"></i>
+          <i class="bi bi-eye toggle-password" data-target="#form-confirm-password"></i>
         </span>
       </div>
     </div>
@@ -46,6 +46,7 @@ require_once BASE_DIR . "/components/header.php";
 
   <?php require_once BASE_DIR . "/components/modal.php"; ?>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
+  <script src="<?php echo BASE_URL ?>/scripts/togglePassword.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiRegister.js"></script>
 </body>
 
