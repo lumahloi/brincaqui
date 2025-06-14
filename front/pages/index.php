@@ -1,5 +1,5 @@
 <?php
-require_once "base_dir.php";
+require_once "../base_dir.php";
 require_once BASE_DIR . "/components/header.php";
 ?>
 </head>
@@ -13,11 +13,11 @@ require_once BASE_DIR . "/components/header.php";
     <button type="button" class="btn btn-primary" id="btn-register-type2">Empresa</button>
   </div>
   <div class="mb-3">
-    <p><a href="./login.php">Já tenho uma conta</a></p>
+    <p><a href="login">Já tenho uma conta</a></p>
   </div>
 </div>
 <?php require_once BASE_DIR . "/components/modal.php"; ?>
-<script src="<?php echo BASE_URL ?>/scripts/initialPage.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/registerRedirect.js"></script>
 </body>
 
 </html>

@@ -52,7 +52,7 @@ try {
         $filters['add_country'] = $_GET['country'];
       }
   
-      $sql = "SELECT * FROM brincaqui.play ORDER BY $orderBy $orderDir";
+      $sql = "SELECT * FROM brincaqui.brinquedo ORDER BY $orderBy $orderDir";
   
       $db = new Database();
       $results = $db->selectWithPagination($sql, $filters, $per_page, $page);

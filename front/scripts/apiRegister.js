@@ -3,16 +3,18 @@ $(document).ready(function () {
   if (userType) {
     $("#form-user-type").val(userType);
   }
+  $("#form-telephone").inputmask('(99) 99999-9999');
 });
 
 $("#form-submit").click(function () {
+  event.preventDefault();
   var input_fullname = $("#form-fullname").val();
   var input_telephone = $("#form-telephone").val();
   var input_email = $("#form-email").val();
   var input_password = $("#form-password").val();
   var input_confirm_password = $("#form-confirm-password").val();
   var input_user_type = $("#form-user-type").val();
-
+  
   $.ajax({
     type: "POST",
     url: SERVER_URL + "auth/register.php",
@@ -27,7 +29,7 @@ $("#form-submit").click(function () {
     }),
     success: () => {
       sessionStorage.removeItem("user_type");
-      window.location = "login.php";
+      window.location = "login";
     },
     error: (xhr) => {
       error_validation(xhr);
