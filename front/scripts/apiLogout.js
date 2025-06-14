@@ -8,7 +8,7 @@ $(document).ready(function () {
     //   password: input_password
     // }),
     success: () => {
-      window.location = "index.php";
+      window.location = "index";
     },
     error: (xhr) => {
       error_validation(xhr);

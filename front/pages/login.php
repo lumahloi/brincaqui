@@ -1,5 +1,5 @@
 <?php
-require_once "base_dir.php";
+require_once "../base_dir.php";
 require_once BASE_DIR . "/components/header.php";
 ?>
 
@@ -24,7 +24,7 @@ require_once BASE_DIR . "/components/header.php";
       <button type="button" class="btn btn-primary form-control" id="form-submit">Entrar</button>
     </div>
     <div class="mb-3">
-      <p><a href="initialPage.php">Não tenho uma conta</a></p>
+      <p><a href="index">Não tenho uma conta</a></p>
     </div>
   </form>
 

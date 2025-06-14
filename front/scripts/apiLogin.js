@@ -1,4 +1,5 @@
-$("#form-submit").click(function () {
+$("#form-submit").click(function (event) {
+  event.preventDefault();
   var input_email = $("#form-email").val();
   var input_password = $("#form-password").val();
 
@@ -11,7 +12,7 @@ $("#form-submit").click(function () {
       password: input_password
     }),
     success: () => {
-      window.location = "index.php";
+      window.location = "feed";
     },
     error: (xhr) => {
       error_validation(xhr);
