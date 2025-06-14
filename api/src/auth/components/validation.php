@@ -28,4 +28,8 @@ if (isset($data['confirmPassword'])) {
   if (isset($input_password) && $input_password !== $input_confirm_password) {
     response_format(400, "As senhas não coincidem.");
   }
+  $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/';
+  if (!preg_match($regex, $input_password)) {
+    response_format(400, "A senha deve ter pelo menos 8 caracteres, incluir letras maiúsculas, minúsculas e números.");
+  }
 }
