@@ -26,15 +26,15 @@ CREATE TABLE
     brin_grade FLOAT,
     brin_socials JSON,
     brin_description TEXT,
-    brin_times JSON NOT NULL,
-    brin_commodities JSON NOT NULL,
-    brin_prices JSON NOT NULL,
-    brin_discounts JSON NOT NULL,
-    brin_telephone VARCHAR(11) NOT NULL,
-    brin_email VARCHAR(25) NOT NULL,
-    brin_name VARCHAR(45) NOT NULL,
+    brin_times JSON,
+    brin_commodities JSON,
+    brin_prices JSON,
+    brin_discounts JSON,
+    brin_telephone VARCHAR(11),
+    brin_email VARCHAR(25),
+    brin_name VARCHAR(45),
     brin_cnpj VARCHAR(14),
-    brin_ages JSON NOT NULL,
+    brin_ages JSON,
     Usuario_user_id INT NOT NULL,
     brin_faves INT,
     brin_visits INT,
@@ -261,26 +261,3 @@ VALUES
     1,
     CURDATE()
   );
-
--- INSERT INTO
---   Usuario (
---     user_name,
---     user_telephone,
---     user_email,
---     user_password,
---     user_type,
---     user_active,
---     user_creation,
---     user_lastedit
---   )
--- VALUES
---   (
---     'Admin',
---     '00000000000',
---     'admin@email.com',
---     '$2y$12$WezFUYlkBAwUvXVdAGtAxusFsDhARODBw65kPDCy2w2TEI9t3E21.',
---     3,
---     1,
---     CURDATE(),
---     CURDATE()
---   );
