@@ -35,7 +35,6 @@ require_once BASE_DIR . "/components/header.php";
   </form>
 
   <?php require_once BASE_DIR . "/components/modal.php"; ?>
-  <script src="<?php echo BASE_URL ?>/scripts/formMask.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiRegister.js"></script>
 </body>

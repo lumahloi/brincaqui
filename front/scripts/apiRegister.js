@@ -3,6 +3,7 @@ $(document).ready(function () {
   if (userType) {
     $("#form-user-type").val(userType);
   }
+  $("#form-telephone").inputmask('(99) 99999-9999');
 });
 
 $("#form-submit").click(function () {
