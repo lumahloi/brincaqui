@@ -262,25 +262,25 @@ VALUES
     CURDATE()
   );
 
-INSERT INTO
-  Usuario (
-    user_name,
-    user_telephone,
-    user_email,
-    user_password,
-    user_type,
-    user_active,
-    user_creation,
-    user_lastedit
-  )
-VALUES
-  (
-    'Admin',
-    '00000000000',
-    'admin@email.com',
-    '$2y$12$WezFUYlkBAwUvXVdAGtAxusFsDhARODBw65kPDCy2w2TEI9t3E21.',
-    3,
-    1,
-    CURDATE(),
-    CURDATE()
-  );
+-- INSERT INTO
+--   Usuario (
+--     user_name,
+--     user_telephone,
+--     user_email,
+--     user_password,
+--     user_type,
+--     user_active,
+--     user_creation,
+--     user_lastedit
+--   )
+-- VALUES
+--   (
+--     'Admin',
+--     '00000000000',
+--     'admin@email.com',
+--     '$2y$12$WezFUYlkBAwUvXVdAGtAxusFsDhARODBw65kPDCy2w2TEI9t3E21.',
+--     3,
+--     1,
+--     CURDATE(),
+--     CURDATE()
+--   );
