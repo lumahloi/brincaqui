@@ -13,7 +13,12 @@ require_once BASE_DIR . "/components/header.php";
     </div>
     <div class="mb-3">
       <label for="form-password" class="form-label">Senha</label>
-      <input type="password" class="form-control" id="form-password" placeholder="********">
+      <div class="input-group">
+        <input type="password" class="form-control" id="form-password" placeholder="********">
+        <span class="input-group-text">
+          <i class="bi bi-eye"></i>
+        </span>
+      </div>
     </div>
     <div class="mb-3">
       <button type="button" class="btn btn-primary form-control" id="form-submit">Entrar</button>

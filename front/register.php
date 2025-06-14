@@ -20,11 +20,21 @@ require_once BASE_DIR . "/components/header.php";
     </div>
     <div class="mb-3">
       <label for="form-password" class="form-label">Senha</label>
-      <input type="password" class="form-control" id="form-password" placeholder="********">
+      <div class="input-group">
+        <input type="password" class="form-control" id="form-password" placeholder="********">
+        <span class="input-group-text">
+          <i class="bi bi-eye"></i>
+        </span>
+      </div>
     </div>
     <div class="mb-3">
       <label for="form-confirm-password" class="form-label">Confirme sua senha</label>
-      <input type="password" class="form-control" id="form-confirm-password" placeholder="********">
+      <div class="input-group">
+        <input type="password" class="form-control" id="form-confirm-password" placeholder="********">
+        <span class="input-group-text">
+          <i class="bi bi-eye"></i>
+        </span>
+      </div>
     </div>
     <div class="mb-3 d-none">
       <input type="text" class="form-control" id="form-user-type" disabled readonly>
@@ -38,4 +48,5 @@ require_once BASE_DIR . "/components/header.php";
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiRegister.js"></script>
 </body>
+
 </html>
