@@ -2,17 +2,14 @@ $("#form-filters").submit(function (event) {
   event.preventDefault();
 
   const params = {};
-  $(this).serializeArray().forEach(({ name, value }) => {
-    if (value && name !== 'address') params[name] = value;
-  });
-
-  if (!params.latitude || !params.longitude) {
-    alert("Por favor, selecione um endereço válido usando o campo de busca.");
-    return;
-  }
+  $(this)
+    .serializeArray()
+    .forEach(({ name, value }) => {
+      if (value && name !== "address") params[name] = value;
+    });
 
   if (!params.order_by) {
-    params.order_by = 'distance';
+    params.order_by = "distance";
   }
 
   $.ajax({
@@ -24,29 +21,27 @@ $("#form-filters").submit(function (event) {
       container.empty();
 
       if (!response.return || response.return.length === 0) {
-        container.html("<p class='text-muted'>Nenhum resultado encontrado.</p>");
+        container.html(
+          "<p class='text-muted'>Nenhum resultado encontrado.</p>"
+        );
         return;
       }
 
       response.return.forEach(function (item) {
         $.get("front/components/playCard.html", function (template) {
           let $card = $(template);
+
           $card.find("#play-name").text(item.brin_name);
           $card.find("#play-pictures").text(item.brin_pictures);
           $card.find("#play-grade").text(item.brin_grade);
-          $card.find("#play-socials").text(item.brin_socials);
-          $card.find("#play-description").text(item.brin_description);
-          $card.find("#play-times").text(item.brin_times);
           $card.find("#play-commodities").text(item.brin_commodities);
-          $card.find("#play-prices").text(item.brin_prices);
           $card.find("#play-discounts").text(item.brin_discounts);
-          $card.find("#play-telephone").text(item.brin_telephone);
-          $card.find("#play-email").text(item.brin_email);
-          $card.find("#play-cnpj").text(item.brin_cnpj);
           $card.find("#play-ages").text(item.brin_ages);
-          $card.find("#play-owner").text(item.Usuario_user_id);
-          $card.find("#play-faves").text(item.brin_faves);
-          $card.find("#play-visits").text(item.brin_visits);
+          $card.find("#play-streetnum").text(item.add_streetnum);
+          $card.find("#play-city").text(item.add_city);
+          $card.find("#play-neighborhood").text(item.add_neighborhood);
+          $card.find("#play-plus").text(item.add_plus || "—");
+
           container.append($card);
         });
       });

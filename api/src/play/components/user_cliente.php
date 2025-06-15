@@ -10,7 +10,7 @@ try {
 
       $lat = floatval($_GET['latitude']);
       $lng = floatval($_GET['longitude']);
-      
+
       $per_page = isset($_GET['per_page']) ? intval($_GET['per_page']) : 10;
       $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
@@ -30,21 +30,21 @@ try {
 
       $whereClauses = [];
       $sqlParams = [];
-      
+
       $joinClause = 'JOIN Endereco e ON b.brin_id = e.Brinquedo_brin_id';
-      
-      $distanceCalculation = 
+
+      $distanceCalculation =
         "(6371 * ACOS(
           COS(RADIANS(:user_lat)) * COS(RADIANS(e.add_latitude)) * 
           COS(RADIANS(e.add_longitude) - RADIANS(:user_lng)) + 
           SIN(RADIANS(:user_lat)) * SIN(RADIANS(e.add_latitude))
         ))";
-      
+
       $radius = isset($_GET['radius']) ? floatval($_GET['radius']) : 10;
       $whereClauses[] = "e.add_latitude IS NOT NULL AND e.add_longitude IS NOT NULL";
-      
+
       $havingClause = "HAVING distance <= :radius";
-      
+
       $sqlParams[':user_lat'] = $lat;
       $sqlParams[':user_lng'] = $lng;
       $sqlParams[':radius'] = $radius;
@@ -68,8 +68,13 @@ try {
       }
 
       $whereSql = !empty($whereClauses) ? 'WHERE ' . implode(' AND ', $whereClauses) : '';
-      
-      $sqlBase = "SELECT b.*, $distanceCalculation AS distance FROM Brinquedo b $joinClause $whereSql $havingClause ORDER BY $orderBy $orderDir";
+
+      $sqlBase = "SELECT b.*, e.add_streetnum, e.add_city, e.add_neighborhood, e.add_plus, $distanceCalculation AS distance 
+                 FROM Brinquedo b 
+                 $joinClause 
+                 $whereSql 
+                 $havingClause 
+                 ORDER BY $orderBy $orderDir";
 
       $db = new Database();
       $results = $db->selectWithPagination($sqlBase, $sqlParams, $per_page, $page);
