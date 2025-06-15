@@ -118,7 +118,10 @@ class Database
     $stmt = $this->pdo->prepare($sql);
 
     foreach ($params as $key => $value) {
-      $stmt->bindValue($key, $value, is_numeric(json_decode($value)) ? PDO::PARAM_STR : PDO::PARAM_STR);
+      if (strpos($key, ':') !== 0) {
+        $key = ':' . $key;
+      }
+      $stmt->bindValue($key, $value, PDO::PARAM_STR);
     }
 
     $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
@@ -127,6 +130,7 @@ class Database
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
 
   public function getColumnAverage(string $table, string $column, string $whereColumn, $value): float
   {
