@@ -7,7 +7,11 @@ class Database
 
   public function __construct()
   {
-    $this->pdo = DbConnection::connect();
+    try {
+      $this->pdo = DbConnection::connect();
+    } catch (PDOException $e) {
+      throw new PDOException("Falha ao conectar ao banco de dados: " . $e->getMessage());
+    }
   }
 
   public function selectWhere(array $selectedColumns, string $table, array $columns, array $values): array|false

@@ -36,9 +36,7 @@ require_once BASE_DIR . "/components/header.php";
         </span>
       </div>
     </div>
-    <div class="mb-3 d-none">
-      <input type="text" class="form-control" id="form-user-type" disabled readonly>
-    </div>
+    <input type="hidden" class="form-control" id="form-user-type" disabled readonly>
     <div class="mb-3">
       <button type="button" class="btn btn-primary form-control" id="form-submit">Cadastrar</button>
     </div>

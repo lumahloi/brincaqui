@@ -73,6 +73,8 @@ CREATE TABLE
     add_state VARCHAR(30) NOT NULL,
     add_country VARCHAR(20) NOT NULL,
     PRIMARY KEY (Brinquedo_brin_id),
+    add_latitude DECIMAL(10,8) NOT NULL,
+    add_longitude DECIMAL(11,8) NOT NULL,
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo (brin_id)
   );
 

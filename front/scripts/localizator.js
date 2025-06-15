@@ -1,3 +1,9 @@
+function checkCoordinates() {
+  const lat = $("#latitude").val();
+  const lng = $("#longitude").val();
+  return lat && lng;
+}
+
 const API_KEY = "AIzaSyA5W-Sjx-cqEGl3-3QsG5r3AgUTaiUuzdw";
 let googleMapsLoaded = false;
 
@@ -39,8 +45,8 @@ function getCurrentLocation() {
           if (data.status === "OK" && data.results.length > 0) {
             const address = data.results[0].formatted_address;
             addressInput.val(address);
-          } else {
-            console.error("Erro ao converter coordenadas:", data.status);
+            $("#latitude").val(latitude);
+            $("#longitude").val(longitude);
           }
         });
       },
@@ -48,8 +54,6 @@ function getCurrentLocation() {
         console.warn("Erro de geolocalização:", error.message);
       }
     );
-  } else {
-    console.warn("Navegador não suporta geolocalização.");
   }
 }
 
@@ -67,13 +71,19 @@ function initAutocomplete(inputElement) {
   autocomplete.addListener("place_changed", function () {
     const place = autocomplete.getPlace();
     if (place.formatted_address) {
-      inputElement.value = place.formatted_address;
+      addressInput.val(place.formatted_address);
+      if (place.geometry && place.geometry.location) {
+        $("#latitude").val(place.geometry.location.lat());
+        $("#longitude").val(place.geometry.location.lng());
+
+        $(document).trigger("coordinates:updated");
+      }
     }
   });
 
   google.maps.event.addDomListener(inputElement, "keydown", function (e) {
     if (e.key === "Enter") {
-      e.preventDefault(); 
+      e.preventDefault();
     }
   });
 }

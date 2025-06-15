@@ -3,8 +3,17 @@ $("#form-filters").submit(function (event) {
 
   const params = {};
   $(this).serializeArray().forEach(({ name, value }) => {
-    if (value) params[name] = value;
+    if (value && name !== 'address') params[name] = value;
   });
+
+  if (!params.latitude || !params.longitude) {
+    alert("Por favor, selecione um endereço válido usando o campo de busca.");
+    return;
+  }
+
+  if (!params.order_by) {
+    params.order_by = 'distance';
+  }
 
   $.ajax({
     type: "GET",
