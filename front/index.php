@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="refresh" content="0; url=./pages/" />
+</head>
+<body>
+</body>
+</html>
