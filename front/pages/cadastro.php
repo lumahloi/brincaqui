@@ -5,6 +5,9 @@ require_once BASE_DIR . "/components/header.php";
 
 <body>
   <div class="containerw">
+    <?php
+    require_once BASE_DIR . "/components/back.php";
+    ?>
     <form id="register-form">
       <div class="mb-3">
         <label for="form-fullname" class="form-label">Nome completo</label>

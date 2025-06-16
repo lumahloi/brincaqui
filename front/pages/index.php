@@ -5,6 +5,9 @@ require_once BASE_DIR . "/components/header.php";
 
 <body>
   <div id="initial-options" class="containerw">
+    <?php
+    require_once BASE_DIR . "/components/navigation.php";
+    ?>
     <div class="mb-3">
       <button type="button" class="btn btn-primary" id="btn-register-type1">Cliente</button>
     </div>

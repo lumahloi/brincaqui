@@ -6,6 +6,9 @@ require_once BASE_DIR . "/components/header.php";
 
 <body>
   <div class="containerw">
+    <?php
+    require_once BASE_DIR . "/components/back.php";
+    ?>
     <form>
       <div class="mb-3">
         <label for="form-email" class="form-label">E-mail</label>
