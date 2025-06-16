@@ -6,7 +6,7 @@ $(document).ready(function () {
   $("#form-telephone").inputmask('(99) 99999-9999');
 });
 
-$("#form-submit").click(function () {
+$("#form-submit").click(function (event) {
   event.preventDefault();
   var input_fullname = $("#form-fullname").val();
   var input_telephone = $("#form-telephone").val();
@@ -28,10 +28,13 @@ $("#form-submit").click(function () {
       userType: input_user_type,
     }),
     success: () => {
+      console.log("Success callback");
+      console.log(SERVER_URL+'auth/register.php')
       sessionStorage.removeItem("user_type");
-      window.location = "login";
+      // window.location = "login";
     },
     error: (xhr) => {
+      console.log("Error callback", xhr.status);
       error_validation(xhr);
     },
   });

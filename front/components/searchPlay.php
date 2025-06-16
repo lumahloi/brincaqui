@@ -8,7 +8,7 @@
     <input type="text" id="latitude" name="latitude">
     <input type="text" id="longitude" name="longitude">
 
-    <button type="button" class="toggle-filters-btn">
+    <button type="button" class="toggle-filters-btn" id="adv-filter-btn">
       Mostrar filtros avançados <i class="bi bi-chevron-down"></i>
     </button>
 
@@ -42,10 +42,10 @@
           <div class="form-control">
             <label class="form-control-label">Idades:</label>
             <div>
-              <input type="checkbox" name="ages[]" value="0-12"> 0-12 anos<br>
-              <input type="checkbox" name="ages[]" value="13-17"> 13-17 anos<br>
-              <input type="checkbox" name="ages[]" value="18-59"> 18-59 anos<br>
-              <input type="checkbox" name="ages[]" value="60+"> 60+ anos
+              <input type="checkbox" name="ages[]" value="0-2"> 0-2 anos<br>
+              <input type="checkbox" name="ages[]" value="3-5"> 3-5 anos<br>
+              <input type="checkbox" name="ages[]" value="6-8"> 6-8 anos<br>
+              <input type="checkbox" name="ages[]" value="9-12"> 9-12 anos<br>
             </div>
           </div>
         </div>
@@ -74,6 +74,7 @@
 
 <!-- <script src="<?php echo BASE_URL ?>/scripts/localizator.js"></script> -->
 <script src="<?php echo BASE_URL ?>/scripts/toggleHiddenContent.js"></script>
-<script src="<?php echo BASE_URL ?>/scripts/apiGetCommodity.js"></script>
-<script src="<?php echo BASE_URL ?>/scripts/apiGetDiscount.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/apiGetCommodities.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/apiGetDiscounts.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/apiGetCommodityForCard.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/apiGetPlay.js"></script>

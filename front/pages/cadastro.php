@@ -1,5 +1,4 @@
 <?php
-require_once "../base_dir.php";
 require_once BASE_DIR . "/components/header.php";
 ?>
 </head>
@@ -37,7 +36,7 @@ require_once BASE_DIR . "/components/header.php";
           </span>
         </div>
       </div>
-      <input type="hidden" class="form-control" id="form-user-type" disabled readonly>
+      <input type="hidden" class="form-control" id="form-user-type" readonly>
       <div class="mb-3">
         <button type="button" class="btn btn-primary form-control" id="form-submit">Cadastrar</button>
       </div>

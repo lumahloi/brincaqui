@@ -33,16 +33,29 @@ $("#form-filters").submit(function (event) {
 
           $card.find("#play-name").text(item.brin_name);
           $card.find("#play-pictures").text(item.brin_pictures);
-          $card.find("#play-grade").text(item.brin_grade);
-          $card.find("#play-commodities").text(item.brin_commodities);
-          $card.find("#play-discounts").text(item.brin_discounts);
-          $card.find("#play-ages").text(item.brin_ages);
-          $card.find("#play-streetnum").text(item.add_streetnum);
+          $card
+            .find("#play-grade")
+            .text(item.brin_grade == null ? "0.0" : item.brin_grade);
           $card.find("#play-city").text(item.add_city);
           $card.find("#play-neighborhood").text(item.add_neighborhood);
-          $card.find("#play-plus").text(item.add_plus || "—");
 
-          container.append($card);
+          let commodities = item.brin_commodities;
+
+          // Converte para array de números
+          commodities = (
+            Array.isArray(commodities)
+              ? commodities
+              : String(commodities || "").split(",")
+          )
+            .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
+            .filter((id) => !isNaN(id));
+
+          commodities.forEach((commodityId) => {
+            getCommodityForCard(
+              String(commodityId),
+              $card.find("#play-commodities")
+            );
+          });
         });
       });
     },
