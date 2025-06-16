@@ -1,8 +1,9 @@
 $(document).ready(function () {
   $.ajax({
     type: "GET",
-    url: SERVER_URL + "discount",
-    success: (response) => {
+    url: "public/desconto.json",
+    dataType: "json",
+    success: (discounts) => {
       const container = $(
         'div.form-control:has(> label.form-control-label:contains("Descontos:"))'
       )
@@ -10,14 +11,10 @@ $(document).ready(function () {
         .first();
       container.empty();
 
-      if (!response || !response.return) {
+      if (!discounts || !Array.isArray(discounts)) {
         container.html("<p class='text-muted'>Nenhum desconto disponível.</p>");
         return;
       }
-
-      const discounts = Array.isArray(response.return)
-        ? response.return
-        : [response.return];
 
       if (discounts.length === 0) {
         container.html("<p class='text-muted'>Nenhum desconto cadastrado.</p>");
@@ -31,9 +28,7 @@ $(document).ready(function () {
               <input class="form-check-input" type="checkbox" 
                      name="discounts[]" value="${discount.disc_id}" 
                      id="discount-${discount.disc_id}">
-              <label class="form-check-label" for="discount-${
-                discount.disc_id
-              }">
+              <label class="form-check-label" for="discount-${discount.disc_id}">
                 ${discount.disc_title || "Desconto"}
               </label>
             </div>
@@ -43,7 +38,6 @@ $(document).ready(function () {
     },
     error: (xhr) => {
       console.error("Erro:", xhr);
-      error_validation(xhr);
       $(
         'div.form-control:has(> label.form-control-label:contains("Descontos:"))'
       )

@@ -28,10 +28,9 @@ $("#form-submit").click(function (event) {
       userType: input_user_type,
     }),
     success: () => {
-      console.log("Success callback");
       console.log(SERVER_URL+'auth/register.php')
       sessionStorage.removeItem("user_type");
-      // window.location = "login";
+      window.location = "login";
     },
     error: (xhr) => {
       console.log("Error callback", xhr.status);

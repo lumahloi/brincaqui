@@ -1,8 +1,9 @@
 $(document).ready(function () {
   $.ajax({
     type: "GET",
-    url: SERVER_URL + "commodity",
-    success: (response) => {
+    url: "public/comodidade.json",
+    dataType: "json",
+    success: (commodities) => {
       const container = $(
         'div.form-control:has(> label.form-control-label:contains("Comodidades:"))'
       )
@@ -10,14 +11,10 @@ $(document).ready(function () {
         .first();
       container.empty();
 
-      if (!response || !response.return) {
+      if (!commodities || !Array.isArray(commodities)) {
         container.html("<p class='text-muted'>Nenhuma comodidade disponível.</p>");
         return;
       }
-
-      const commodities = Array.isArray(response.return)
-        ? response.return
-        : [response.return];
 
       if (commodities.length === 0) {
         container.html("<p class='text-muted'>Nenhuma comodidade cadastrada.</p>");
@@ -31,9 +28,7 @@ $(document).ready(function () {
               <input class="form-check-input" type="checkbox" 
                      name="commodities[]" value="${commodity.com_id}" 
                      id="commodity-${commodity.com_id}">
-              <label class="form-check-label" for="commodity-${
-                commodity.com_id
-              }">
+              <label class="form-check-label" for="commodity-${commodity.com_id}">
                 ${commodity.com_title || "Comodidade"}
               </label>
             </div>
@@ -43,13 +38,12 @@ $(document).ready(function () {
     },
     error: (xhr) => {
       console.error("Erro:", xhr);
-      error_validation(xhr);
       $(
-        'div.form-control:has(> label.form-control-label:contains("Descontos:"))'
+        'div.form-control:has(> label.form-control-label:contains("Comodidades:"))'
       )
         .find("div")
         .first()
-        .html("<p class='text-danger'>Erro ao carregar descontos.</p>");
+        .html("<p class='text-danger'>Erro ao carregar comodidades.</p>");
     },
   });
 });

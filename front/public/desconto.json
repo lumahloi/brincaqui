@@ -1,0 +1,93 @@
+[
+  {
+    "disc_id": 1,
+    "disc_title": "Gestantes",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 2,
+    "disc_title": "Lactantes",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 3,
+    "disc_title": "Pessoas com Criança de Colo",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 4,
+    "disc_title": "Pessoas com deficiência (PCD)",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 5,
+    "disc_title": "Neurodivergentes",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 6,
+    "disc_title": "Idosos",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 7,
+    "disc_title": "Famílias de Baixa Renda",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 8,
+    "disc_title": "Estudantes",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 9,
+    "disc_title": "Combo Familiar",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 10,
+    "disc_title": "Aniversário",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 11,
+    "disc_title": "Parceria com Escolas ou Empresas",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 12,
+    "disc_title": "Plano Fidelidade",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  },
+  {
+    "disc_id": 13,
+    "disc_title": "Reserva Online",
+    "disc_creation": "2025-06-16",
+    "disc_active": "1",
+    "disc_lastedit": "2025-06-16"
+  }
+]
