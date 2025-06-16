@@ -1,30 +1,21 @@
 <?php
-session_start();
 require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/response_format.php";
-$cookie = filter_var($_COOKIE['PHPSESSID'] ?? '', FILTER_SANITIZE_STRING);
-require_once BASE_DIR . "/utils/permission.php";
-check_permission([1, 2, 3], $cookie);
-require_once BASE_DIR . "/utils/db_functions.php";
-require_once BASE_DIR . "/utils/validate_infos.php";
 
 try {
   switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-      $db = new Database();
-      $info = $db->selectWithPagination(
-        "SELECT com_id, com_title from brincaqui.comodidade WHERE com_active = :com_active",
-        ['com_active' => 1],
-        PHP_INT_MAX,
-        0
-      );
+      $uri = $_SERVER['REQUEST_URI'];
+      $uri_parts = explode('/', trim($uri, '/'));
+      $com_id = $uri_parts[4] ?? null;
 
-      not_null_or_false($info);
+      if ($com_id) {
+        require_once "./components/get_by_id.php";
+        echo 'tem com_id';
+      }
+      echo 'nao tem com_id';
+      require_once "./components/get.php";
 
-      $return = $info;
-
-      response_format(200, "Informações extraídas com sucesso.", $return);
-      
       break;
 
     default:

@@ -1,6 +1,6 @@
 <?php
 require_once BASE_DIR . "/utils/load_env.php";
-load_env(BASE_DIR . '/.env');
+load_env(BASE_DIR . '/../.env');
 
 abstract class DbConnection
 {

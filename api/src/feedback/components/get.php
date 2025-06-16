@@ -5,7 +5,7 @@ try {
 
   $uri = $_SERVER['REQUEST_URI'];
   $uri_parts = explode('/', trim($uri, '/'));
-  $input_id = $uri_parts[3] ?? null;
+  $input_id = $uri_parts[4] ?? null;
   
   if (!$input_id) {
     response_format(400, "ID do brinquedo não especificado.");

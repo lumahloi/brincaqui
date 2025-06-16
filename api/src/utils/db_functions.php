@@ -125,7 +125,16 @@ class Database
       if (strpos($key, ':') !== 0) {
         $key = ':' . $key;
       }
-      $stmt->bindValue($key, $value, PDO::PARAM_STR);
+
+      if (is_int($value)) {
+        $stmt->bindValue($key, $value, PDO::PARAM_INT);
+      } elseif (is_bool($value)) {
+        $stmt->bindValue($key, $value, PDO::PARAM_BOOL);
+      } elseif (is_null($value)) {
+        $stmt->bindValue($key, $value, PDO::PARAM_NULL);
+      } else {
+        $stmt->bindValue($key, $value, PDO::PARAM_STR);
+      }
     }
 
     $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
