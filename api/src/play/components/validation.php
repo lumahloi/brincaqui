@@ -3,22 +3,22 @@ require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/validate_infos.php";
 
 if (isset($data['description'])) {
-    $input_description = filter_var($data['description'], FILTER_SANITIZE_STRING);
+    $input_description = trim($data['description']);
     valid_description($input_description);
 }
 
 if (isset($data['name'])) {
-    $input_name = filter_var($data['name'], FILTER_SANITIZE_STRING);
+    $input_name = trim($data['name']);
     valid_play_name($input_name);
 }
 
 if (isset($data['cnpj'])) {
-    $input_cnpj = filter_var($data['cnpj'], FILTER_SANITIZE_STRING);
+    $input_cnpj = trim($data['cnpj']);
     valid_cnpj($input_cnpj);
 }
 
 if (isset($data['telephone'])) {
-    $input_telephone = filter_var($data['telephone'], FILTER_SANITIZE_STRING);
+    $input_telephone = trim($data['telephone']);
     valid_telephone($input_telephone);
 }
 
@@ -85,36 +85,36 @@ if (isset($data['ages'])) {
 }
 
 if (isset($data['cep'])) {
-    $input_cep = filter_var($data['cep'], FILTER_SANITIZE_STRING);
+    $input_cep = trim($data['cep']);
     $input_cep = valid_cep($input_cep);
 }
 
 if (isset($data['streetnum'])) {
-    $input_streetnum = filter_var($data['streetnum'], FILTER_SANITIZE_STRING);
+    $input_streetnum = trim($data['streetnum']);
     valid_characters(10,60,$input_streetnum, 'Endereço');
 }
 
 if (isset($data['city'])) {
-    $input_city = filter_var($data['city'], FILTER_SANITIZE_STRING);
+    $input_city = trim($data['city']);
     valid_characters(5,58,$input_city, 'Cidade');
 }
 
 if (isset($data['neighborhood'])) {
-    $input_neighborhood = filter_var($data['neighborhood'], FILTER_SANITIZE_STRING);
+    $input_neighborhood = trim($data['neighborhood']);
     valid_characters(5,58,$input_neighborhood, 'Bairro');
 }
 
 if (isset($data['plus'])) {
-    $input_plus = filter_var($data['plus'], FILTER_SANITIZE_STRING);
+    $input_plus = trim($data['plus']);
     valid_characters(0,40,$input_plus, 'Complemento');
 }
 
 if (isset($data['state'])) {
-    $input_state = filter_var($data['state'], FILTER_SANITIZE_STRING);
+    $input_state = trim($data['state']);
     valid_characters(4,25,$input_state, 'Estado');
 }
 
 if (isset($data['country'])) {
-    $input_country = filter_var($data['country'], FILTER_SANITIZE_STRING);
+    $input_country = trim($data['country']);
     valid_characters(1,41,$input_country, 'País');
 }

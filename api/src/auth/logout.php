@@ -2,7 +2,7 @@
 session_start();
 require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/response_format.php";
-$cookie = filter_var($_COOKIE['PHPSESSID'] ?? '', FILTER_SANITIZE_STRING);
+$cookie = trim($_COOKIE['PHPSESSID'] ?? '');
 require_once BASE_DIR . "/utils/permission.php";
 check_permission([1, 2, 3], $cookie);
 

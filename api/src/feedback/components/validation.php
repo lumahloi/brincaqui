@@ -2,7 +2,7 @@
 require_once BASE_DIR . "/utils/validate_infos.php";
 
 if (isset($data['description'])) {
-  $input_description = filter_var($data['description'], FILTER_SANITIZE_STRING);
+  $input_description = trim($data['description']);
   valid_characters(10, 200, $input_description, 'Descrição');
 }
 
