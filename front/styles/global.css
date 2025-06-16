@@ -28,7 +28,7 @@ body {
 
 .hidden-content {
   display: none;
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
 }
 
 .toggle-filters-btn {
@@ -47,4 +47,8 @@ body {
 
 .toggle-filters-btn i {
   margin-left: 5px;
+}
+
+.form-control-label {
+  margin-bottom: 10px;
 }

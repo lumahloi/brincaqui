@@ -16,7 +16,8 @@ require_once BASE_DIR . "/components/checkAuth.php";
       break;
   };
   ?>
+  <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <?php require_once BASE_DIR . "/components/modal.php";?>
+  
 </body>
-
 </html>

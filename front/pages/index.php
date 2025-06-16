@@ -16,6 +16,7 @@ require_once BASE_DIR . "/components/header.php";
       <p><a href="login">Já tenho uma conta</a></p>
     </div>
   </div>
+  <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <?php require_once BASE_DIR . "/components/modal.php"; ?>
   <script src="<?php echo BASE_URL ?>/scripts/registerRedirect.js"></script>
 </body>

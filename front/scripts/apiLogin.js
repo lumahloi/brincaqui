@@ -12,7 +12,7 @@ $("#form-submit").click(function (event) {
       password: input_password
     }),
     success: () => {
-      window.location = "feed";
+      window.location = "pesquisa";
     },
     error: (xhr) => {
       error_validation(xhr);
