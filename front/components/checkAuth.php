@@ -1,10 +1,6 @@
 <?php
-session_start(); 
-
-require_once "../base_dir.php";
+session_start();
 
 if (!isset($_SESSION['user_id'])) {
-  header("Location: " . BASE_URL . "index");
-  http_response_code(302);
-  exit;
+  $auth_error = true;
 }
