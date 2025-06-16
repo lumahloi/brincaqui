@@ -69,12 +69,9 @@ try {
 
       $whereSql = !empty($whereClauses) ? 'WHERE ' . implode(' AND ', $whereClauses) : '';
 
-      $sqlBase = "SELECT b.*, e.add_streetnum, e.add_city, e.add_neighborhood, e.add_plus, $distanceCalculation AS distance 
-                 FROM Brinquedo b 
-                 $joinClause 
-                 $whereSql 
-                 $havingClause 
-                 ORDER BY $orderBy $orderDir";
+      // $sqlBase = "SELECT b.*, e.add_streetnum, e.add_city, e.add_neighborhood, e.add_plus, $distanceCalculation AS distance FROM Brinquedo b $joinClause $whereSql $havingClause ORDER BY $orderBy $orderDir";
+
+      $sqlBase = "SELECT b.*, e.add_streetnum, e.add_city, e.add_neighborhood, e.add_plus, $distanceCalculation AS distance FROM Brinquedo b $joinClause $whereSql ORDER BY $orderBy $orderDir";
 
       $db = new Database();
       $results = $db->selectWithPagination($sqlBase, $sqlParams, $per_page, $page);
