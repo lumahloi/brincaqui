@@ -28,7 +28,9 @@ try {
         [$input_email]
       );
 
-      not_null_or_false($password_from_db);
+      if($password_from_db === null || $password_from_db === false){
+        response_format(404, "Não existe usuário cadastrado com este email.");
+      }
 
       if (!password_verify($input_password, $password_from_db['user_password'])) {
         response_format(400, "Senha inválida.");

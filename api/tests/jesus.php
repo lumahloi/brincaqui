@@ -1,7 +1,7 @@
 <?php
 // require_once "test_auth_header.php";
 
-$ch = curl_init('http://localhost/brincaqui/api/src/commodity/');
+$ch = curl_init('http://localhost/brincaqui/api/commodity/');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 curl_setopt($ch, CURLOPT_HTTPHEADER, [

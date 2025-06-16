@@ -4,7 +4,7 @@ $data = [
   'password' => 'Senha@123'
 ];
 
-$ch = curl_init('http://localhost/brincaqui/api/src/auth/login.php');
+$ch = curl_init('http://localhost/brincaqui/api/auth/login.php');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [

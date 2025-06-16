@@ -1,7 +1,7 @@
 DirectoryIndex index.php
 
 RewriteEngine On
-RewriteBase /brincaqui/api/src/visit/
+RewriteBase /brincaqui/api/visit/
 
 # Redireciona tudo que não seja arquivo/diretório para index.php
 RewriteCond %{REQUEST_FILENAME} !-f
