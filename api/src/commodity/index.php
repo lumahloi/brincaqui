@@ -11,9 +11,7 @@ try {
 
       if ($com_id) {
         require_once "./components/get_by_id.php";
-        echo 'tem com_id';
       }
-      echo 'nao tem com_id';
       require_once "./components/get.php";
 
       break;
