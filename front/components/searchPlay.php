@@ -74,7 +74,7 @@
 
 <!-- <script src="<?php echo BASE_URL ?>/scripts/localizator.js"></script> -->
 <script src="<?php echo BASE_URL ?>/scripts/toggleHiddenContent.js"></script>
-<script src="<?php echo BASE_URL ?>/scripts/apiGetCommodities.js"></script>
-<script src="<?php echo BASE_URL ?>/scripts/apiGetDiscounts.js"></script>
-<script src="<?php echo BASE_URL ?>/scripts/apiGetCommodityForCard.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/getCommodities.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/getDiscounts.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/apiGetPlay.js"></script>

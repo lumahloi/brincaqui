@@ -2,183 +2,157 @@
   {
     "com_id": 1,
     "com_title": "Ambiente climatizado",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-wind"
+    },
   {
     "com_id": 2,
     "com_title": "Vídeo Games",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-controller"
+    },
   {
     "com_id": 3,
     "com_title": "Oficina de Artes",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-brush"
+    },
   {
     "com_id": 4,
     "com_title": "Leitura",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-book"
+    },
   {
     "com_id": 5,
     "com_title": "Piscina de Bolinhas",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 6,
     "com_title": "Brinquedoteca",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 7,
     "com_title": "Pintura Facial",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 8,
     "com_title": "Filmes",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-camera-reels"
+    },
   {
     "com_id": 9,
     "com_title": "Atividades Sensoriais",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 10,
     "com_title": "Monitoramento por Câmeras",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-shield-fill"
+    },
   {
     "com_id": 11,
     "com_title": "Piso Emborrachado Antialérgico",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 12,
     "com_title": "Banheiro Adaptado",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 13,
     "com_title": "Controle de Entrada",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-person-fill-lock"
+    },
   {
     "com_id": 14,
     "com_title": "Higienização Diária",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 15,
     "com_title": "Lanchonete",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-fork-knife"
+    },
   {
     "com_id": 16,
     "com_title": "Bebedouros",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-droplet-fill"
+    },
   {
     "com_id": 17,
     "com_title": "Área de Amamentação",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 18,
     "com_title": "Micro-ondas Disponível",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 19,
     "com_title": "Espaço para Festas",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-balloon-fill"
+    },
   {
     "com_id": 20,
     "com_title": "Oficina de Culinária",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 21,
     "com_title": "Oficina de Slime",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 22,
     "com_title": "Atividades Bilíngues",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 23,
     "com_title": "Programações Pedagógicas",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    },
   {
     "com_id": 24,
     "com_title": "Lanche Gratuito",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-exclamation-circle-fill"
+    },
   {
     "com_id": 25,
     "com_title": "Presença de Monitores",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  },
+    "com_active": 1,
+    "com_icon": "bi bi-person-check-fill"
+    },
   {
     "com_id": 26,
     "com_title": "Ambiente Esterilizado",
-    "com_creation": "2025-06-16",
-    "com_active": "1",
-    "com_lastedit": "2025-06-16"
-  }
+    "com_active": 1,
+    "com_icon": "bi bi-check"
+    }
 ]

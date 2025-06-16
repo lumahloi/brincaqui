@@ -42,25 +42,6 @@ CREATE TABLE
     FOREIGN KEY (Usuario_user_id) REFERENCES Usuario (user_id)
   ) ENGINE = InnoDB;
 
--- CREATE TABLE
---   IF NOT EXISTS Comodidade (
---     com_id INT AUTO_INCREMENT,
---     com_title VARCHAR(30) NOT NULL,
---     com_creation DATE NOT NULL,
---     com_active CHAR(1) NOT NULL,
---     com_lastedit DATE NOT NULL,
---     PRIMARY KEY (com_id)
---   );
-
--- CREATE TABLE
---   IF NOT EXISTS Desconto (
---     disc_id INT AUTO_INCREMENT,
---     disc_title VARCHAR(100) NOT NULL,
---     disc_creation DATE NOT NULL,
---     disc_active CHAR(1) NOT NULL,
---     disc_lastedit DATE NOT NULL,
---     PRIMARY KEY (disc_id)
---   );
 
 CREATE TABLE
   IF NOT EXISTS Endereco (

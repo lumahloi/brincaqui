@@ -28,7 +28,7 @@ $("#form-filters").submit(function (event) {
       }
 
       response.return.forEach(function (item) {
-        $.get("front/components/playCard.html", function (template) {
+        $.get("/components/playCard.html", function (template) {
           let $card = $(template);
 
           $card.find("#play-name").text(item.brin_name);
@@ -41,7 +41,6 @@ $("#form-filters").submit(function (event) {
 
           let commodities = item.brin_commodities;
 
-          // Converte para array de números
           commodities = (
             Array.isArray(commodities)
               ? commodities
@@ -51,11 +50,13 @@ $("#form-filters").submit(function (event) {
             .filter((id) => !isNaN(id));
 
           commodities.forEach((commodityId) => {
-            getCommodityForCard(
+            getComNameByPlay(
               String(commodityId),
               $card.find("#play-commodities")
             );
           });
+
+          $("#results").append($card);
         });
       });
     },
