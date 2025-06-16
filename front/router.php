@@ -9,7 +9,7 @@ require_once __DIR__ . '/base_dir.php';
 
 $path = $uri;
 
-if (preg_match('#^/locais/[\w\-]+$#', $path)) {
+if (preg_match('#^/lugar/[\w\-]+$#', $path)) {
     require BASE_DIR . '/pages/brinquedo.php';
     exit;
 }

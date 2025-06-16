@@ -2,15 +2,15 @@
   <div class="d-grid gap-3">
     <div class="row">
       <input type="text" class="form-control" name="address" id="address-input" placeholder="Digite um endereço">
-      <small class="text-muted">Buscaremos locais próximos a este local</small>
+      <small class="text-muted">Buscaremos lugares próximos a este local</small>
     </div>
 
     <input type="text" id="latitude" name="latitude">
     <input type="text" id="longitude" name="longitude">
 
-    <button type="button" class="toggle-filters-btn" id="adv-filter-btn">
+    <!-- <button type="button" class="toggle-filters-btn" id="adv-filter-btn">
       Mostrar filtros avançados <i class="bi bi-chevron-down"></i>
-    </button>
+    </button> -->
 
     <div class="hidden-content">
       <div class="d-grid gap-3">

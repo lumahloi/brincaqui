@@ -69,7 +69,7 @@ $("#form-filters").submit(function (event) {
 
           $card.find(".btn-details").on("click", function () {
             const brinquedo = $(this).data("name");
-            window.location.href = `/locais/${brinquedo}-${item.brin_id}`;
+            window.location.href = `/lugar/${brinquedo}-${item.brin_id}`;
           });
         });
       });
