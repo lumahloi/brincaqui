@@ -57,6 +57,20 @@ $("#form-filters").submit(function (event) {
           });
 
           $("#results").append($card);
+
+          let nomeBrinquedoSlug = item.brin_name
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+
+          $card.find(".btn-details").attr("data-name", nomeBrinquedoSlug);
+
+          $card.find(".btn-details").on("click", function () {
+            const brinquedo = $(this).data("name");
+            window.location.href = `/locais/${brinquedo}-${item.brin_id}`;
+          });
         });
       });
     },
