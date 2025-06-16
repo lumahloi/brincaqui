@@ -10,6 +10,9 @@ $(document).ready(function () {
   $.ajax({
     type: "GET",
     url: SERVER_URL + "play/" + playId,
+    xhrFields: {
+      withCredentials: true
+    },
     success: (response) => {
       const container = $("#play");
       container.empty();

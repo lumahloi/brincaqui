@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../base_dir.php";
+require_once __DIR__ . '/../base_dir.php';
 require_once BASE_DIR . "/utils/response_format.php";
 $cookie = trim($_COOKIE['PHPSESSID'] ?? '');
 require_once BASE_DIR . "/utils/permission.php";
@@ -13,21 +13,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $path = trim($requestUri, '/');
     $parts = explode('/', $path);
 
-    if ($parts[0] === 'play') {
+    if ($parts[1] === 'play') {
       if (count($parts) === 1 && isset($_GET['owner'])) {
         require_once 'components/emp_get.php';
         exit;
       }
 
-      if (count($parts) === 1) {
-        require_once 'components/get_default.php';
-        exit;
-      }
-
-      if (count($parts) === 2 && is_numeric($parts[1])) {
-        $id = (int) $parts[1];
+      if (count($parts) === 3 && is_numeric($parts[2])) {
+        $id = (int) $parts[2];
         require_once 'components/get_by_id.php';
       }
+
+      require_once 'components/get_default.php';
     }
     break;
 
@@ -38,5 +35,3 @@ switch ($_SERVER['REQUEST_METHOD']) {
     }
     break;
 }
-
-require_once "./components/user_cliente.php";

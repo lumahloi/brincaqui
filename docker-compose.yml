@@ -1,18 +1,9 @@
 services:
-  front:
+  app:
     build:
-      context: ./front
+      context: .
     volumes:
-      - ./front:/var/www/html
+      - .:/var/www/html
     ports:
       - "8000:8000"
-    restart: always
-
-  api:
-    build:
-      context: ./api
-    volumes:
-      - ./api:/var/www/html
-    ports:
-      - "8001:8001"
     restart: always
