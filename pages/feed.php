@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION['user_id'])) {
-  http_response_code(401);
+  header("Location: /");
   exit;
 }
 require_once BASE_DIR . "/components/header.php";
