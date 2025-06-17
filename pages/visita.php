@@ -1,5 +1,4 @@
 <?php
-require_once BASE_DIR . "/components/checkAuth.php";
 require_once BASE_DIR . "/components/header.php";
 $status = $_GET['status'] ?? '';
 ?>

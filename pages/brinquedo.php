@@ -1,11 +1,11 @@
 <?php
-require_once BASE_DIR . "/components/checkAuth.php";
+if (!isset($_SESSION['user_id'])) {
+  http_response_code(401);
+  exit;
+}
 require_once BASE_DIR . "/components/header.php";
 ?>
 <link rel="stylesheet" href="<?php echo BASE_URL; ?>/styles/playPage.css">
-<script>
-  const authError = <?php echo isset($auth_error) ? 'true' : 'false'; ?>;
-</script>
 </head>
 
 <body>
@@ -14,10 +14,9 @@ require_once BASE_DIR . "/components/header.php";
     require_once BASE_DIR . "/components/back.php";
     ?>
     <div id="play"></div>
+    <?php require_once BASE_DIR . "/components/modal.php"; ?>
   </div>
   
-  <?php require_once BASE_DIR . "/components/modal.php"; ?>
-  <script src="<?php echo BASE_URL ?>/scripts/authError.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/getDiscNameByPlay.js"></script>

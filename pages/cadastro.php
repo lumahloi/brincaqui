@@ -44,9 +44,9 @@ require_once BASE_DIR . "/components/header.php";
         <button type="button" class="btn btn-primary form-control" id="form-submit">Cadastrar</button>
       </div>
     </form>
+    <?php require_once BASE_DIR . "/components/modal.php"; ?>
   </div>
 
-  <?php require_once BASE_DIR . "/components/modal.php"; ?>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/togglePassword.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiRegister.js"></script>

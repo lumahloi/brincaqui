@@ -65,12 +65,17 @@ $("#form-filters").submit(function (event) {
             .replace(/[^a-z0-9]+/g, "-")
             .replace(/^-+|-+$/g, "");
 
-          $card.find(".btn-details").attr("data-name", nomeBrinquedoSlug);
+          $card
+            .find(".btn-details")
+            .addClass("auth-link")
+            .attr("data-name", nomeBrinquedoSlug)
+            .off("click") 
+            .on("click", function (e) {
+              if (!isAuthenticated) return;
 
-          $card.find(".btn-details").on("click", function () {
-            const brinquedo = $(this).data("name");
-            window.location.href = `/lugar/${brinquedo}-${item.brin_id}`;
-          });
+              const brinquedo = $(this).data("name");
+              window.location.href = `/lugar/${brinquedo}-${item.brin_id}`;
+            });
         });
       });
     },

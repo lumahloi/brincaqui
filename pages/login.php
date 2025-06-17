@@ -30,9 +30,9 @@ require_once BASE_DIR . "/components/header.php";
         <p><a href="index">Não tenho uma conta</a></p>
       </div>
     </form>
+    <?php require_once BASE_DIR . "/components/modal.php"; ?>
   </div>
 
-  <?php require_once BASE_DIR . "/components/modal.php"; ?>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/togglePassword.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiLogin.js"></script>
