@@ -15,12 +15,14 @@ require_once BASE_DIR . "/components/header.php";
     ?>
     <div id="play"></div>
   </div>
+  
   <?php require_once BASE_DIR . "/components/modal.php"; ?>
   <script src="<?php echo BASE_URL ?>/scripts/authError.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/getDiscNameByPlay.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiGetPlayById.js"></script>
+  <script src="<?php echo BASE_URL ?>/scripts/apiVisit.js"></script>
 </body>
 
 </html>

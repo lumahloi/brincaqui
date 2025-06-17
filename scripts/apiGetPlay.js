@@ -28,7 +28,7 @@ $("#form-filters").submit(function (event) {
       }
 
       response.return.forEach(function (item) {
-        $.get("/components/playCard.html", function (template) {
+        $.get("/components/playCard.php", function (template) {
           let $card = $(template);
 
           $card.find("#play-name").text(item.brin_name);

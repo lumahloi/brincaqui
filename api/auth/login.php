@@ -45,13 +45,11 @@ try {
 
       not_null_or_false($user_info);
 
-      $_SESSION["user_id"] = $user_info['user_id'];
-      $_SESSION["user_type"] = $user_info['user_type'];
+      $_SESSION["user_id"] = $user_info["user_id"];
+      $_SESSION["user_type"] = $user_info["user_type"];
+      $_SESSION["user_name"] = $user_info["user_name"];
 
       $return = [
-        "logged_user_id" => $user_info['user_id'],
-        "logged_user_name" => $user_info['user_name'],
-        "logged_user_type" => $user_info['user_type'],
         "logged_session_id" => session_id()
       ];
 

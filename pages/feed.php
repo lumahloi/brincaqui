@@ -10,6 +10,9 @@ require_once BASE_DIR . "/components/header.php";
 
 <body>
   <?php
+  require_once BASE_DIR . "/components/navigation.php";
+  ?>
+  <?php
   switch ($_SESSION['user_type']) {
     case 1:
       require_once BASE_DIR . "/components/feedCliente.php";
@@ -24,4 +27,5 @@ require_once BASE_DIR . "/components/header.php";
   <script src="<?php echo BASE_URL ?>/scripts/authError.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
 </body>
+
 </html>
