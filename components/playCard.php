@@ -13,7 +13,7 @@
     
     <div id="play-commodities" class="d-flex flex-wrap small"></div>
 
-    <button class="btn btn-primary btn-details auth-link" data-name="">Ver mais</button>
+    <button class="btn btn-primary btn-details auth-link" data-name="">Ver mais informações</button>
 
   </div>
 </div>
