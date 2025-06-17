@@ -9,8 +9,11 @@ $("#form-submit").click(function (event) {
     contentType: "application/json",
     data: JSON.stringify({
       email: input_email,
-      password: input_password
+      password: input_password,
     }),
+    xhrFields: {
+      withCredentials: true,
+    },
     success: () => {
       window.location = "pesquisa";
     },

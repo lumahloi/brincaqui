@@ -1,10 +1,11 @@
 <?php
-if (!isset($_SESSION['user_id'])) {
-  header("Location: /");
-  exit;
-}
 require_once BASE_DIR . "/components/header.php";
 ?>
+<script>
+  if (typeof isAuthenticated !== "undefined" && isAuthenticated === false) {
+    window.location.href = "/";
+  }
+</script>
 <link rel="stylesheet" href="<?php echo BASE_URL; ?>/styles/playCard.css">
 </head>
 
