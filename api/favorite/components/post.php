@@ -1,5 +1,6 @@
 <?php
 require_once BASE_DIR . "/utils/db_functions.php";
+require_once BASE_DIR . "/utils/validate_infos.php";
 
 try {
 
@@ -19,7 +20,9 @@ try {
     ['Usuario_user_id', 'Brinquedo_brin_id'], 
     [$_SESSION['user_id'], $input_id]);
   
-  not_null_or_false($check_fav_exists);
+  if($check_fav_exists){
+    response_format(400, "Você já favoritou este brinquedo.");
+  }
   
   $insert_play = $db->insertInto(
     'favorito',

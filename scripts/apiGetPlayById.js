@@ -25,6 +25,7 @@ $(document).ready(function () {
       let item = response.return[0];
 
       let html = `
+        <i class="bi" id="btn-favorite"></i>
         <div id="play-pictures">${item.brin_pictures}</div><br/>
         <span id="play-grade">${
           item.brin_grade == null ? "0.0" : item.brin_grade
