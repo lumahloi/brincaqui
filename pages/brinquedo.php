@@ -11,10 +11,10 @@ require_once BASE_DIR . "/components/header.php";
 <body>
   <div class="containerw">
     <?php
+    require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/back.php";
     ?>
     <div id="play"></div>
-    <?php require_once BASE_DIR . "/components/modal.php"; ?>
   </div>
   
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>

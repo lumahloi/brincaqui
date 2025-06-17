@@ -6,6 +6,7 @@ require_once BASE_DIR . "/components/header.php";
 <body>
   <div class="containerw">
     <?php
+    require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/back.php";
     ?>
     <form id="register-form">
@@ -44,7 +45,6 @@ require_once BASE_DIR . "/components/header.php";
         <button type="button" class="btn btn-primary form-control" id="form-submit">Cadastrar</button>
       </div>
     </form>
-    <?php require_once BASE_DIR . "/components/modal.php"; ?>
   </div>
 
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>

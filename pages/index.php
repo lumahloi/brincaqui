@@ -6,6 +6,7 @@ require_once BASE_DIR . "/components/header.php";
 <body>
   <div id="initial-options" class="containerw">
     <?php
+    require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/navigation.php";
     ?>
     <div class="mb-3">
@@ -17,7 +18,6 @@ require_once BASE_DIR . "/components/header.php";
     <div class="mb-3">
       <p><a href="login">Já tenho uma conta</a></p>
     </div>
-    <?php require_once BASE_DIR . "/components/modal.php"; ?>
   </div>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/registerRedirect.js"></script>
