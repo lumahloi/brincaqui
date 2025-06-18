@@ -4,11 +4,11 @@
   min-height: 100vh;
   background-color: white;
   border-radius: 10px;
-  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   overflow-y: auto;
   padding-bottom: 70px;
 }
-
 
 @media (max-width: 576px) {
   .containerw {
@@ -116,7 +116,33 @@ body {
   gap: 1rem;
   padding-bottom: 1rem;
 }
+
 .container-scroll .card {
   min-width: 300px;
   flex: 0 0 auto;
+}
+
+#logo-header {
+  display: block;
+  max-width: 50%;
+  margin: auto;
+}
+
+.img-70 {
+  display: block;
+  max-width: 70%;
+  margin: auto;
+}
+
+#no-padding {
+  margin: 0;
+}
+
+.gradient-1 {
+  background: #c50ff2;
+  background: linear-gradient(
+    90deg,
+    rgba(197, 15, 242, 1) 0%,
+    rgba(220, 15, 236, 1) 100%
+  );
 }
