@@ -28,12 +28,10 @@ $("#form-submit").click(function (event) {
       userType: input_user_type,
     }),
     success: () => {
-      console.log(SERVER_URL+'auth/register.php')
       sessionStorage.removeItem("user_type");
       window.location = "login";
     },
     error: (xhr) => {
-      console.log("Error callback", xhr.status);
       error_validation(xhr);
     },
   });

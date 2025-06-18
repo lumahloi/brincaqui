@@ -6,7 +6,7 @@ function getDiscNameByPlay(discountId, targetElement) {
 
   $.ajax({
     type: "GET",
-    url: "/public/desconto.json",
+    url: "../public/desconto.json", 
     dataType: "json",
     success: (response) => {
       const discounts = Array.isArray(response) ? response : [];
@@ -17,7 +17,7 @@ function getDiscNameByPlay(discountId, targetElement) {
 
       if (discount) {
         const element = $(`
-        <div class="col-6 d-flex align-items-center mb-1">
+        <div class="col-12 d-flex align-items-center mb-1">
           <i class="bi bi-check me-2 fs-5"></i>
           <span>${discount.disc_title}</span>
         </div>

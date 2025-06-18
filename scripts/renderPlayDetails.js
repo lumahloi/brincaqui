@@ -28,8 +28,8 @@ function renderPrices(prices) {
   if (Array.isArray(prices)) {
     prices.forEach((price) => {
       html += `
-        <div class="card">
-          <div class="card-body p-3 mx-auto">
+        <div class="card col-auto">
+          <div class="card-body p-3 mx-auto text-center">
             <span class="card-title small text-center">${
               price.prices_title
             }</span>
@@ -258,58 +258,89 @@ function renderPlayDetails(item) {
     </div>
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Preços</h5>
-      ${renderPrices(item.brin_prices)}
-  `;
+      <div class="row d-flex gap-2 justify-content-center">${renderPrices(item.brin_prices)}</div>
+      <div id="play-discounts" class="row"></div>
+    </div>
+    <div class="d-grid gap-2">
+      <h5 class="fw-bold text-gradient-1">Avaliações</h5>
+      <h5><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
+        item.brin_grade
+      } ${classificacao}</span></h5>
+      <p class="mb-0">Com base em  ${
+        item.total_avaliacoes
+      } avaliações dos nossos usuários.</p>
 
-  if (item.brin_discounts) {
-    html += `${item.brin_description}`;
-  }
-
-  html += `
+      <div class="row justify-content-center gap-2 pt-3" id="no-gutter">
+        <div class="col-auto card text-center p-2" style="min-width: 90px;">
+          <div class="row text-center pb-1"><i class="bi bi-shield-fill fs-6"></i></div>
+          <p class="text-center small mb-0">Segurança</p>
+          <span>${getClassificacaoLabel(item.brin_grade_2)}</span>
+        </div>
+        <div class="col-auto card text-center p-2" style="min-width: 90px;">
+          <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-stars fs-6"></i></div>
+          <p class="text-center small mb-0">Limpeza</p>
+          <span>${getClassificacaoLabel(item.brin_grade_3)}</span>
+        </div>
+        <div class="col-auto card text-center p-2">
+          <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-emoji-grin-fill fs-6"></i></div>
+          <p class="text-center small mb-0">Brinquedos e atrações</p>
+          <span>${getClassificacaoLabel(item.brin_grade_4)}</span>
+        </div>
+        <div class="col-auto card text-center p-2" style="min-width: 90px;">
+          <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-geo-alt-fill fs-6"></i></div>
+          <p class="text-center small mb-0">Localização</p>
+          <span>${getClassificacaoLabel(item.brin_grade_5)}</span>
+        </div>
+        <div class="col-auto card text-center p-2" style="min-width: 90px;">
+          <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-currency-dollar fs-6"></i></div>
+          <p class="text-center small mb-0">Preço</p>
+          <span>${getClassificacaoLabel(item.brin_grade_6)}</span>
+        </div>
+        <div class="col-auto card text-center p-2" style="min-width: 90px;">
+          <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-person-wheelchair fs-6"></i></div>
+          <p class="text-center small mb-0">Acessibilidade</p>
+          <span>${getClassificacaoLabel(item.brin_grade_7)}</span>
+        </div>
       </div>
-      <div class="d-grid gap-2">
-        <h5 class="fw-bold text-gradient-1">Avaliações</h5>
-        <h5><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
-          item.brin_grade
-        } ${classificacao}</span></h5>
-        <p class="mb-0">Com base em  ${
-          item.total_avaliacoes
-        } avaliações dos nossos usuários.</p>
-      </div>
-      <div class="d-grid gap-2">
-        <h5 class="fw-bold text-gradient-1">Avaliações dos usuários</h5>
-      </div>
-      <div class="d-grid gap-2">
-        <h5 class="fw-bold text-gradient-1">Localização</h5>
+    </div>
+    <div class="d-grid gap-2">
+      <h5 class="fw-bold text-gradient-1">Avaliações dos usuários</h5>
+    </div>
+    <div class="d-grid gap-2">
+      <h5 class="fw-bold text-gradient-1">Localização</h5>
 
-        <a 
-          href="https://www.google.com/maps?q=${item.add_latitude},${item.add_longitude}" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <iframe
-            width="100%"
-            height="250"
-            style="border:0; pointer-events: none;"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=${item.add_latitude},${item.add_longitude}&hl=pt-BR&z=16&output=embed"
-          ></iframe>
-        </a>
+      <a 
+        href="https://www.google.com/maps?q=${item.add_latitude},${
+    item.add_longitude
+  }" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        <iframe
+          width="100%"
+          height="250"
+          style="border:0; pointer-events: none;"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=${item.add_latitude},${
+    item.add_longitude
+  }&hl=pt-BR&z=16&output=embed"
+        ></iframe>
+      </a>
 
 
-        <p class="mb-0">${item.add_streetnum} - ${item.add_neighborhood}, ${
+      <p class="mb-0">${item.add_streetnum} - ${item.add_neighborhood}, ${
     item.add_city
   } - ${item.add_state}, ${formatCep(item.add_cep)}</p>
-      </div>
-      <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1): ?>
-        <button type="submit" class="btn btn-primary btn-visita" data-brin-id="${
-          item.brin_id
-        }">Visitarei este lugar</button>
-      <?php endif; ?>
-      </div>
-  `;
+    </div>
+    <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1): ?>
+      <button type="submit" class="btn btn-primary btn-visita bg-gradient-1 border-0" data-brin-id="${
+        item.brin_id
+      }">Visitarei este lugar</button>
+    <?php endif; ?>
+    </div>
+`;
 
   return html;
 }

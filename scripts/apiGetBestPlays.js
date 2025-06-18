@@ -15,10 +15,12 @@ $(document).ready(function () {
         }
 
         response.return.forEach(function (item) {
-          const $card = renderPlayCard(item, templateHtml, {
-            detailsType: "default",
+          loadClassificacoesAndRender(item, function (itemWithClass) {
+            const $card = renderPlayCard(itemWithClass, templateHtml, {
+              detailsType: "default",
+            });
+            container.append($card);
           });
-          container.append($card);
         });
       },
       error: (xhr) => {

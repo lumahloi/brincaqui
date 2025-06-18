@@ -1,9 +1,36 @@
+let classificacoes = null;
+
+function loadClassificacoesAndRender(item, renderCallback) {
+  if (classificacoes) {
+    renderCallback(item);
+    return;
+  }
+  $.getJSON("../public/classificacao.json", function (data) {
+    classificacoes = data;
+    console.log(classificacoes)
+    console.log(data)
+    renderCallback(item);
+  });
+}
+
+function getClassificacaoLabel(grade) {
+  if (!classificacoes) return "";
+  grade = Number(grade);
+  for (let i = 0; i < classificacoes.length; i++) {
+    const c = classificacoes[i];
+    if (grade >= c.min && grade <= c.max) {
+      return c.label;
+    }
+  }
+  return "";
+}
+
 function renderPlayCard(item, templateHtml, options = {}) {
   const $card = $(templateHtml);
 
   $card.find("#play-name").text(item.brin_name);
   let grade = Number(item.brin_grade ?? 0);
-  $card.find("#play-grade").text(grade % 1 === 0 ? grade.toFixed(1) : grade);
+  $card.find("#play-grade").text(grade % 1 === 0 ? grade.toFixed(1) + ' ' + getClassificacaoLabel(item.brin_grade): grade + ' ' + getClassificacaoLabel(item.brin_grade));
   $card.find("#play-distance").text(item.brin_distance ?? 0 + " km");
   $card.find("#play-neighborhood").text(item.add_neighborhood ?? "");
   $card.find("#play-city").text(item.add_city ?? "");

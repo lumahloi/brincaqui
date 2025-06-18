@@ -24,6 +24,12 @@ CREATE TABLE
     brin_id INT AUTO_INCREMENT PRIMARY KEY,
     brin_pictures JSON,
     brin_grade FLOAT,
+    brin_grade_2 FLOAT,
+    brin_grade_3 FLOAT,
+    brin_grade_4 FLOAT,
+    brin_grade_5 FLOAT,
+    brin_grade_6 FLOAT,
+    brin_grade_7 FLOAT,
     brin_socials JSON NOT NULL,
     brin_description TEXT,
     brin_times JSON NOT NULL,
@@ -125,14 +131,14 @@ VALUES
   (
     'Avalie sua experiência!',
     'Sua opinião é muito importante para nós e outros pais. Avalie sua experiência em {brinquedo}.',
-    CURDATE (),
+    CURDATE(),
     1,
-    CURDATE ()
+    CURDATE()
   ),
   (
     '{brinquedo} te aguarda',
     'Que tal visitar {brinquedo} novamente?',
-    CURDATE (),
+    CURDATE(),
     1,
-    CURDATE ()
+    CURDATE()
   );

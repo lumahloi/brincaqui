@@ -57,29 +57,51 @@ $(document).ready(function () {
           $commoditiesContainer.append(row);
         }
 
-        let discounts = item.brin_discounts;
-        discounts = (
-          Array.isArray(discounts)
-            ? discounts
-            : String(discounts || "").split(",")
+        let discounts = (
+          Array.isArray(item.brin_discounts)
+            ? item.brin_discounts
+            : String(item.brin_discounts || "").split(",")
         )
-          .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
+          .map((id) => parseInt(String(id).replace(/[^\d]/g, ""), 10))
           .filter((id) => !isNaN(id));
 
-        discounts.forEach((discountId) => {
-          getDiscNameByPlay(String(discountId), $("#play-discounts"));
-        });
+        const $discountsContainer = $("#play-discounts");
+        if ($discountsContainer.length) {
+          if (item.brin_discounts && discounts.length > 0) {
+            $discountsContainer.append(
+              '<p class="fw-bold mb-2 mt-3">Descontos:</p>'
+            );
+          }
+          discounts.forEach((discountId) => {
+            getDiscNameByPlay(String(discountId), $discountsContainer);
+          });
+        } else {
+          setTimeout(() => {
+            const $retryContainer = $("#play-discounts");
+            if ($retryContainer.length) {
+              if (item.brin_discounts && discounts.length > 0) {
+                $retryContainer.append(
+                  "<p>Este brinquedo possui os seguintes descontos:</p>"
+                );
+              }
+              discounts.forEach((discountId) => {
+                getDiscNameByPlay(String(discountId), $retryContainer);
+              });
+            }
+          }, 50);
+        }
       });
 
-      $("#toggle-times").on("click", function () {
-        const $container = $("#times-container");
-        const $text = $("#toggle-times-text");
-        if ($container.is(":visible")) {
-          $container.slideUp(150);
-          $text.html("<i class='bi bi-caret-down-fill'></i>");
+      $(document).on("click", "#toggle-times", function () {
+        const container = $("#times-container");
+        const icon = $("#toggle-times-text i");
+
+        if (container.is(":visible")) {
+          container.slideUp();
+          icon.removeClass("bi-caret-up-fill").addClass("bi-caret-down-fill");
         } else {
-          $container.slideDown(150);
-          $text.html("<i class='bi bi-caret-up-fill'></i>");
+          container.slideDown();
+          icon.removeClass("bi-caret-down-fill").addClass("bi-caret-up-fill");
         }
       });
     },

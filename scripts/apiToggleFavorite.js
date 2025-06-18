@@ -32,6 +32,10 @@ $(document).ready(function () {
     if (!match) return;
     const playId = match[1];
 
+    const $favesSpan = $btn.closest(".row").find("span").filter(function() {
+      return $(this).text().includes("favorito");
+    });
+
     if ($btn.hasClass("bi-heart")) {
       $.ajax({
         type: "POST",
@@ -39,6 +43,8 @@ $(document).ready(function () {
         xhrFields: { withCredentials: true },
         success: function () {
           $btn.removeClass("bi-heart").addClass("bi-heart-fill");
+          let faves = parseInt($favesSpan.text()) || 0;
+          $favesSpan.text((faves + 1) + " favoritos");
         },
         error: function (xhr) {
           error_validation(xhr);
@@ -51,6 +57,8 @@ $(document).ready(function () {
         xhrFields: { withCredentials: true },
         success: function () {
           $btn.removeClass("bi-heart-fill").addClass("bi-heart");
+          let faves = parseInt($favesSpan.text()) || 0;
+          $favesSpan.text((faves > 0 ? faves - 1 : 0) + " favoritos");
         },
         error: function (xhr) {
           error_validation(xhr);
