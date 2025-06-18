@@ -1,5 +1,5 @@
 <?php
-require_once BASE_DIR . "/components/header.php";
+require_once BASE_DIR . "/components/head.php";
 ?>
 <link rel="stylesheet" href="<?php echo BASE_URL; ?>/styles/playCard.css">
 </head>

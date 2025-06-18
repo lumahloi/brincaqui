@@ -1,5 +1,5 @@
 <?php
-require_once BASE_DIR . "/components/header.php";
+require_once BASE_DIR . "/components/head.php";
 ?>
 
 </head>
