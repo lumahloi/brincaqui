@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card col-5">
   <div class="card-body d-grid gap-3">
     <span id="play-pictures"></span>
 
@@ -13,7 +13,7 @@
     
     <div id="play-commodities" class="d-flex flex-wrap small"></div>
 
-    <button class="btn btn-primary btn-details btn-visita" data-name="" data-brin-id=""></button>
+    <button class="btn btn-primary btn-details btn-visita bg-gradient-1 border-0" data-name="" data-brin-id=""></button>
 
   </div>
 </div>

@@ -128,21 +128,39 @@ body {
   margin: auto;
 }
 
-.img-70 {
-  display: block;
-  max-width: 70%;
-  margin: auto;
-}
-
-#no-padding {
-  margin: 0;
-}
-
-.gradient-1 {
+.bg-gradient-1 {
   background: #c50ff2;
   background: linear-gradient(
     90deg,
     rgba(197, 15, 242, 1) 0%,
     rgba(220, 15, 236, 1) 100%
   );
+}
+
+.text-gradient-1 {
+  background: linear-gradient(
+    90deg,
+    rgba(197, 15, 242, 1) 0%,
+    rgba(220, 15, 236, 1) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+i {
+  background: linear-gradient(
+    90deg,
+    rgba(197, 15, 242, 1) 0%,
+    rgba(220, 15, 236, 1) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+#no-gutter {
+  --bs-gutter-x: 0;
 }
