@@ -13,18 +13,20 @@ try {
   $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
   $orderBy = $_GET['order_by'] ?? 'distance';
+
   $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'desc') ? 'DESC' : 'ASC';
 
   $orderMapping = [
     'grade' => 'brin_grade',
     'distance' => 'distance',
     'faves' => 'brin_faves',
-    'visits' => 'brin_visits'
+    'visits' => 'brin_visits',
+    'price' => 'min_price'
   ];
 
-  $orderField = $orderMapping[$orderBy] ?? 'brin_grade';
+  $orderField = $orderMapping[$orderBy] ?? 'brin_distance';
 
-  if ($orderBy === 'distance' && !isset($_GET['order_dir'])) {
+  if (!isset($_GET['order_dir'])) {
     $orderDir = 'ASC';
   }
 
@@ -47,7 +49,6 @@ try {
       $column = "b.brin_$jsonField";
       $paramValues = $_GET[$jsonField];
 
-      // Se for string, transforma em array separando por vírgula
       if (!is_array($paramValues)) {
         $values = array_map('trim', explode(',', $paramValues));
       } else {
@@ -57,9 +58,7 @@ try {
       $fieldClauses = [];
       foreach ($values as $i => $value) {
         $paramName = ":{$jsonField}_$i";
-        // Remove espaços e "anos" do valor, se houver
         $value = trim(str_replace('anos', '', $value));
-        // O LIKE vai procurar qualquer faixa que contenha o valor (ex: 0-2)
         $fieldClauses[] = "$column LIKE $paramName";
         $sqlParams[$paramName] = '%' . $value . '%';
       }
@@ -73,13 +72,60 @@ try {
   $whereSql = !empty($whereClauses) ? 'WHERE ' . implode(' AND ', $whereClauses) : '';
 
   $sql = "
-    SELECT 
-      b.brin_pictures, b.brin_name, b.brin_grade, b.brin_commodities, b.brin_prices, b.brin_faves, b.brin_visits, $distanceCalculation AS distance
-    FROM Brinquedo b 
-    JOIN Endereco e ON b.brin_id = e.Brinquedo_brin_id
-    $whereSql
-    -- HAVING distance <= :radius
-    ORDER BY $orderField $orderDir;";
+  SELECT 
+    b.brin_pictures, b.brin_name, b.brin_grade, b.brin_times, b.brin_commodities, b.brin_prices, b.brin_faves, b.brin_visits, $distanceCalculation AS distance,
+    CAST(
+      JSON_UNQUOTE(
+        JSON_EXTRACT(
+          b.brin_prices,
+          CONCAT('$[', 
+            (SELECT idx FROM (
+              SELECT idx
+              FROM (
+                SELECT 
+                  JSON_UNQUOTE(JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price'))) AS price,
+                  n.n AS idx
+                FROM 
+                  (SELECT 0 n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) n
+                WHERE JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price')) IS NOT NULL
+              ) prices
+              ORDER BY price+0 ASC
+              LIMIT 1
+            ) AS min_idx
+          ), '].prices_price')
+        )
+      ) AS DECIMAL(10,2)
+    ) AS min_price,
+    -- Adiciona o prices_title relativo ao menor preço
+    JSON_UNQUOTE(
+      JSON_EXTRACT(
+        b.brin_prices,
+        CONCAT(
+          '$[',
+          (SELECT idx FROM (
+            SELECT idx
+            FROM (
+              SELECT 
+                JSON_UNQUOTE(JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price'))) AS price,
+                n.n AS idx
+              FROM 
+                (SELECT 0 n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) n
+              WHERE JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price')) IS NOT NULL
+            ) prices
+            ORDER BY price+0 ASC
+            LIMIT 1
+          ) AS min_idx
+        ),
+        '].prices_title'
+        )
+      )
+    ) AS min_price_title
+  FROM Brinquedo b 
+  JOIN Endereco e ON b.brin_id = e.Brinquedo_brin_id
+  $whereSql
+  -- HAVING distance <= :radius
+  ORDER BY $orderField $orderDir;
+";
 
   $sqlParams[':user_lat'] = $lat;
   $sqlParams[':user_lng'] = $lng;

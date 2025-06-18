@@ -14,8 +14,13 @@
         <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits"></span></div>
       </div>
     </div>
-    
+
     <div id="play-commodities" class="d-flex flex-wrap small"></div>
+
+    <div class="card" id="play-prices">
+      <span id="price-title" class="small text-center mt-3"></span>
+      <h4 id="price-price" class="text-center mb-3"></h4>
+    </div>
 
     <button class="btn btn-primary btn-details btn-visita bg-gradient-1 border-0" data-name="" data-brin-id=""></button>
 

@@ -2,11 +2,9 @@ $("#form-filters").submit(function (event) {
   event.preventDefault();
 
   const params = {};
-  // Para campos múltiplos (checkbox), armazene como array
   $(this)
     .serializeArray()
     .forEach(({ name, value }) => {
-      // Se já existe, transforma em array e adiciona
       if (params[name]) {
         if (!Array.isArray(params[name])) {
           params[name] = [params[name]];
@@ -17,7 +15,6 @@ $("#form-filters").submit(function (event) {
       }
     });
 
-  // Garante que filtros múltiplos estejam sempre como array
   ["ages", "commodities", "discounts"].forEach((field) => {
     if (params[field] && !Array.isArray(params[field])) {
       params[field] = [params[field]];
@@ -65,6 +62,9 @@ $("#form-filters").submit(function (event) {
           $card.find("#play-visits").text(item.brin_visits + " visitas");
 
           $card.find("#play-favorites").text(item.brin_faves + " favoritos");
+
+          $card.find("#price-title").text(item.min_price_title)
+          $card.find("#price-price").text("R$ " + item.min_price)
 
           let commodities = item.brin_commodities;
 
