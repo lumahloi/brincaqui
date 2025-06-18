@@ -5,6 +5,7 @@
 <div id="favorites" class="container-scroll"></div>
 
 <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/renderPlayCard.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/apiGetFavPlays.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/apiVisit.js"></script>

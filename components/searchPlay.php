@@ -82,6 +82,7 @@
 </form>
 
 <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/renderPlayCard.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/authGuard.js"></script>
 <!-- <script src="<?php echo BASE_URL ?>/scripts/localizator.js"></script> -->
 <script src="<?php echo BASE_URL ?>/scripts/toggleHiddenContent.js"></script>

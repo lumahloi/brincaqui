@@ -1,0 +1,76 @@
+function renderPlayCard(item, templateHtml, options = {}) {
+  const $card = $(templateHtml);
+
+  $card.find("#play-name").text(item.brin_name);
+  $card.find("#play-grade").text(item.brin_grade ?? 0);
+  $card.find("#play-distance").text(item.brin_distance ?? 0 + " km");
+  $card.find("#play-neighborhood").text(item.add_neighborhood ?? "");
+  $card.find("#play-city").text(item.add_city ?? "");
+  $card.find("#play-visits").text((item.brin_visits ?? 0) + " visitas");
+  $card.find("#play-favorites").text((item.brin_faves ?? 0) + " favoritos");
+  $card.find("#price-title").text(item.min_price_title ?? "");
+  $card.find("#price-price").text(item.min_price ? "R$ " + item.min_price : "");
+
+  if (item.brin_picture) {
+    $card
+      .find("#play-pictures")
+      .html(
+        `<img src="${item.brin_picture}" class="img-fluid rounded" style="max-height:120px;">`
+      );
+  }
+
+  let commodities = item.brin_commodities;
+  commodities = (
+    Array.isArray(commodities)
+      ? commodities
+      : String(commodities || "").split(",")
+  )
+    .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
+    .filter((id) => !isNaN(id));
+
+  $card.find("#play-commodities").empty();
+  commodities.forEach((commodityId) => {
+    if (typeof getComNameByPlay === "function") {
+      getComNameByPlay(String(commodityId), $card.find("#play-commodities"));
+    } else {
+      $card
+        .find("#play-commodities")
+        .append(`<span class="badge bg-secondary me-1">${commodityId}</span>`);
+    }
+  });
+
+  let nomeBrinquedoSlug = item.brin_name
+    ? item.brin_name
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+    : "";
+
+  const $btn = $card.find(".btn-details");
+  if (options.detailsType === "visit") {
+    $btn
+      .off("click")
+      .attr("data-brin-id", item.brin_id)
+      .text("Visitarei este lugar");
+  } else if (options.detailsType === "visit-again") {
+    $btn
+      .off("click")
+      .attr("data-brin-id", item.brin_id)
+      .text("Visitarei novamente");
+  } else {
+    $btn
+      .addClass("auth-link")
+      .attr("data-name", nomeBrinquedoSlug)
+      .off("click")
+      .text("Ver mais informações")
+      .on("click", function (e) {
+        if (typeof isAuthenticated !== "undefined" && !isAuthenticated) return;
+        const brinquedo = $(this).data("name");
+        window.location.href = `/lugar/${brinquedo}-${item.brin_id}`;
+      });
+  }
+
+  return $card;
+}
