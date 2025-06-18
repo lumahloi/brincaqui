@@ -35,9 +35,20 @@ $("#form-filters").submit(function (event) {
           $card.find("#play-pictures").text(item.brin_pictures);
           $card
             .find("#play-grade")
-            .text(item.brin_grade == null ? "0.0" : item.brin_grade);
-          $card.find("#play-city").text(item.add_city);
-          $card.find("#play-neighborhood").text(item.add_neighborhood);
+            .text(
+              item.brin_grade == null
+                ? "0.0"
+                : Number.isInteger(Number(item.brin_grade))
+                ? Number(item.brin_grade).toFixed(1)
+                : String(item.brin_grade)
+            );
+          $card
+            .find("#play-distance")
+            .text(Number(item.distance).toFixed(1) + " km");
+
+          $card.find("#play-visits").text(item.brin_visits + " visitas");
+
+          $card.find("#play-favorites").text(item.brin_faves + " favoritos");
 
           let commodities = item.brin_commodities;
 
@@ -69,7 +80,7 @@ $("#form-filters").submit(function (event) {
             .find(".btn-details")
             .addClass("auth-link")
             .attr("data-name", nomeBrinquedoSlug)
-            .off("click") 
+            .off("click")
             .text("Ver mais informações")
             .on("click", function (e) {
               if (!isAuthenticated) return;

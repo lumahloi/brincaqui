@@ -31,8 +31,9 @@
         <div class="col">
           <small>Classificar por</small>
           <select class="form-select mt-2" name="order_by">
-            <option value="grade">Nota</option>
             <option value="distance">Distância</option>
+            <option value="grade">Nota</option>
+            <option value="price">Preço</option>
             <option value="faves">Favoritos</option>
             <option value="visits">Visitas</option>
           </select>
