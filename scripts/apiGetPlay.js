@@ -70,6 +70,7 @@ $("#form-filters").submit(function (event) {
             .addClass("auth-link")
             .attr("data-name", nomeBrinquedoSlug)
             .off("click") 
+            .text("Ver mais informações")
             .on("click", function (e) {
               if (!isAuthenticated) return;
 

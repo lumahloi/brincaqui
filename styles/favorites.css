@@ -1,0 +1,11 @@
+.favorites-scroll {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+.favorites-scroll .card {
+  min-width: 300px;
+  flex: 0 0 auto;
+}

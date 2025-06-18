@@ -1,4 +1,4 @@
-$("#play").on("click", "#btn-visita", function () {
+$(document).on("click", ".btn-visita", function () {
   const brinId = $(this).data("brin-id");
 
   $.ajax({

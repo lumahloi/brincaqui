@@ -51,7 +51,7 @@ $(document).ready(function () {
         <span id="play-country">${item.add_country}</span><br/>
 
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1): ?>
-          <button type="submit" class="btn btn-primary" id="btn-visita" data-brin-id="${item.brin_id}">Visitarei este lugar</button>
+          <button type="submit" class="btn btn-primary btn-visita" data-brin-id="${item.brin_id}">Visitarei este lugar</button>
         <?php endif; ?>
       `;
 

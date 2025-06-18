@@ -6,7 +6,7 @@ require_once BASE_DIR . "/components/header.php";
     window.location.href = "/";
   }
 </script>
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>/styles/playCard.css">
+<link rel="stylesheet" href="<?php echo BASE_URL ?>/styles/favorites.css">
 </head>
 
 <body>
@@ -27,8 +27,6 @@ require_once BASE_DIR . "/components/header.php";
     ;
     ?>
   </div>
-  
-  <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
 </body>
 
 </html>

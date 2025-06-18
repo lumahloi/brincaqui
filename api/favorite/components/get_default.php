@@ -6,37 +6,51 @@ try {
   $per_page = isset($_GET['per_page']) ? intval($_GET['per_page']) : 10;
   $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
   
-  $allowedOrderColumns = ['brin_name', 'brin_grade', 'brin_faves', 'brin_visits'];
+  // $allowedOrderColumns = ['brin_name', 'brin_grade', 'brin_faves', 'brin_visits'];
   
-  $orderBy = $_GET['order_by'] ?? 'name';
-  if (!in_array("brin_$orderBy", $allowedOrderColumns)) {
-    $orderBy = 'name';
-  }
-  $orderBy = 'brin_' . $orderBy;
+  // $orderBy = $_GET['order_by'] ?? 'name';
+  // if (!in_array("brin_$orderBy", $allowedOrderColumns)) {
+  //   $orderBy = 'name';
+  // }
+  // $orderBy = 'brin_' . $orderBy;
   
+  $orderBy = 'f.Brinquedo_brin_id'; 
   $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'desc') ? 'DESC' : 'ASC';
-  
+
   $filters = [];
-  $whereClauses = ["Usuario_user_id = :user_id"];
+  $whereClauses = ["f.Usuario_user_id = :user_id"];
   $filters[':user_id'] = $_SESSION['user_id'];
   
-  if (isset($_GET['commodities'])) {
-    $whereClauses[] = "brin_commodities = :commodities";
-    $filters[':commodities'] = $_GET['commodities'];
-  }
+  // if (isset($_GET['commodities'])) {
+  //   $whereClauses[] = "brin_commodities = :commodities";
+  //   $filters[':commodities'] = $_GET['commodities'];
+  // }
   
-  if (isset($_GET['discounts'])) {
-    $whereClauses[] = "brin_discounts = :discounts";
-    $filters[':discounts'] = $_GET['discounts'];
-  }
+  // if (isset($_GET['discounts'])) {
+  //   $whereClauses[] = "brin_discounts = :discounts";
+  //   $filters[':discounts'] = $_GET['discounts'];
+  // }
   
-  if (isset($_GET['ages'])) {
-    $whereClauses[] = "brin_ages = :ages";
-    $filters[':ages'] = $_GET['ages'];
-  }
+  // if (isset($_GET['ages'])) {
+  //   $whereClauses[] = "brin_ages = :ages";
+  //   $filters[':ages'] = $_GET['ages'];
+  // }
   
   $whereSql = implode(" AND ", $whereClauses);
-  $sql = "SELECT * FROM brincaqui.favorito WHERE $whereSql ORDER BY $orderBy $orderDir";
+  $sql = "
+    SELECT 
+      f.*, 
+      b.*, 
+      e.*
+    FROM 
+      brincaqui.favorito f
+      INNER JOIN brincaqui.brinquedo b ON f.Brinquedo_brin_id = b.brin_id
+      INNER JOIN brincaqui.endereco e ON b.brin_id = e.Brinquedo_brin_id
+    WHERE 
+      $whereSql
+    ORDER BY 
+      $orderBy $orderDir
+  ";
   
   $db = new Database();
   $results = $db->selectWithPagination($sql, $filters, $per_page, $page);
