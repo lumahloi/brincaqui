@@ -27,9 +27,48 @@ $(document).ready(function () {
       let item = response.return[0];
 
       loadClassificacoesAndRender(item, function (item) {
-        console.log('ok')
         const html = renderPlayDetails(item);
         container.html(html);
+
+        let commodities = item.brin_commodities;
+        commodities = (
+          Array.isArray(commodities)
+            ? commodities
+            : String(commodities || "").split(",")
+        )
+          .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
+          .filter((id) => !isNaN(id));
+
+        let $commoditiesContainer = $("#play-commodities");
+        $commoditiesContainer.empty();
+
+        for (let i = 0; i < commodities.length; i += 2) {
+          let row = $('<div class="row mb-2"></div>');
+          let col1 = $('<div class="col"></div>');
+          getComNameByPlay(String(commodities[i]), col1);
+          row.append(col1);
+
+          if (commodities[i + 1] !== undefined) {
+            let col2 = $('<div class="col"></div>');
+            getComNameByPlay(String(commodities[i + 1]), col2);
+            row.append(col2);
+          }
+
+          $commoditiesContainer.append(row);
+        }
+
+        let discounts = item.brin_discounts;
+        discounts = (
+          Array.isArray(discounts)
+            ? discounts
+            : String(discounts || "").split(",")
+        )
+          .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
+          .filter((id) => !isNaN(id));
+
+        discounts.forEach((discountId) => {
+          getDiscNameByPlay(String(discountId), $("#play-discounts"));
+        });
       });
 
       $("#toggle-times").on("click", function () {
@@ -42,46 +81,6 @@ $(document).ready(function () {
           $container.slideDown(150);
           $text.html("<i class='bi bi-caret-up-fill'></i>");
         }
-      });
-
-      let commodities = item.brin_commodities;
-      commodities = (
-        Array.isArray(commodities)
-          ? commodities
-          : String(commodities || "").split(",")
-      )
-        .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
-        .filter((id) => !isNaN(id));
-
-      let $commoditiesContainer = $("#play-commodities");
-      $commoditiesContainer.empty();
-
-      for (let i = 0; i < commodities.length; i += 2) {
-        let row = $('<div class="row mb-2"></div>');
-        let col1 = $('<div class="col"></div>');
-        getComNameByPlay(String(commodities[i]), col1);
-        row.append(col1);
-
-        if (commodities[i + 1] !== undefined) {
-          let col2 = $('<div class="col"></div>');
-          getComNameByPlay(String(commodities[i + 1]), col2);
-          row.append(col2);
-        }
-
-        $commoditiesContainer.append(row);
-      }
-
-      let discounts = item.brin_discounts;
-      discounts = (
-        Array.isArray(discounts)
-          ? discounts
-          : String(discounts || "").split(",")
-      )
-        .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
-        .filter((id) => !isNaN(id));
-
-      discounts.forEach((discountId) => {
-        getDiscNameByPlay(String(discountId), $("#play-discounts"));
       });
     },
     error: (xhr) => {

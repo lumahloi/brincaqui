@@ -3,17 +3,16 @@ require_once BASE_DIR . "/utils/db_functions.php";
 
 try {
   $db = new Database();
-  
+
   $query = "
     SELECT 
       b.*, 
-      e.add_cep,
-      e.add_streetnum,
-      e.add_city,
-      e.add_neighborhood,
-      e.add_plus,
-      e.add_state,
-      e.add_country
+      e.*,
+      (
+        SELECT COUNT(*) 
+        FROM brincaqui.avaliacao a 
+        WHERE a.Brinquedo_brin_id = b.brin_id
+      ) AS total_avaliacoes
     FROM brincaqui.brinquedo b
     LEFT JOIN brincaqui.endereco e ON b.brin_id = e.Brinquedo_brin_id
     WHERE b.brin_id = :brin_id

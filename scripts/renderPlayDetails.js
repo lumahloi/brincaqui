@@ -8,6 +8,14 @@ function formatPhone(phone) {
   return phone;
 }
 
+function formatCep(cep) {
+  cep = String(cep).replace(/\D/g, "");
+  if (cep.length === 8) {
+    return cep.replace(/(\d{5})(\d{3})/, "$1-$2");
+  }
+  return cep;
+}
+
 function renderPrices(prices) {
   let html = "";
   if (typeof prices === "string") {
@@ -22,8 +30,12 @@ function renderPrices(prices) {
       html += `
         <div class="card">
           <div class="card-body p-3 mx-auto">
-            <span class="card-title small text-center">${price.prices_title}</span>
-            <h4 class="card-text text-center mt-2">R$ ${Number(price.prices_price).toFixed(2)}</h4>
+            <span class="card-title small text-center">${
+              price.prices_title
+            }</span>
+            <h4 class="card-text text-center mt-2">R$ ${Number(
+              price.prices_price
+            ).toFixed(2)}</h4>
           </div>
         </div>
       `;
@@ -39,7 +51,7 @@ function loadClassificacoesAndRender(item, renderCallback) {
     renderCallback(item);
     return;
   }
-  $.getJSON("../public/classificacao.json", function(data) {
+  $.getJSON("../public/classificacao.json", function (data) {
     classificacoes = data;
     renderCallback(item);
   });
@@ -66,7 +78,6 @@ function renderPlayDetails(item) {
   }
 
   const classificacao = getClassificacaoLabel(item.brin_grade);
-  console.log(classificacao)
 
   html += `
 <div class="d-grid gap-4">
@@ -74,12 +85,20 @@ function renderPlayDetails(item) {
     <h4 id="play-name" class="fw-bold mb-2">${item.brin_name}</h4>
     <div class="mt-3">
       <div class="row">
-        <div class="col"><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${item.brin_grade} - ${classificacao}</span></div>
-        <div class="col"><i class="bi bi-geo-alt-fill"></i> <span id="play-distance">${item.distance ?? 0} km</span></div>
+        <div class="col"><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
+          item.brin_grade
+        } ${classificacao}</span></div>
+        <div class="col"><i class="bi bi-geo-alt-fill"></i> <span id="play-distance">${
+          item.distance ?? 0
+        } km</span></div>
       </div>
       <div class="row">
-        <div class="col"><i class="bi bi-heart-fill"></i> <span id="play-favorites">${item.brin_faves} favoritos</span></div>
-        <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits">${item.brin_visits} visitas</span></div>
+        <div class="col"><i id="btn-favorite"></i> <span>${
+          item.brin_faves
+        } favoritos</span></div>
+        <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits">${
+          item.brin_visits
+        } visitas</span></div>
       </div>
     </div>
   </div>
@@ -94,8 +113,12 @@ function renderPlayDetails(item) {
   html += `
   <div>
     <p class="fw-bold mb-2">Contato</p>
-    <div class="d-flex align-items-center"><i class="bi bi-telephone-fill me-2"></i><span>${formatPhone(item.brin_telephone)}</span></div>
-    <div class="d-flex align-items-center"><i class="bi bi-envelope-fill me-2"></i><span>${item.brin_email}</span></div>
+    <div class="d-flex align-items-center"><i class="bi bi-telephone-fill me-2"></i><span>${formatPhone(
+      item.brin_telephone
+    )}</span></div>
+    <div class="d-flex align-items-center"><i class="bi bi-envelope-fill me-2"></i><span>${
+      item.brin_email
+    }</span></div>
   </div>
   <div>
     <p class="fw-bold mb-2">Redes sociais</p>
@@ -246,18 +269,44 @@ function renderPlayDetails(item) {
       </div>
       <div class="d-grid gap-2">
         <h5 class="fw-bold text-gradient-1">Avaliações</h5>
-        <h5><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${item.brin_grade}</span></h5>
-        <p class="mb-0">Com base em X avaliações</p>
+        <h5><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
+          item.brin_grade
+        } ${classificacao}</span></h5>
+        <p class="mb-0">Com base em  ${
+          item.total_avaliacoes
+        } avaliações dos nossos usuários.</p>
       </div>
       <div class="d-grid gap-2">
         <h5 class="fw-bold text-gradient-1">Avaliações dos usuários</h5>
       </div>
       <div class="d-grid gap-2">
         <h5 class="fw-bold text-gradient-1">Localização</h5>
-        <p class="mb-0">${item.add_streetnum} - ${item.add_neighborhood}, ${item.add_city} - ${item.add_state}, ${item.add_cep}</p>
+
+        <a 
+          href="https://www.google.com/maps?q=${item.add_latitude},${item.add_longitude}" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <iframe
+            width="100%"
+            height="250"
+            style="border:0; pointer-events: none;"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=${item.add_latitude},${item.add_longitude}&hl=pt-BR&z=16&output=embed"
+          ></iframe>
+        </a>
+
+
+        <p class="mb-0">${item.add_streetnum} - ${item.add_neighborhood}, ${
+    item.add_city
+  } - ${item.add_state}, ${formatCep(item.add_cep)}</p>
       </div>
       <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1): ?>
-        <button type="submit" class="btn btn-primary btn-visita" data-brin-id="${item.brin_id}">Visitarei este lugar</button>
+        <button type="submit" class="btn btn-primary btn-visita" data-brin-id="${
+          item.brin_id
+        }">Visitarei este lugar</button>
       <?php endif; ?>
       </div>
   `;
