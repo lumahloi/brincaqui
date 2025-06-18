@@ -35,7 +35,7 @@ $("#form-filters").submit(function (event) {
 
       if (!response.return || response.return.length === 0) {
         container.html(
-          "<p class='text-muted'>Nenhum resultado encontrado.</p>"
+          "<p class='text-muted mx-auto'>Nenhum resultado encontrado.</p>"
         );
         return;
       }

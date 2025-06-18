@@ -10,7 +10,7 @@ require_once BASE_DIR . "/components/head.php";
 </head>
 
 <body>
-  <div class="containerw">
+  <div class="containerw ps-3 pe-3">
     <?php
     require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/back.php";
@@ -21,7 +21,7 @@ require_once BASE_DIR . "/components/head.php";
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/getDiscNameByPlay.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/apiGetPlaysById.js"></script>
+  <script src="<?php echo BASE_URL ?>/scripts/apiGetPlayById.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiVisit.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiToggleFavorite.js"></script>
 </body>

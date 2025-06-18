@@ -3,7 +3,8 @@ $(document).ready(function () {
     $.ajax({
       type: "GET",
       url:
-        SERVER_URL + "play?latitude=0&longitude=0&order_by=grade&order_dir=DESC",
+        SERVER_URL +
+        "play?latitude=0&longitude=0&order_by=grade&order_dir=DESC",
       success: (response) => {
         const container = $("#best");
         container.empty();
@@ -17,9 +18,24 @@ $(document).ready(function () {
           const $card = $(templateHtml);
 
           $card.find("#play-name").text(item.brin_name);
-          $card.find("#play-grade").text(item.brin_grade ?? "-");
-          $card.find("#play-neighborhood").text(item.add_neighborhood ?? "");
-          $card.find("#play-city").text(item.add_city ?? "");
+          $card
+            .find("#play-distance")
+            .text(Number(item.distance).toFixed(1) + " km");
+          $card
+            .find("#play-grade")
+            .text(
+              item.brin_grade == null
+                ? "0.0"
+                : Number.isInteger(Number(item.brin_grade))
+                ? Number(item.brin_grade).toFixed(1)
+                : String(item.brin_grade)
+            );
+          $card.find("#play-visits").text(item.brin_visits + " visitas");
+
+          $card.find("#play-favorites").text(item.brin_faves + " favoritos");
+
+          $card.find("#price-title").text(item.min_price_title);
+          $card.find("#price-price").text("R$ " + item.min_price);
           $card
             .find("#play-commodities")
             .html(

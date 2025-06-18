@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         if (!response.return || response.return.length === 0) {
           container.html(
-            "<p class='text-muted'>Nenhum lugar favoritado, ainda!</p>"
+            "<p class='text-muted mx-auto'>Nenhum lugar favoritado, ainda!</p>"
           );
           return;
         }

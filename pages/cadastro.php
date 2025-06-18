@@ -19,6 +19,7 @@ require_once BASE_DIR . "/components/head.php";
     <?php
     require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/back.php";
+    require_once BASE_DIR . "/components/header.php";
     ?>
 
     <form id="register-form">
@@ -65,6 +66,10 @@ require_once BASE_DIR . "/components/head.php";
       <div class="mb-3">
         <button type="button" class="btn btn-primary form-control bg-gradient-1 border-0"
           id="form-submit">Cadastrar</button>
+      </div>
+
+      <div class="mb-3">
+        <p><a href="index" class="text-black">Já tenho uma conta</a></p>
       </div>
 
     </form>

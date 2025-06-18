@@ -9,6 +9,7 @@ require_once BASE_DIR . "/components/head.php";
     <?php
     require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/back.php";
+    require_once BASE_DIR . "/components/header.php";
     ?>
     <form>
       <div class="mb-3">

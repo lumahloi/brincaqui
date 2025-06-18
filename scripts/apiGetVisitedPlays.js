@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         if (!response.return || response.return.length === 0) {
           container.html(
-            "<p class='text-muted'>Nenhum lugar visitado, ainda!</p>"
+            "<p class='text-muted mx-auto'>Nenhum lugar visitado, ainda!</p>"
           );
           return;
         }

@@ -9,10 +9,11 @@ require_once BASE_DIR . "/components/head.php";
 </head>
 
 <body>
-  <div class="containerw">
+  <div class="containerw ps-3 pe-3">
     <?php
     require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/navigation.php";
+    require_once BASE_DIR . "/components/header.php";
     ?>
     <?php
     switch ($_SESSION['user_type']) {
