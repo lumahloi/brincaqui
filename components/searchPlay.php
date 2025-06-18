@@ -1,9 +1,22 @@
+<?php date_default_timezone_set('America/Sao_Paulo'); ?>
+
 <form id="form-filters">
   <div class="d-grid gap-3">
     <div class="col">
       <input type="text" class="form-control" name="address" id="address-input" placeholder="Digite um endereço">
-      <small class="text-muted">Buscaremos lugares próximos a este local</small>
+      <small class="text-muted">Buscaremos lugares próximos a este</small>
     </div>
+
+    <div class="col">
+      <input type="date" class="form-control" name="date" id="date-input" value="<?= date('Y-m-d') ?>">
+      <small class="text-muted">Data que você deseja ir</small>
+    </div>
+
+    <div class="col">
+      <input type="time" class="form-control" name="time" id="time-input" value="<?= date('H:i') ?>">
+      <small class="text-muted">Horário que você deseja ir</small>
+    </div>
+
 
     <input type="text" id="latitude" name="latitude">
     <input type="text" id="longitude" name="longitude">
@@ -18,8 +31,8 @@
         <div class="col">
           <small>Classificar por</small>
           <select class="form-select mt-2" name="order_by">
-            <option value="distance">Distância</option>
             <option value="grade">Nota</option>
+            <option value="distance">Distância</option>
             <option value="faves">Favoritos</option>
             <option value="visits">Visitas</option>
           </select>
@@ -74,4 +87,4 @@
 <script src="<?php echo BASE_URL ?>/scripts/getCommodities.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/getDiscounts.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
-<script src="<?php echo BASE_URL ?>/scripts/apiGetPlay.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/apiGetPlays.js"></script>
