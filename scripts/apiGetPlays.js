@@ -2,11 +2,27 @@ $("#form-filters").submit(function (event) {
   event.preventDefault();
 
   const params = {};
+  // Para campos múltiplos (checkbox), armazene como array
   $(this)
     .serializeArray()
     .forEach(({ name, value }) => {
-      params[name] = value;
+      // Se já existe, transforma em array e adiciona
+      if (params[name]) {
+        if (!Array.isArray(params[name])) {
+          params[name] = [params[name]];
+        }
+        params[name].push(value);
+      } else {
+        params[name] = value;
+      }
     });
+
+  // Garante que filtros múltiplos estejam sempre como array
+  ["ages", "commodities", "discounts"].forEach((field) => {
+    if (params[field] && !Array.isArray(params[field])) {
+      params[field] = [params[field]];
+    }
+  });
 
   if (!params.order_by) {
     params.order_by = "distance";

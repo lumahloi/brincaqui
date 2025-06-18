@@ -5,7 +5,7 @@ try {
   if (!isset($_GET['latitude']) || !isset($_GET['longitude'])) {
     response_format(400, "Por favor, informe um endereço.");
   }
-  
+
   $lat = floatval($_GET['latitude']);
   $lng = floatval($_GET['longitude']);
 
@@ -38,12 +38,46 @@ try {
 
   $radius = isset($_GET['radius']) ? floatval($_GET['radius']) : 10;
 
+  $whereClauses = [];
+
+  $whereClauses[] = "b.brin_active = '1'";
+
+  foreach (['commodities', 'discounts', 'ages'] as $jsonField) {
+    if (isset($_GET[$jsonField])) {
+      $column = "b.brin_$jsonField";
+      $paramValues = $_GET[$jsonField];
+
+      // Se for string, transforma em array separando por vírgula
+      if (!is_array($paramValues)) {
+        $values = array_map('trim', explode(',', $paramValues));
+      } else {
+        $values = array_map('trim', $paramValues);
+      }
+
+      $fieldClauses = [];
+      foreach ($values as $i => $value) {
+        $paramName = ":{$jsonField}_$i";
+        // Remove espaços e "anos" do valor, se houver
+        $value = trim(str_replace('anos', '', $value));
+        // O LIKE vai procurar qualquer faixa que contenha o valor (ex: 0-2)
+        $fieldClauses[] = "$column LIKE $paramName";
+        $sqlParams[$paramName] = '%' . $value . '%';
+      }
+
+      if (!empty($fieldClauses)) {
+        $whereClauses[] = '(' . implode(' AND ', $fieldClauses) . ')';
+      }
+    }
+  }
+
+  $whereSql = !empty($whereClauses) ? 'WHERE ' . implode(' AND ', $whereClauses) : '';
+
   $sql = "
     SELECT 
-      b.brin_pictures, b.brin_name, b.brin_grade, b.brin_times, b.brin_commodities, b.brin_prices, b.brin_ages, b.brin_faves, b.brin_visits, $distanceCalculation AS distance
+      b.brin_pictures, b.brin_name, b.brin_grade, b.brin_commodities, b.brin_prices, b.brin_faves, b.brin_visits, $distanceCalculation AS distance
     FROM Brinquedo b 
     JOIN Endereco e ON b.brin_id = e.Brinquedo_brin_id
-    WHERE b.brin_active = '1'
+    $whereSql
     -- HAVING distance <= :radius
     ORDER BY $orderField $orderDir;";
 
