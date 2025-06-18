@@ -5,7 +5,7 @@ $("#form-filters").submit(function (event) {
   $(this)
     .serializeArray()
     .forEach(({ name, value }) => {
-      if (value && name !== "address") params[name] = value;
+      params[name] = value;
     });
 
   if (!params.order_by) {
