@@ -2,7 +2,8 @@ function renderPlayCard(item, templateHtml, options = {}) {
   const $card = $(templateHtml);
 
   $card.find("#play-name").text(item.brin_name);
-  $card.find("#play-grade").text(item.brin_grade ?? 0);
+  let grade = Number(item.brin_grade ?? 0);
+  $card.find("#play-grade").text(grade % 1 === 0 ? grade.toFixed(1) : grade);
   $card.find("#play-distance").text(item.brin_distance ?? 0 + " km");
   $card.find("#play-neighborhood").text(item.add_neighborhood ?? "");
   $card.find("#play-city").text(item.add_city ?? "");
@@ -15,7 +16,7 @@ function renderPlayCard(item, templateHtml, options = {}) {
     $card
       .find("#play-pictures")
       .html(
-        `<img src="${item.brin_picture}" class="img-fluid rounded" style="max-height:120px;">`
+        `<img src="${item.brin_picture}" class="img-fluid rounded">`
       );
   }
 

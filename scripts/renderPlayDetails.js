@@ -1,0 +1,266 @@
+function formatPhone(phone) {
+  phone = String(phone).replace(/\D/g, "");
+  if (phone.length === 11) {
+    return phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+  } else if (phone.length === 10) {
+    return phone.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+  }
+  return phone;
+}
+
+function renderPrices(prices) {
+  let html = "";
+  if (typeof prices === "string") {
+    try {
+      prices = JSON.parse(prices);
+    } catch {
+      prices = [];
+    }
+  }
+  if (Array.isArray(prices)) {
+    prices.forEach((price) => {
+      html += `
+        <div class="card">
+          <div class="card-body p-3 mx-auto">
+            <span class="card-title small text-center">${price.prices_title}</span>
+            <h4 class="card-text text-center mt-2">R$ ${Number(price.prices_price).toFixed(2)}</h4>
+          </div>
+        </div>
+      `;
+    });
+  }
+  return html;
+}
+
+let classificacoes = null;
+
+function loadClassificacoesAndRender(item, renderCallback) {
+  if (classificacoes) {
+    renderCallback(item);
+    return;
+  }
+  $.getJSON("../public/classificacao.json", function(data) {
+    classificacoes = data;
+    renderCallback(item);
+  });
+}
+
+function getClassificacaoLabel(grade) {
+  if (!classificacoes) return "";
+  grade = Number(grade);
+  for (let i = 0; i < classificacoes.length; i++) {
+    const c = classificacoes[i];
+    if (grade >= c.min && grade <= c.max) {
+      return c.label;
+    }
+  }
+  return "";
+}
+
+function renderPlayDetails(item) {
+  let html = "";
+
+  if (item.brin_pictures) {
+    html += `
+<div id="play-pictures" class="col">${item.brin_pictures}</div>`;
+  }
+
+  const classificacao = getClassificacaoLabel(item.brin_grade);
+  console.log(classificacao)
+
+  html += `
+<div class="d-grid gap-4">
+  <div>
+    <h4 id="play-name" class="fw-bold mb-2">${item.brin_name}</h4>
+    <div class="mt-3">
+      <div class="row">
+        <div class="col"><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${item.brin_grade} - ${classificacao}</span></div>
+        <div class="col"><i class="bi bi-geo-alt-fill"></i> <span id="play-distance">${item.distance ?? 0} km</span></div>
+      </div>
+      <div class="row">
+        <div class="col"><i class="bi bi-heart-fill"></i> <span id="play-favorites">${item.brin_faves} favoritos</span></div>
+        <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits">${item.brin_visits} visitas</span></div>
+      </div>
+    </div>
+  </div>
+  `;
+
+  if (item.brin_description) {
+    html += `
+  <p class="mb-0">${item.brin_description}</p>
+    `;
+  }
+
+  html += `
+  <div>
+    <p class="fw-bold mb-2">Contato</p>
+    <div class="d-flex align-items-center"><i class="bi bi-telephone-fill me-2"></i><span>${formatPhone(item.brin_telephone)}</span></div>
+    <div class="d-flex align-items-center"><i class="bi bi-envelope-fill me-2"></i><span>${item.brin_email}</span></div>
+  </div>
+  <div>
+    <p class="fw-bold mb-2">Redes sociais</p>
+  `;
+
+  let socialsHtml = "";
+  if (item.brin_socials) {
+    let socials;
+    try {
+      socials =
+        typeof item.brin_socials === "string"
+          ? JSON.parse(item.brin_socials)
+          : item.brin_socials;
+    } catch (e) {
+      socials = [];
+    }
+
+    if (Array.isArray(socials)) {
+      socials.forEach((social) => {
+        const [network, url] = Object.entries(social)[0];
+        let icon = "";
+        if (network.toLowerCase().includes("facebook")) {
+          icon = '<i class="bi bi-facebook me-1"></i>';
+        } else if (network.toLowerCase().includes("instagram")) {
+          icon = '<i class="bi bi-instagram me-1"></i>';
+        } else if (network.toLowerCase().includes("whatsapp")) {
+          icon = '<i class="bi bi-whatsapp me-1"></i>';
+        } else {
+          icon = '<i class="bi bi-link-45deg me-1"></i>';
+        }
+        socialsHtml += `<a href="${url}" target="_blank" class="me-2">${icon}</a>`;
+      });
+    } else if (typeof socials === "object" && socials !== null) {
+      const [network, url] = Object.entries(socials)[0];
+      let icon = "";
+      if (network.toLowerCase().includes("facebook")) {
+        icon = '<i class="bi bi-facebook me-1"></i>';
+      } else if (network.toLowerCase().includes("instagram")) {
+        icon = '<i class="bi bi-instagram me-1"></i>';
+      } else if (network.toLowerCase().includes("whatsapp")) {
+        icon = '<i class="bi bi-whatsapp me-1"></i>';
+      } else {
+        icon = '<i class="bi bi-link-45deg me-1"></i>';
+      }
+      socialsHtml += `<a href="${url}" target="_blank" class="me-2">${icon}</a>`;
+    }
+  }
+
+  let agesText = "";
+  if (item.brin_ages) {
+    let ages = item.brin_ages;
+    if (typeof ages === "string") {
+      try {
+        ages = JSON.parse(ages);
+      } catch (e) {}
+    }
+    if (Array.isArray(ages)) {
+      agesText = ages.join(", ");
+    } else if (typeof ages === "string") {
+      agesText = ages;
+    }
+  }
+
+  html += `
+    ${socialsHtml}
+  </div>
+    <div>
+      <span class="fw-bold">Faixa etária</span>
+      <p class="mb-0">${agesText}.</p>
+    </div>
+    <div>
+      <span class="fw-bold">Horários de funcionamento</span>
+  `;
+
+  let timesHtml = "";
+  if (item.brin_times) {
+    let times = item.brin_times;
+    if (typeof times === "string") {
+      try {
+        times = JSON.parse(times);
+      } catch (e) {
+        times = [];
+      }
+    }
+    if (Array.isArray(times) && times.length > 0) {
+      const dayOrder = [
+        "domingo",
+        "segunda",
+        "terca",
+        "quarta",
+        "quinta",
+        "sexta",
+        "sabado",
+        "feriado",
+      ];
+      const dayLabels = {
+        domingo: "Domingo",
+        segunda: "Segunda",
+        terca: "Terça",
+        quarta: "Quarta",
+        quinta: "Quinta",
+        sexta: "Sexta",
+        sabado: "Sábado",
+        feriado: "Feriado",
+      };
+
+      let timesObj = {};
+      times.forEach((obj) => {
+        const [day, hour] = Object.entries(obj)[0];
+        timesObj[day] = hour;
+      });
+
+      timesHtml += `<table class="table table-sm w-100"><tbody>`;
+      dayOrder.forEach((day) => {
+        if (timesObj[day]) {
+          timesHtml += `
+            <tr>
+              <td class="fw-bold">${dayLabels[day]}</td>
+              <td>${timesObj[day]}</td>
+            </tr>
+          `;
+        }
+      });
+      timesHtml += `</tbody></table>`;
+    }
+  }
+
+  html += `
+      <button class="btn btn-link btn-sm px-1 py-0" type="button" id="toggle-times">
+        <span id="toggle-times-text"><i class="bi bi-caret-down-fill"></i></span>
+      </button>
+      <div id="times-container" style="display:none;">${timesHtml}</div>
+    </div>
+    <div class="d-grid gap-2">
+      <h5 class="fw-bold text-gradient-1">Comodidades</h5>
+      <div id="play-commodities"></div>
+    </div>
+    <div class="d-grid gap-2">
+      <h5 class="fw-bold text-gradient-1">Preços</h5>
+      ${renderPrices(item.brin_prices)}
+  `;
+
+  if (item.brin_discounts) {
+    html += `${item.brin_description}`;
+  }
+
+  html += `
+      </div>
+      <div class="d-grid gap-2">
+        <h5 class="fw-bold text-gradient-1">Avaliações</h5>
+        <h5><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${item.brin_grade}</span></h5>
+        <p class="mb-0">Com base em X avaliações</p>
+      </div>
+      <div class="d-grid gap-2">
+        <h5 class="fw-bold text-gradient-1">Avaliações dos usuários</h5>
+      </div>
+      <div class="d-grid gap-2">
+        <h5 class="fw-bold text-gradient-1">Localização</h5>
+        <p class="mb-0">${item.add_streetnum} - ${item.add_neighborhood}, ${item.add_city} - ${item.add_state}, ${item.add_cep}</p>
+      </div>
+      <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1): ?>
+        <button type="submit" class="btn btn-primary btn-visita" data-brin-id="${item.brin_id}">Visitarei este lugar</button>
+      <?php endif; ?>
+      </div>
+  `;
+
+  return html;
+}
