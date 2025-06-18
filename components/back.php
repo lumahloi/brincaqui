@@ -1,4 +1,4 @@
-<a href="javascript:history.back()" class="back-button" aria-label="Voltar">
-  <span class="back-icon bi bi-arrow-left"></span>
+<a href="javascript:history.back()" class="back-button text-black" aria-label="Voltar">
+  <i class="back-icon bi bi-arrow-left"></i>
   Voltar
 </a>

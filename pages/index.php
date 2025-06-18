@@ -24,7 +24,7 @@ require_once BASE_DIR . "/components/head.php";
       <div class="row h-100 pe-3 ps-3" id="no-gutter">
         <div class="col d-flex flex-column justify-content-center">
           <h5 class="text-center mb-4 fw-normal">Encontre seu próximo momento de diversão</h5>
-          <button href="login" class="btn mx-auto d-block bg-white border-white text-black">Já tenho uma conta</button>
+          <a href="login" class="text-decoration-none"><button class="btn mx-auto d-block bg-white border-white text-black">Já tenho uma conta</button></a>
         </div>
 
         <img src="<?php echo BASE_URL; ?>/img/pai-e-filha-1.png" alt="" class="w-50 col">
@@ -44,23 +44,23 @@ require_once BASE_DIR . "/components/head.php";
 
     <h4 class="text-center mt-5 text-gradient-1 fw-bold">Por aqui você encontra</h4>
     <div class="row justify-content-center gap-2 pt-3" id="no-gutter">
-      <div class="col-3 card pt-3 pb-2">
+      <div class="col-3 card pt-3 pb-2 pe-2 ps-2">
         <div class="row text-center pb-1"><i class="bi bi-emoji-smile-fill fs-4"></i></div>
         <p class="text-center small">Catálogo de locais para se divertir</p>
       </div>
-      <div class="col-3 card pt-3 pb-2">
+      <div class="col-3 card pt-3 pb-2 pe-2 ps-2">
         <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-info-circle-fill fs-4"></i></div>
         <p class="text-center small">Informações completas do local</p>
       </div>
-      <div class="col-3 card pt-3 pb-2">
+      <div class="col-3 card pt-3 pb-2 pe-2 ps-2">
         <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-star-fill fs-4"></i></div>
         <p class="text-center small">Avaliações dos nossos usuários</p>
       </div>
-      <div class="col-3 card pt-3 pb-2">
+      <div class="col-3 card pt-3 pb-2 pe-2 ps-2">
         <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-heart-fill fs-4"></i></div>
         <p class="text-center small">Seus favoritos em 1 lugar só</p>
       </div>
-      <div class="col-3 card pt-3 pb-2">
+      <div class="col-3 card pt-3 pb-2 pe-2 ps-2">
         <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-check-circle-fill fs-4"></i></div>
         <p class="text-center small">Locais já visitados por você</p>
       </div>

@@ -1,4 +1,4 @@
-<div class="card col-5">
+<div class="card">
   <div class="card-body d-grid gap-3">
     <span id="play-pictures"></span>
 

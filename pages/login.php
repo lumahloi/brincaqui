@@ -5,7 +5,7 @@ require_once BASE_DIR . "/components/head.php";
 </head>
 
 <body>
-  <div class="containerw">
+  <div class="containerw ps-3 pe-3">
     <?php
     require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/back.php";
@@ -25,10 +25,10 @@ require_once BASE_DIR . "/components/head.php";
         </div>
       </div>
       <div class="mb-3">
-        <button type="submit" class="btn btn-primary form-control" id="form-submit">Entrar</button>
+        <button type="submit" class="btn btn-primary form-control bg-gradient-1 border-0" id="form-submit">Entrar</button>
       </div>
       <div class="mb-3">
-        <p><a href="index">Não tenho uma conta</a></p>
+        <p><a href="index" class="text-black">Não tenho uma conta</a></p>
       </div>
     </form>
   </div>

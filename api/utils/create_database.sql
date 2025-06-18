@@ -42,7 +42,6 @@ CREATE TABLE
     FOREIGN KEY (Usuario_user_id) REFERENCES Usuario (user_id)
   ) ENGINE = InnoDB;
 
-
 CREATE TABLE
   IF NOT EXISTS Endereco (
     add_cep VARCHAR(8) NOT NULL,
@@ -54,8 +53,8 @@ CREATE TABLE
     add_state VARCHAR(30) NOT NULL,
     add_country VARCHAR(20) NOT NULL,
     PRIMARY KEY (Brinquedo_brin_id),
-    add_latitude DECIMAL(10,8) NOT NULL,
-    add_longitude DECIMAL(11,8) NOT NULL,
+    add_latitude DECIMAL(10, 8) NOT NULL,
+    add_longitude DECIMAL(11, 8) NOT NULL,
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo (brin_id)
   );
 
@@ -126,14 +125,14 @@ VALUES
   (
     'Avalie sua experiência!',
     'Sua opinião é muito importante para nós e outros pais. Avalie sua experiência em {brinquedo}.',
-    CURDATE(),
+    CURDATE (),
     1,
-    CURDATE()
+    CURDATE ()
   ),
   (
     '{brinquedo} te aguarda',
     'Que tal visitar {brinquedo} novamente?',
-    CURDATE(),
+    CURDATE (),
     1,
-    CURDATE()
+    CURDATE ()
   );
