@@ -1,6 +1,5 @@
 <?php
 require_once BASE_DIR . "/utils/db_functions.php";
-require_once BASE_DIR . "/utils/db_connection.php";
 
 try {
   if (!isset($_GET['latitude']) || !isset($_GET['longitude'])) {
@@ -81,8 +80,7 @@ try {
 
   $sql = "
   SELECT 
-    b.brin_pictures, b.brin_id, b.brin_name, b.brin_grade, b.brin_times, b.brin_commodities, b.brin_prices, b.brin_faves, b.brin_visits, 
-    $distanceCalculation AS distance,
+    b.brin_pictures, b.brin_id, b.brin_name, b.brin_grade, b.brin_times, b.brin_commodities, b.brin_prices, b.brin_faves, b.brin_visits, $distanceCalculation AS distance,
     CAST(
       JSON_UNQUOTE(
         JSON_EXTRACT(
