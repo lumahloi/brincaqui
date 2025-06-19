@@ -89,4 +89,5 @@
 <script src="<?php echo BASE_URL ?>/scripts/getCommodities.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/getDiscounts.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/playPagination.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/apiGetPlays.js"></script>
