@@ -14,8 +14,8 @@ try {
   // }
   // $orderBy = 'brin_' . $orderBy;
 
-  $orderBy = 'f.Brinquedo_brin_id';
-  $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'desc') ? 'DESC' : 'ASC';
+  $orderBy = 'f.fav_date';
+  $orderDir = (isset($_GET['order_dir']) && strtolower($_GET['order_dir']) === 'asc') ? 'ASC' : 'DESC';
 
   $filters = [];
   $whereClauses = ["f.Usuario_user_id = :user_id"];
@@ -98,7 +98,14 @@ try {
             '].prices_title'
           )
         )
-      ) AS min_price_title
+      ) AS min_price_title,
+
+      -- Total de favoritos do usuário
+      (
+        SELECT COUNT(*) 
+        FROM brincaqui.favorito f2 
+        WHERE f2.Usuario_user_id = f.Usuario_user_id
+      ) AS total
 
     FROM 
       brincaqui.favorito f

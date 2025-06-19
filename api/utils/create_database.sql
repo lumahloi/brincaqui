@@ -68,6 +68,7 @@ CREATE TABLE
   IF NOT EXISTS Favorito (
     Usuario_user_id INT NOT NULL,
     Brinquedo_brin_id INT NOT NULL,
+    fav_date DATE NOT NULL,
     PRIMARY KEY (Usuario_user_id, Brinquedo_brin_id),
     FOREIGN KEY (Usuario_user_id) REFERENCES Usuario (user_id),
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo (brin_id)
