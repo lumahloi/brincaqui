@@ -164,3 +164,8 @@ i {
 #no-gutter {
   --bs-gutter-x: 0;
 }
+
+#fica-branco {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}

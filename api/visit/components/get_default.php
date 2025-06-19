@@ -34,10 +34,69 @@ try {
   
   $whereSql = implode(" AND ", $whereClauses);
   $sql = "
-    SELECT 
-      v.*, 
+    SELECT
       b.*, 
-      e.*
+
+      -- Menor preço extraído de brin_prices
+      CAST(
+        JSON_UNQUOTE(
+          JSON_EXTRACT(
+            b.brin_prices,
+            CONCAT(
+              '$[',
+              (
+                SELECT idx FROM (
+                  SELECT 
+                    n.n AS idx,
+                    JSON_UNQUOTE(JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price'))) AS price
+                  FROM (
+                    SELECT 0 n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION 
+                          SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9
+                  ) n
+                  WHERE JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price')) IS NOT NULL
+                ) prices
+                ORDER BY price + 0 ASC
+                LIMIT 1
+              ),
+              '].prices_price'
+            )
+          )
+        ) AS DECIMAL(10,2)
+      ) AS min_price,
+
+      -- Título correspondente ao menor preço
+      JSON_UNQUOTE(
+        JSON_EXTRACT(
+          b.brin_prices,
+          CONCAT(
+            '$[',
+            (
+              SELECT idx FROM (
+                SELECT 
+                  n.n AS idx,
+                  JSON_UNQUOTE(JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price'))) AS price
+                FROM (
+                  SELECT 0 n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION 
+                        SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9
+                ) n
+                WHERE JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price')) IS NOT NULL
+              ) prices
+              ORDER BY price + 0 ASC
+              LIMIT 1
+            ),
+            '].prices_title'
+          )
+        )
+      ) AS min_price_title,
+
+      -- Verifica se o usuário avaliou o brinquedo
+      EXISTS (
+        SELECT 1 
+        FROM brincaqui.avaliacao a 
+        WHERE a.Usuario_user_id = :user_id 
+          AND a.Brinquedo_brin_id = b.brin_id
+      ) AS user_has_rating
+
     FROM 
       brincaqui.visita v
       INNER JOIN brincaqui.brinquedo b ON v.Brinquedo_brin_id = b.brin_id
@@ -47,6 +106,8 @@ try {
     ORDER BY 
       $orderBy $orderDir
   ";
+
+
   
   $db = new Database();
   $results = $db->selectWithPagination($sql, $filters, $per_page, $page);

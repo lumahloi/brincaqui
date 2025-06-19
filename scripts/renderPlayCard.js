@@ -83,10 +83,28 @@ function renderPlayCard(item, templateHtml, options = {}) {
       .attr("data-brin-id", item.brin_id)
       .text("Visitarei este lugar");
   } else if (options.detailsType === "visit-again") {
-    $btn
-      .off("click")
-      .attr("data-brin-id", item.brin_id)
-      .text("Visitarei novamente");
+    if(!item.user_has_rating){
+      $btn
+        .off("click")
+        .text("Avaliar experiência")
+        .on("click", function (e) {
+          if (typeof isAuthenticated !== "undefined" && !isAuthenticated) return;
+          const brinquedo = item.brin_name
+            ? item.brin_name
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, "")
+            : "";
+          window.location.href = `/avaliacao/${brinquedo}-${item.brin_id}`;
+        });
+    } else {
+      $btn
+        .off("click")
+        .attr("data-brin-id", item.brin_id)
+        .text("Visitarei novamente");
+    }
   } else {
     $btn
       .addClass("auth-link")
