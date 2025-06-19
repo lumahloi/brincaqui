@@ -21,9 +21,7 @@ require_once BASE_DIR . "/components/head.php";
         },
       });
     });
-
   </script>
 
 </body>
-
 </html>

@@ -51,7 +51,7 @@ body {
 }
 
 #logo-header {
-  display: block;
+  display: inline-block;
   max-width: 50%;
   margin: auto;
 }

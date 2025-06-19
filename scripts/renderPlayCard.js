@@ -7,8 +7,6 @@ function loadClassificacoesAndRender(item, renderCallback) {
   }
   $.getJSON("../public/classificacao.json", function (data) {
     classificacoes = data;
-    console.log(classificacoes);
-    console.log(data);
     renderCallback(item);
   });
 }

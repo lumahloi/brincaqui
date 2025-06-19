@@ -10,6 +10,7 @@ require_once BASE_DIR . "/components/head.php";
 
 <body>
   <div class="containerw ps-3 pe-3">
+    <?php $headerType = 1 ?>
     <?php
     require_once BASE_DIR . "/components/modal.php";
     require_once BASE_DIR . "/components/navigation.php";
@@ -23,8 +24,7 @@ require_once BASE_DIR . "/components/head.php";
       case 2:
         require_once BASE_DIR . "/components/feedEmpresa.php";
         break;
-    }
-    ;
+    };
     ?>
   </div>
 </body>

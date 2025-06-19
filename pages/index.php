@@ -5,6 +5,8 @@ require_once BASE_DIR . "/components/head.php";
 
 <body>
   <div id="initial-options" class="containerw pb-0">
+    <?php 
+    $headerType = 1 ?>
     <?php
     require_once BASE_DIR . "/components/header.php";
     require_once BASE_DIR . "/components/modal.php";

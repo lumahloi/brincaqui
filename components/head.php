@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -22,7 +23,12 @@ session_start();
 
   <script src="<?php echo BASE_URL; ?>/scripts/config.js"></script>
 
+  <?php 
+  $headerType = 0; 
+  $isAuthenticated = isset($_SESSION['user_id']) ? 1 : 0;
+  ?>
+
   <script>
-    const isAuthenticated = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+    const isAuthenticated = <?php echo isset($_SESSION['user_id']) ? 1 : 0; ?>;
   </script>
 </head>
