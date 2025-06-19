@@ -41,7 +41,7 @@ require_once BASE_DIR . "/components/head.php";
             onError();
           },
         });
-      });
+      }, { storageKey: 'brinquedosSearch' });
       pagination.init();
     });
   </script>

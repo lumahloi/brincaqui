@@ -4,6 +4,7 @@ function createPlayPagination(fetchFunction, options = {}) {
   const perPage = 1;
   let totalPages = 0;
   let hasFetched = false;
+  const storageKey = options.storageKey || 'lastSearch';
 
   function readUrlParams() {
     const url = new URL(window.location);
@@ -122,7 +123,7 @@ function createPlayPagination(fetchFunction, options = {}) {
       params.order_by = "distance";
     }
 
-    sessionStorage.setItem('lastSearch', JSON.stringify({
+    sessionStorage.setItem(storageKey, JSON.stringify({
       params,
       currentPage
     }));
@@ -137,7 +138,7 @@ function createPlayPagination(fetchFunction, options = {}) {
 
   function init() {
     const urlParams = readUrlParams();
-    const savedSearch = sessionStorage.getItem('lastSearch');
+    const savedSearch = sessionStorage.getItem(storageKey);
 
     if (Object.keys(urlParams).length > 0) {
       fillFormWithParams(urlParams);
