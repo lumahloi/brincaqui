@@ -1,7 +1,5 @@
 function createPlayPagination(fetchFunction, options = {}) {
   let currentPage = 0;
-  // const perPage = options.perPage || 10;
-  const perPage = 1;
   let totalPages = 0;
   let hasFetched = false;
   const storageKey = options.storageKey || 'lastSearch';
@@ -64,7 +62,7 @@ function createPlayPagination(fetchFunction, options = {}) {
   }
 
   function updatePaginationControls(total) {
-    totalPages = Math.ceil(total / perPage);
+    totalPages = Math.ceil(total / 10);
     if (hasFetched && totalPages > 1) {
       $("#pagination").css("display", "flex");
       $("#current-page").text(`Página ${currentPage + 1}`);
@@ -94,6 +92,12 @@ function createPlayPagination(fetchFunction, options = {}) {
       });
     }
 
+    const resultsQt = $("#results-qt");
+    const perPage = 10;
+    const start = total === 0 ? 0 : currentPage * perPage + 1;
+    const end = Math.min((currentPage + 1) * perPage, total);
+    resultsQt.text(`Mostrando ${start}-${end} de ${total} resultados`);
+
     updatePaginationControls(total);
   }
 
@@ -117,7 +121,6 @@ function createPlayPagination(fetchFunction, options = {}) {
     });
 
     params.page = currentPage;
-    params.per_page = perPage;
 
     if (!params.order_by) {
       params.order_by = "distance";

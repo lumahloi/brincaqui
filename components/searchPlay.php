@@ -81,6 +81,22 @@
   </div>
 </form>
 
+<p id="results-qt" class="small text-muted mt-5"></p>
+
+<div id="results" class="mt-4 d-grid gap-3"></div>
+
+<div id="pagination" class="row justify-content-center align-items-center gap-2 mt-4" style="display: none;">
+  <div class="col text-end">
+    <i id="prev-page" class="bi bi-arrow-left-circle fs-3" role="button"></i>
+  </div>
+  <div class="col text-center">
+    <span id="current-page">Página 1</span>
+  </div>
+  <div class="col text-start">
+    <i class="bi bi-arrow-right-circle fs-3" id="next-page" role="button"></i>
+  </div>
+</div>
+
 <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/renderPlayCard.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/authGuard.js"></script>

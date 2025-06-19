@@ -43,8 +43,6 @@
 </script>
 
 <script>
-  const perPage = 1;
-
   $(document).ready(function () {
     if (!classificacoes) {
       $.getJSON("../public/classificacao.json", function (data) {
@@ -60,7 +58,7 @@
     $.get("components/playCard.php", function (templateHtml) {
       $.ajax({
         type: "GET",
-        url: SERVER_URL + "favorite?per_page=" + perPage,
+        url: SERVER_URL + "favorite?latitude=0&longitude=0",
         success: (response) => {
           const container = $("#favorites");
           container.empty();
@@ -80,7 +78,7 @@
               container.append($card);
             });
 
-            if (total > perPage) {
+            if (total > 10) {
               container.append('<button id="show-all-btn" class="btn btn-primary bg-gradient-1 border-0">Mostrar todos <i class="bi bi-arrow-right-circle fs-3" id="fica-branco"></i></button>');
             }
 
