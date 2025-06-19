@@ -7,8 +7,8 @@ function loadClassificacoesAndRender(item, renderCallback) {
   }
   $.getJSON("../public/classificacao.json", function (data) {
     classificacoes = data;
-    console.log(classificacoes)
-    console.log(data)
+    console.log(classificacoes);
+    console.log(data);
     renderCallback(item);
   });
 }
@@ -30,7 +30,13 @@ function renderPlayCard(item, templateHtml, options = {}) {
 
   $card.find("#play-name").text(item.brin_name);
   let grade = Number(item.brin_grade ?? 0);
-  $card.find("#play-grade").text(grade % 1 === 0 ? grade.toFixed(1) + ' ' + getClassificacaoLabel(item.brin_grade): grade + ' ' + getClassificacaoLabel(item.brin_grade));
+  $card
+    .find("#play-grade")
+    .text(
+      grade % 1 === 0
+        ? grade.toFixed(1) + " " + getClassificacaoLabel(item.brin_grade)
+        : grade + " " + getClassificacaoLabel(item.brin_grade)
+    );
   $card.find("#play-distance").text(item.brin_distance ?? 0 + " km");
   $card.find("#play-neighborhood").text(item.add_neighborhood ?? "");
   $card.find("#play-city").text(item.add_city ?? "");
@@ -39,12 +45,20 @@ function renderPlayCard(item, templateHtml, options = {}) {
   $card.find("#price-title").text(item.min_price_title ?? "");
   $card.find("#price-price").text(item.min_price ? "R$ " + item.min_price : "");
 
+  const slug = item.brin_name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") 
+    .replace(/[^a-z0-9]+/g, "-") 
+    .replace(/^-+|-+$/g, ""); 
+
+  const href = `/lugar/${slug}-${item.brin_id}`;
+  $card.find("#play-link").attr("href", href);
+
   if (item.brin_picture) {
     $card
       .find("#play-pictures")
-      .html(
-        `<img src="${item.brin_picture}" class="img-fluid rounded">`
-      );
+      .html(`<img src="${item.brin_picture}" class="img-fluid rounded">`);
   }
 
   let commodities = item.brin_commodities;
@@ -83,12 +97,13 @@ function renderPlayCard(item, templateHtml, options = {}) {
       .attr("data-brin-id", item.brin_id)
       .text("Visitarei este lugar");
   } else if (options.detailsType === "visit-again") {
-    if(!item.user_has_rating){
+    if (!item.user_has_rating) {
       $btn
         .off("click")
         .text("Avaliar experiência")
         .on("click", function (e) {
-          if (typeof isAuthenticated !== "undefined" && !isAuthenticated) return;
+          if (typeof isAuthenticated !== "undefined" && !isAuthenticated)
+            return;
           const brinquedo = item.brin_name
             ? item.brin_name
                 .normalize("NFD")
@@ -111,7 +126,7 @@ function renderPlayCard(item, templateHtml, options = {}) {
       .attr("data-name", nomeBrinquedoSlug)
       .off("click")
       .text("Ver mais informações")
-      .on("click", function(e) {
+      .on("click", function (e) {
         if (typeof isAuthenticated !== "undefined" && !isAuthenticated) return;
         const brinquedo = $(this).data("name");
         saveSearchState();
@@ -120,7 +135,7 @@ function renderPlayCard(item, templateHtml, options = {}) {
   }
 
   return $card;
-} 
+}
 
 function saveSearchState() {
   const params = {};
@@ -137,8 +152,11 @@ function saveSearchState() {
       }
     });
 
-  sessionStorage.setItem('lastSearch', JSON.stringify({
-    params,
-    currentPage
-  }));
+  sessionStorage.setItem(
+    "lastSearch",
+    JSON.stringify({
+      params,
+      currentPage,
+    })
+  );
 }

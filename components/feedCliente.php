@@ -1,3 +1,6 @@
+<h4 class="text-center mt-5 text-gradient-1 fw-bold mb-4">Os mais populares</h4>
+<div id="populars" class="container-scroll"></div>
+
 <h4 class="text-center mt-5 text-gradient-1 fw-bold mb-4">Visitados</h4>
 <div id="visited" class="container-scroll"></div>
 
@@ -11,12 +14,27 @@
 
 <script>
   $(document).ready(function () {
+    if (!classificacoes) {
+      $.getJSON("../public/classificacao.json", function (data) {
+        classificacoes = data;
+        carregarFavoritos();
+        carregarVisitados();
+        carregarPopulares();
+      });
+    } else {
+      carregarFavoritos();
+      carregarVisitados();
+      carregarPopulares();
+    }
+  });
+
+    function carregarPopulares() {
     $.get("components/playCard.php", function (templateHtml) {
       $.ajax({
         type: "GET",
-        url: SERVER_URL + "visit?latitude=0&longitude=0",
+        url: SERVER_URL + "play?latitude=0&longitude=0&order_by=visits&order_dir=desc",
         success: (response) => {
-          const container = $("#visited");
+          const container = $("#populars");
           container.empty();
 
           if (!response.return || response.return.length === 0) {
@@ -28,7 +46,7 @@
 
           response.return.forEach(function (item) {
             const $card = renderPlayCard(item, templateHtml, {
-              detailsType: "visit-again",
+              detailsType: "visit",
             });
             container.append($card);
           });
@@ -38,21 +56,7 @@
         },
       });
     });
-  });
-
-</script>
-
-<script>
-  $(document).ready(function () {
-    if (!classificacoes) {
-      $.getJSON("../public/classificacao.json", function (data) {
-        classificacoes = data;
-        carregarFavoritos();
-      });
-    } else {
-      carregarFavoritos();
-    }
-  });
+  };
 
   function carregarFavoritos() {
     $.get("components/playCard.php", function (templateHtml) {
@@ -93,4 +97,35 @@
       });
     });
   }
+
+  function carregarVisitados() {
+    $.get("components/playCard.php", function (templateHtml) {
+      $.ajax({
+        type: "GET",
+        url: SERVER_URL + "visit?latitude=0&longitude=0",
+        success: (response) => {
+          const container = $("#visited");
+          container.empty();
+
+          if (!response.return || response.return.length === 0) {
+            container.html(
+              "<p class='text-muted mx-auto'>Nenhum lugar visitado, ainda!</p>"
+            );
+            return;
+          }
+
+          response.return.forEach(function (item) {
+            const $card = renderPlayCard(item, templateHtml, {
+              detailsType: "visit-again",
+            });
+            container.append($card);
+          });
+        },
+        error: (xhr) => {
+          error_validation(xhr);
+        },
+      });
+    });
+  };
+
 </script>

@@ -2,7 +2,9 @@
   <div class="card-body d-grid gap-3">
     <span id="play-pictures"></span>
 
-    <h5 class="card-title" id="play-name"></h5>
+    <a href="" id="play-link" class="text-decoration-none text-black">
+      <h5 class="card-title" id="play-name"></h5>
+    </a>
 
     <div class="row">
       <div class="row small">
