@@ -155,7 +155,7 @@ require_once BASE_DIR . "/components/head.php";
 
 
     <div class="bg-gradient-1 text-white pt-4 mt-5" style="height: 180px;">
-      <img src="<?php echo BASE_URL; ?>/img/logo.png" id="logo-header" alt="BrincAqui">
+      <img src="<?php echo BASE_URL; ?>/img/logo.png" style="max-width: 150px;" alt="BrincAqui" class="mx-auto d-block">
       <p class="text-center small mt-3">© BrincAqui, 2025. Todos os direitos reservados.</p>
     </div>
 

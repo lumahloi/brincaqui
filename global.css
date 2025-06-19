@@ -50,12 +50,6 @@ body {
   flex: 0 0 auto;
 }
 
-#logo-header {
-  display: inline-block;
-  max-width: 50%;
-  margin: auto;
-}
-
 .bg-gradient-1 {
   background: #c50ff2;
   background: linear-gradient(

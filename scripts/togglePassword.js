@@ -1,4 +1,4 @@
-$(".toggle-password").on("click", function () {
+$(document).on("click", ".toggle-password", function () {
   const input = $($(this).attr("data-target"));
   const icon = $(this);
   if (input.attr("type") === "password") {
