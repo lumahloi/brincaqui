@@ -19,6 +19,11 @@ if (preg_match('#^/lugar/[\w\-]+$#', $path)) {
     exit;
 }
 
+if (preg_match('#^/avaliacao/[\w\-]+$#', $path)) {
+    require BASE_DIR . '/pages/avaliacao.php';
+    exit;
+}
+
 if ($path === '/' || $path === '') {
     $path = '/index';
 }

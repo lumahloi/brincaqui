@@ -7,7 +7,6 @@ $status = $_GET['status'] ?? '';
     window.location.href = "/";
   }
 </script>
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>/styles/visit.css">
 </head>
 
 <body>

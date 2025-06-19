@@ -18,12 +18,6 @@ require_once BASE_DIR . "/components/head.php";
   </div>
   
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/renderPlayDetails.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/getDiscNameByPlay.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/apiGetPlayById.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/apiVisit.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/apiToggleFavorite.js"></script>
 </body>
 
 </html>
