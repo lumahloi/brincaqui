@@ -26,7 +26,8 @@ require_once BASE_DIR . "/components/head.php";
         </div>
       </div>
       <div class="mb-3">
-        <button type="submit" class="btn btn-primary form-control bg-gradient-1 border-0" id="form-submit">Entrar</button>
+        <button type="submit" class="btn btn-primary form-control bg-gradient-1 border-0"
+          id="form-submit">Entrar</button>
       </div>
       <div class="mb-3">
         <p><a href="index" class="text-black">Não tenho uma conta</a></p>
@@ -36,7 +37,34 @@ require_once BASE_DIR . "/components/head.php";
 
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/togglePassword.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/apiLogin.js"></script>
+
+  <script>
+    $("#form-submit").click(function (event) {
+      event.preventDefault();
+      var input_email = $("#form-email").val();
+      var input_password = $("#form-password").val();
+
+      $.ajax({
+        type: "POST",
+        url: SERVER_URL + "auth/login.php",
+        contentType: "application/json",
+        data: JSON.stringify({
+          email: input_email,
+          password: input_password,
+        }),
+        xhrFields: {
+          withCredentials: true,
+        },
+        success: () => {
+          window.location = "pesquisa";
+        },
+        error: (xhr) => {
+          error_validation(xhr);
+        },
+      });
+    });
+
+  </script>
 </body>
 
 </html>

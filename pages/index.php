@@ -24,7 +24,8 @@ require_once BASE_DIR . "/components/head.php";
       <div class="row h-100 pe-3 ps-3" id="no-gutter">
         <div class="col d-flex flex-column justify-content-center">
           <h5 class="text-center mb-4 fw-normal">Encontre seu próximo momento de diversão</h5>
-          <a href="login" class="text-decoration-none"><button class="btn mx-auto d-block bg-white border-white text-black">Já tenho uma conta</button></a>
+          <a href="login" class="text-decoration-none"><button
+              class="btn mx-auto d-block bg-white border-white text-black">Já tenho uma conta</button></a>
         </div>
 
         <img src="<?php echo BASE_URL; ?>/img/pai-e-filha-1.png" alt="" class="w-50 col">
@@ -161,8 +162,53 @@ require_once BASE_DIR . "/components/head.php";
   <script src="<?php echo BASE_URL ?>/scripts/renderPlayCard.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/authGuard.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/registerRedirect.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/apiGetBestPlays.js"></script>
+
+  <script>
+    $("#btn-register-type1").click(function () {
+      sessionStorage.setItem("user_type", "1");
+      window.location.href = "cadastro";
+    });
+
+    $("#btn-register-type2").click(function () {
+      sessionStorage.setItem("user_type", "2");
+      window.location.href = "cadastro";
+    });
+
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      $.get("components/playCard.php", function (templateHtml) {
+        $.ajax({
+          type: "GET",
+          url:
+            SERVER_URL +
+            "play?latitude=0&longitude=0&order_by=grade&order_dir=DESC",
+          success: (response) => {
+            const container = $("#best");
+            container.empty();
+
+            if (!response.return || response.return.length === 0) {
+              container.html("<p class='text-muted'>Nenhum lugar, ainda!</p>");
+              return;
+            }
+
+            response.return.forEach(function (item) {
+              loadClassificacoesAndRender(item, function (itemWithClass) {
+                const $card = renderPlayCard(itemWithClass, templateHtml, {
+                  detailsType: "default",
+                });
+                container.append($card);
+              });
+            });
+          },
+          error: (xhr) => {
+            error_validation(xhr);
+          },
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
