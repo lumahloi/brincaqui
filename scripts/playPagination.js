@@ -1,6 +1,7 @@
 function createPlayPagination(fetchFunction, options = {}) {
   let currentPage = 0;
-  const perPage = options.perPage || 10;
+  // const perPage = options.perPage || 10;
+  const perPage = 1;
   let totalPages = 0;
   let hasFetched = false;
 

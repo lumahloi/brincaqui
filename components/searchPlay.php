@@ -90,21 +90,3 @@
 <script src="<?php echo BASE_URL ?>/scripts/getDiscounts.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/playPagination.js"></script>
-
-<script>
-  $(document).ready(() => {
-    const pagination = createPlayPagination((params, onSuccess, onError) => {
-      $.ajax({
-        type: "GET",
-        url: SERVER_URL + "play",
-        data: params,
-        success: onSuccess,
-        error: (xhr) => {
-          error_validation(xhr);
-          onError();
-        },
-      });
-    });
-    pagination.init();
-  });
-</script>

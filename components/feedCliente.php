@@ -81,8 +81,12 @@
             });
 
             if (total > perPage) {
-              container.append('<button class="btn btn-primary bg-gradient-1 border-0">Mostrar todos <i class="bi bi-arrow-right-circle fs-3" id="fica-branco"></i></button>')
+              container.append('<button id="show-all-btn" class="btn btn-primary bg-gradient-1 border-0">Mostrar todos <i class="bi bi-arrow-right-circle fs-3" id="fica-branco"></i></button>');
             }
+
+            $(document).on('click', '#show-all-btn', function () {
+              window.location.href = '/favoritos';
+            });
           }
         },
         error: (xhr) => {

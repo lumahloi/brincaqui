@@ -28,6 +28,24 @@ require_once BASE_DIR . "/components/head.php";
 
   </div>
 
+  <script>
+    $(document).ready(() => {
+      const pagination = createPlayPagination((params, onSuccess, onError) => {
+        $.ajax({
+          type: "GET",
+          url: SERVER_URL + "favorite",
+          data: params,
+          success: onSuccess,
+          error: (xhr) => {
+            error_validation(xhr);
+            onError();
+          },
+        });
+      });
+      pagination.init();
+    });
+  </script>
+
 </body>
 
 </html>
