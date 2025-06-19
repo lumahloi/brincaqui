@@ -111,12 +111,34 @@ function renderPlayCard(item, templateHtml, options = {}) {
       .attr("data-name", nomeBrinquedoSlug)
       .off("click")
       .text("Ver mais informações")
-      .on("click", function (e) {
+      .on("click", function(e) {
         if (typeof isAuthenticated !== "undefined" && !isAuthenticated) return;
         const brinquedo = $(this).data("name");
+        saveSearchState();
         window.location.href = `/lugar/${brinquedo}-${item.brin_id}`;
       });
   }
 
   return $card;
+} 
+
+function saveSearchState() {
+  const params = {};
+  $("#form-filters")
+    .serializeArray()
+    .forEach(({ name, value }) => {
+      if (params[name]) {
+        if (!Array.isArray(params[name])) {
+          params[name] = [params[name]];
+        }
+        params[name].push(value);
+      } else {
+        params[name] = value;
+      }
+    });
+
+  sessionStorage.setItem('lastSearch', JSON.stringify({
+    params,
+    currentPage
+  }));
 }
