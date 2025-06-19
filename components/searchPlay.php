@@ -21,11 +21,11 @@
     <input type="text" id="latitude" name="latitude">
     <input type="text" id="longitude" name="longitude">
 
-    <button type="button" class="toggle-filters-btn text-black" id="adv-filter-btn">
-      Mostrar filtros avançados <i class="bi bi-chevron-down"></i>
+    <button type="button" class="toggle-filters-btn text-black bg-transparent border-0 text-center" id="adv-filter-btn">
+      Mostrar filtros avançados <i class="bi bi-chevron-down ms-1"></i>
     </button>
 
-    <div class="hidden-content">
+    <div class="hidden-content" style="display: none; transition: all 0.3s ease;">
       <div class="d-grid gap-3">
 
         <div class="col">
@@ -54,7 +54,7 @@
         </select>
 
         <div class="form-control">
-          <label class="form-control-label">Idades:</label>
+          <label class="form-control-label mb-3">Idades:</label>
           <div>
             <input type="checkbox" name="ages[]" value="0-2"> 0-2 anos<br>
             <input type="checkbox" name="ages[]" value="3-5"> 3-5 anos<br>
@@ -64,13 +64,13 @@
         </div>
 
         <div class="form-control">
-          <label class="form-control-label">Comodidades:</label>
+          <label class="form-control-label mb-3">Comodidades:</label>
           <div>
           </div>
         </div>
 
         <div class="form-control">
-          <label class="form-control-label">Descontos:</label>
+          <label class="form-control-label mb-3">Descontos:</label>
           <div>
           </div>
         </div>
