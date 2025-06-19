@@ -1,7 +1,7 @@
-<h4 class="text-center mt-5 text-gradient-1 fw-bold">Visitados</h4>
+<h4 class="text-center mt-5 text-gradient-1 fw-bold mb-4">Visitados</h4>
 <div id="visited" class="container-scroll"></div>
 
-<h4 class="text-center mt-5 text-gradient-1 fw-bold">Seus favoritos</h4>
+<h4 class="text-center mt-5 text-gradient-1 fw-bold mb-4">Seus favoritos</h4>
 <div id="favorites" class="container-scroll"></div>
 
 <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>

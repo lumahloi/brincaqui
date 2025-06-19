@@ -1,4 +1,15 @@
 $(document).ready(function () {
+  if (!classificacoes) {
+    $.getJSON("../public/classificacao.json", function (data) {
+      classificacoes = data;
+      carregarFavoritos();
+    });
+  } else {
+    carregarFavoritos();
+  }
+});
+
+function carregarFavoritos() {
   $.get("components/playCard.php", function (templateHtml) {
     $.ajax({
       type: "GET",
@@ -26,4 +37,4 @@ $(document).ready(function () {
       },
     });
   });
-});
+}
