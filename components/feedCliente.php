@@ -14,7 +14,7 @@
     $.get("components/playCard.php", function (templateHtml) {
       $.ajax({
         type: "GET",
-        url: SERVER_URL + "visit",
+        url: SERVER_URL + "visit?latitude=0&longitude=0",
         success: (response) => {
           const container = $("#visited");
           container.empty();
