@@ -125,8 +125,8 @@ try {
   JOIN Endereco e ON b.brin_id = e.Brinquedo_brin_id
   $whereSql
   -- HAVING distance <= :radius
-  ORDER BY $orderField $orderDir;
-";
+  ORDER BY $orderField $orderDir
+  ";
 
   $sqlParams[':user_lat'] = $lat;
   $sqlParams[':user_lng'] = $lng;
@@ -194,9 +194,10 @@ try {
     INNER JOIN endereco e ON b.brin_id = e.Brinquedo_brin_id
     $whereSql
     ";
-    // HAVING $distanceCalculation <= :radius
-    
-  $pdo = DbConnection::connect();;
+  // HAVING $distanceCalculation <= :radius
+
+  $pdo = DbConnection::connect();
+  ;
   $countStmt = $pdo->prepare($countSql);
   // $countStmt->bindValue(':user_lat', $lat);
   // $countStmt->bindValue(':user_lng', $lng);

@@ -1,35 +1,66 @@
 let currentPage = 0;
-const perPage = 6;
+const perPage = 1;
+let totalPages = 0;
+let hasFetched = false; // novo controle
 
-function updatePaginationControls(response) {
-  const total = response.total ?? 0;
-  const totalPages = Math.ceil(total / perPage);
+// Garante que a paginação esteja sempre oculta no carregamento inicial
+$(document).ready(() => {
+  $("#pagination").hide();
 
-  $("#current-page").text(`Página ${currentPage + 1}`);
+  // Ativa eventos apenas após carregar a página
+  $("#form-filters").on("submit", function (e) {
+    e.preventDefault();
+    currentPage = 0;
+    fetchPlays();
+  });
 
-  $("#prev-page").prop("disabled", currentPage === 0);
-  $("#next-page").prop("disabled", currentPage + 1 >= totalPages);
+  $("#prev-page").on("click", function () {
+    if (currentPage > 0) {
+      currentPage--;
+      fetchPlays();
+    }
+  });
+
+  $("#next-page").on("click", function () {
+    if (currentPage + 1 < totalPages) {
+      currentPage++;
+      fetchPlays();
+    }
+  });
+});
+
+function updatePaginationControls(total) {
+  totalPages = Math.ceil(total / perPage);
+
+  if (hasFetched && totalPages > 1) {
+    $("#pagination").show();
+    $("#current-page").text(`Página ${currentPage + 1}`);
+    $("#prev-page").prop("disabled", currentPage === 0);
+    $("#next-page").prop("disabled", currentPage + 1 >= totalPages);
+  } else {
+    $("#pagination").hide();
+  }
 }
 
 function renderCards(response) {
   const container = $("#results");
   container.empty();
 
-  if (!response.return.total || response.return.total === 0) {
-    container.html(
-      "<p class='text-muted mx-auto'>Nenhum resultado encontrado.</p>"
-    );
-    return;
+  const total = response?.return?.total ?? 0;
+  hasFetched = true; // agora sabemos que houve pelo menos uma busca
+
+  if (total === 0) {
+    container.html("<p class='text-muted mx-auto'>Nenhum resultado encontrado.</p>");
+  } else {
+    response.return.results.forEach((item) => {
+      $.get("/components/playCard.php", function (template) {
+        const $card = renderPlayCard(item, template);
+        container.append($card);
+      });
+    });
   }
 
-  response.return.results.forEach(function (item) {
-    $.get("/components/playCard.php", function (template) {
-      const $card = renderPlayCard(item, template);
-      container.append($card);
-    });
-  });
-
-  updatePaginationControls(response);
+  updatePaginationControls(total);
 }
 
 function fetchPlays() {
@@ -66,7 +97,11 @@ function fetchPlays() {
       url: SERVER_URL + "play",
       data: params,
       success: renderCards,
-      error: (xhr) => error_validation(xhr),
+      error: (xhr) => {
+        console.error("Erro ao buscar dados:", xhr);
+        hasFetched = true;
+        updatePaginationControls(0); // garante que paginador suma
+      },
     });
   };
 
@@ -79,21 +114,3 @@ function fetchPlays() {
     });
   }
 }
-
-$("#form-filters").submit(function (e) {
-  e.preventDefault();
-  currentPage = 0;
-  fetchPlays();
-});
-
-$("#prev-page").on("click", function () {
-  if (currentPage > 0) {
-    currentPage--;
-    fetchPlays();
-  }
-});
-
-$("#next-page").on("click", function () {
-  currentPage++;
-  fetchPlays();
-});
