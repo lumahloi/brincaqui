@@ -1,5 +1,6 @@
 <?php
 require_once BASE_DIR . "/utils/db_functions.php";
+require_once BASE_DIR . "/utils/db_connection.php";
 
 try {
   if (!isset($_GET['latitude']) || !isset($_GET['longitude'])) {
@@ -187,7 +188,33 @@ try {
 
   error_log("Resultados após filtro: " . print_r($results, true));
 
-  response_format(200, "Sucesso", $results ?: []);
+  $countSql = "
+    SELECT COUNT(*) as total
+    FROM brinquedo b
+    INNER JOIN endereco e ON b.brin_id = e.Brinquedo_brin_id
+    $whereSql
+    ";
+    // HAVING $distanceCalculation <= :radius
+    
+  $pdo = DbConnection::connect();;
+  $countStmt = $pdo->prepare($countSql);
+  // $countStmt->bindValue(':user_lat', $lat);
+  // $countStmt->bindValue(':user_lng', $lng);
+  // $countStmt->bindValue(':radius', $radius);
+
+  // foreach ($sqlParams ?? [] as $key => $value) {
+  //   $countStmt->bindValue($key, $value);
+  // }
+
+  $countStmt->execute();
+  $total = $countStmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+
+  $response = [
+    'results' => $results ?: [],
+    'total' => $total
+  ];
+
+  response_format(200, "Sucesso", $response);
 
 } catch (PDOException $e) {
   error_log("Erro no banco de dados: " . $e->getMessage());
