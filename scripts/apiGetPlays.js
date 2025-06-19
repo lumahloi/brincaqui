@@ -48,15 +48,15 @@ function renderCards(response) {
   const container = $("#results");
   container.empty();
 
-  const total = response?.return?.total ?? 0;
+  const total = response?.return[0]?.total ?? 0;
+  console.log(total)
   hasFetched = true;
 
   if (total === 0) {
     container.html("<p class='text-muted mx-auto'>Nenhum resultado encontrado.</p>");
-    // Esconde a paginação quando não há resultados
     $("#pagination").css('display', 'none');
   } else {
-    response.return.results.forEach((item) => {
+    response.return.forEach((item) => {
       $.get("/components/playCard.php", function (template) {
         const $card = renderPlayCard(item, template);
         container.append($card);
@@ -104,7 +104,7 @@ function fetchPlays() {
       error: (xhr) => {
         console.error("Erro ao buscar dados:", xhr);
         hasFetched = true;
-        updatePaginationControls(0); // garante que paginador suma
+        updatePaginationControls(0); 
       },
     });
   };

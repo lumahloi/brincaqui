@@ -74,7 +74,8 @@ try {
 
   $sql = "
   SELECT 
-    b.brin_pictures, b.brin_id,b.brin_name, b.brin_grade, b.brin_times, b.brin_commodities, b.brin_prices, b.brin_faves, b.brin_visits, $distanceCalculation AS distance,
+    b.brin_pictures, b.brin_id, b.brin_name, b.brin_grade, b.brin_times, b.brin_commodities, b.brin_prices, b.brin_faves, b.brin_visits, 
+    $distanceCalculation AS distance,
     CAST(
       JSON_UNQUOTE(
         JSON_EXTRACT(
@@ -97,7 +98,6 @@ try {
         )
       ) AS DECIMAL(10,2)
     ) AS min_price,
-    -- Adiciona o prices_title relativo ao menor preço
     JSON_UNQUOTE(
       JSON_EXTRACT(
         b.brin_prices,
@@ -120,7 +120,8 @@ try {
         '].prices_title'
         )
       )
-    ) AS min_price_title
+    ) AS min_price_title,
+    (SELECT COUNT(*) FROM Brinquedo b2 JOIN Endereco e2 ON b2.brin_id = e2.Brinquedo_brin_id $whereSql) AS total
   FROM Brinquedo b 
   JOIN Endereco e ON b.brin_id = e.Brinquedo_brin_id
   $whereSql
@@ -188,34 +189,7 @@ try {
 
   error_log("Resultados após filtro: " . print_r($results, true));
 
-  $countSql = "
-    SELECT COUNT(*) as total
-    FROM brinquedo b
-    INNER JOIN endereco e ON b.brin_id = e.Brinquedo_brin_id
-    $whereSql
-    ";
-  // HAVING $distanceCalculation <= :radius
-
-  $pdo = DbConnection::connect();
-  ;
-  $countStmt = $pdo->prepare($countSql);
-  // $countStmt->bindValue(':user_lat', $lat);
-  // $countStmt->bindValue(':user_lng', $lng);
-  // $countStmt->bindValue(':radius', $radius);
-
-  // foreach ($sqlParams ?? [] as $key => $value) {
-  //   $countStmt->bindValue($key, $value);
-  // }
-
-  $countStmt->execute();
-  $total = $countStmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
-
-  $response = [
-    'results' => $results ?: [],
-    'total' => $total
-  ];
-
-  response_format(200, "Sucesso", $response);
+  response_format(200, "Sucesso", $results);
 
 } catch (PDOException $e) {
   error_log("Erro no banco de dados: " . $e->getMessage());
