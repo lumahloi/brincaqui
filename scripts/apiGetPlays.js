@@ -1,13 +1,11 @@
 let currentPage = 0;
-const perPage = 1;
+const perPage = 10;
 let totalPages = 0;
-let hasFetched = false; // novo controle
+let hasFetched = false;
 
-// Garante que a paginação esteja sempre oculta no carregamento inicial
 $(document).ready(() => {
-  $("#pagination").hide();
+  $("#pagination").css('display', 'none');
 
-  // Ativa eventos apenas após carregar a página
   $("#form-filters").on("submit", function (e) {
     e.preventDefault();
     currentPage = 0;
@@ -33,12 +31,16 @@ function updatePaginationControls(total) {
   totalPages = Math.ceil(total / perPage);
 
   if (hasFetched && totalPages > 1) {
-    $("#pagination").show();
+    // Mostra a paginação com flex (como definido no seu HTML original)
+    $("#pagination").css('display', 'flex');
     $("#current-page").text(`Página ${currentPage + 1}`);
-    $("#prev-page").prop("disabled", currentPage === 0);
-    $("#next-page").prop("disabled", currentPage + 1 >= totalPages);
+    
+    // Controle dos botões
+    $("#prev-page").toggle(currentPage > 0);
+    $("#next-page").toggle(currentPage + 1 < totalPages);
   } else {
-    $("#pagination").hide();
+    // Esconde completamente a paginação
+    $("#pagination").css('display', 'none');
   }
 }
 
@@ -47,10 +49,12 @@ function renderCards(response) {
   container.empty();
 
   const total = response?.return?.total ?? 0;
-  hasFetched = true; // agora sabemos que houve pelo menos uma busca
+  hasFetched = true;
 
   if (total === 0) {
     container.html("<p class='text-muted mx-auto'>Nenhum resultado encontrado.</p>");
+    // Esconde a paginação quando não há resultados
+    $("#pagination").css('display', 'none');
   } else {
     response.return.results.forEach((item) => {
       $.get("/components/playCard.php", function (template) {
