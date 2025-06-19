@@ -10,6 +10,13 @@ try {
   $lat = floatval($_GET['latitude']);
   $lng = floatval($_GET['longitude']);
 
+  if (
+    $_GET['latitude'] === '' || $_GET['longitude'] === '' ||
+    !is_numeric($_GET['latitude']) || !is_numeric($_GET['longitude'])
+  ) {
+    response_format(400, "Por favor, informe um endereço.");
+  }
+
   $per_page = isset($_GET['per_page']) ? intval($_GET['per_page']) : 10;
   $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 

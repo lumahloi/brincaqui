@@ -102,7 +102,7 @@ function fetchPlays() {
       data: params,
       success: renderCards,
       error: (xhr) => {
-        console.error("Erro ao buscar dados:", xhr);
+        error_validation(xhr);
         hasFetched = true;
         updatePaginationControls(0); 
       },
