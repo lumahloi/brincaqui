@@ -72,9 +72,11 @@ try {
       a.aval_grade_5,
       a.aval_grade_6,
       a.aval_grade_7,
-      u.user_name
+      u.user_name,
+      b.brin_name
     FROM brincaqui.avaliacao a
     JOIN brincaqui.usuario u ON a.Usuario_user_id = u.user_id
+    JOIN brincaqui.brinquedo b ON a.Brinquedo_brin_id = b.brin_id
     WHERE $whereSql
     ORDER BY 
       CASE 
@@ -84,6 +86,7 @@ try {
       a.aval_grade_1,
       a.aval_date DESC
   ";
+
 
   $filters[':usuario_id'] = $_SESSION['user_id'];
 

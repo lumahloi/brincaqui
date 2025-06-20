@@ -18,6 +18,7 @@ require_once BASE_DIR . "/components/head.php";
   const path = window.location.pathname;
   const match = path.match(/(\d+)$/);
   const playId = match[1];
+  let totalFeedbacks;
 </script>
 </head>
 
@@ -44,9 +45,24 @@ require_once BASE_DIR . "/components/head.php";
 
     <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
     <script src="<?php echo BASE_URL ?>/scripts/getFeedback.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $.ajax({
+          type: "GET",
+          url: `${SERVER_URL}feedback/${playId}?per_page=1&page=0`,
+          success: (response) => {
+            totalFeedbacks = response.return.total_avaliacoes;
+          },
+          error: (xhr) => {
+            error_validation(xhr);
+          }
+        });
+      })
+    </script>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const totalFeedbacks = localStorage.getItem("feedbackTotal");
         const feedbackModule = createFeedbackPagination(playId, `${SERVER_URL}feedback/${playId}`, totalFeedbacks, {
           perPage: 10,
           enablePagination: true

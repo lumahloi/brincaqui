@@ -139,8 +139,6 @@ require_once BASE_DIR . "/components/head.php";
           const html = renderPlayDetails(item);
           container.html(html);
 
-          localStorage.setItem("feedbackTotal", item.total_avaliacoes);
-
           totalFeedbacks = item.total_avaliacoes;
 
           const feedbackModule = createFeedbackPagination(playId, `/api/feedback/${playId}`, totalFeedbacks, {

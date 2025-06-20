@@ -9,7 +9,12 @@ function getClassificacaoLabel(grade) {
   return "";
 }
 
-function createFeedbackPagination(playId, baseApiUrl, totalFeedbacks, options = {}) {
+function createFeedbackPagination(
+  playId,
+  baseApiUrl,
+  totalFeedbacks,
+  options = {}
+) {
   let currentPage = 0;
   const perPage = options.perPage;
   const enablePagination = options.enablePagination || false;
@@ -26,7 +31,8 @@ function createFeedbackPagination(playId, baseApiUrl, totalFeedbacks, options = 
       })
       .then((data) => {
         renderFeedbacks(data.return, playId, totalFeedbacks);
-        if (enablePagination) updatePaginationControls(data.return.total_avaliacoes);
+        if (enablePagination)
+          updatePaginationControls(data.return.total_avaliacoes);
       })
       .catch((error) => {
         console.error("Erro:", error);
@@ -53,16 +59,22 @@ function createFeedbackPagination(playId, baseApiUrl, totalFeedbacks, options = 
       fbEl.className = "p-3 card rounded";
 
       let html = `
-        <a class="text-decoration-none text-black" href="/avaliacao/${fb.aval_id}">
+        <a class="text-decoration-none text-black" href="/avaliacao/${
+          fb.aval_id
+        }">
           <div class="d-flex flex-row">
             <span class="col w-100 fw-bold mb-1">${fb.user_name}</span>
-            <span class="col-3 small text-muted mb-3 date-relative" data-date="${fb.aval_date}"></span>
+            <span class="col-3 small text-muted mb-3 date-relative" data-date="${
+              fb.aval_date
+            }"></span>
           </div>
           <div class="d-flex flex-row gap-3">
             <div class="d-flex flex-row gap-2 align-items-center">
               <div class="col-auto"><i class="bi bi-star-fill"></i></div>
               <div class="col-auto">${fb.aval_grade_1}</div>
-              <div class="col-auto">${getClassificacaoLabel(fb.aval_grade_1)}</div>
+              <div class="col-auto">${getClassificacaoLabel(
+                fb.aval_grade_1
+              )}</div>
             </div>
           </div>`;
 
@@ -81,7 +93,14 @@ function createFeedbackPagination(playId, baseApiUrl, totalFeedbacks, options = 
     if (!enablePagination && totalFbs > perPage) {
       const showMore = document.getElementById("show-more");
       if (showMore) {
-        showMore.innerHTML = `<a href='/avaliacoes/${playId}' class='text-gradient-1 fw-bold'>Ver mais</a>`;
+        const slug = feedbacks.avaliacoes[0].brin_name
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+        showMore.innerHTML = `<a href='/avaliacoes/${slug}-${playId}' class='text-gradient-1 fw-bold'>Ver mais</a>`;
       }
     }
 
@@ -96,9 +115,13 @@ function createFeedbackPagination(playId, baseApiUrl, totalFeedbacks, options = 
     const totalPages = Math.ceil(total / perPage);
     if (paginationEl && totalPages > 1) {
       paginationEl.style.display = "flex";
-      document.getElementById("current-page").textContent = `Página ${currentPage + 1}`;
-      document.getElementById("prev-page").style.display = currentPage > 0 ? "block" : "none";
-      document.getElementById("next-page").style.display = currentPage + 1 < totalPages ? "block" : "none";
+      document.getElementById("current-page").textContent = `Página ${
+        currentPage + 1
+      }`;
+      document.getElementById("prev-page").style.display =
+        currentPage > 0 ? "block" : "none";
+      document.getElementById("next-page").style.display =
+        currentPage + 1 < totalPages ? "block" : "none";
     } else if (paginationEl) {
       paginationEl.style.display = "none";
     }
@@ -129,6 +152,6 @@ function createFeedbackPagination(playId, baseApiUrl, totalFeedbacks, options = 
   }
 
   return {
-    init
+    init,
   };
 }
