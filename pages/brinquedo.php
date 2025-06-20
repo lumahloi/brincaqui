@@ -9,15 +9,9 @@ require_once BASE_DIR . "/components/head.php";
   const comodidades = <?php echo file_get_contents(BASE_DIR . "/public/comodidade.json"); ?>;
   const descontos = <?php echo file_get_contents(BASE_DIR . "/public/desconto.json"); ?>;
 </script>
-<!-- Day.js core -->
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-
-<!-- Locale -->
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/pt-br.js"></script>
-
-<!-- Plugin: relativeTime -->
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
-
 <script>
   dayjs.extend(dayjs_plugin_relativeTime);
   dayjs.locale('pt-br');

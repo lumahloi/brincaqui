@@ -27,7 +27,7 @@ function getFeedback(playId) {
       fbEl.className = "p-3 card rounded";
 
       let html = `
-        <a class="text-decoration-none text-black" href=""><div class="d-flex flex-row">
+        <a class="text-decoration-none text-black" href="/avaliacao/${fb.aval_id}"><div class="d-flex flex-row">
           <span class="col w-100 fw-bold mb-1">${fb.user_name}</span>
           <span class="col-3 small text-muted mb-3 date-relative" data-date="${
             fb.aval_date

@@ -96,7 +96,7 @@ function renderPlayCard(item, templateHtml, options = {}) {
                 .replace(/[^a-z0-9]+/g, "-")
                 .replace(/^-+|-+$/g, "")
             : "";
-          window.location.href = `/avaliacao/${brinquedo}-${item.brin_id}`;
+          window.location.href = `/avaliar/${brinquedo}-${item.brin_id}`;
         });
     } else {
       $btn
