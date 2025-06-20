@@ -1,13 +1,9 @@
 <?php
 require_once BASE_DIR . "/utils/validate_infos.php";
 
-if (isset($data['description'])) {
+if (isset($data['description']) && $data['description'] != '') {
   $input_description = trim($data['description']);
   valid_characters(10, 200, $input_description, 'Descrição');
-}
-
-if (isset($data['grade_1'])) {
-  $input_g1 = filter_var($data['grade_1'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 }
 
 if (isset($data['grade_2'])) {
@@ -32,4 +28,8 @@ if (isset($data['grade_6'])) {
 
 if (isset($data['grade_7'])) {
   $input_g7 = filter_var($data['grade_7'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+}
+
+if (isset($data['brin_id'])) {
+  $brin_id = filter_var($data['brin_id'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 }

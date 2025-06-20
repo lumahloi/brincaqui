@@ -1,0 +1,93 @@
+.containerw {
+  max-width: 400px;
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  border-radius: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow-y: auto;
+  padding-bottom: 70px;
+}
+
+@media (max-width: 576px) {
+  .containerw {
+    max-width: 100vw !important;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    border-radius: 0;
+    padding-bottom: 70px;
+  }
+}
+
+body {
+  background-color: #343434 !important;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.toggle-filters-btn:hover {
+  text-decoration: underline;
+}
+
+#back-button:hover {
+  text-decoration: underline;
+}
+
+.container-scroll {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+.container-scroll .card {
+  min-width: 300px;
+  flex: 0 0 auto;
+}
+
+.bg-gradient-1 {
+  background: #c50ff2;
+  background: linear-gradient(
+    90deg,
+    rgba(197, 15, 242, 1) 0%,
+    rgba(220, 15, 236, 1) 100%
+  );
+}
+
+.text-gradient-1 {
+  background: linear-gradient(
+    90deg,
+    rgba(197, 15, 242, 1) 0%,
+    rgba(220, 15, 236, 1) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+i {
+  background: linear-gradient(
+    90deg,
+    rgba(197, 15, 242, 1) 0%,
+    rgba(220, 15, 236, 1) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+#no-gutter {
+  --bs-gutter-x: 0;
+}
+
+#fica-branco {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}

@@ -23,6 +23,11 @@ if (isset($data['password'])) {
   valid_password($input_password);
 }
 
+if (isset($data['oldPassword'])) {
+  $input_old_password = trim($data['oldPassword']);
+  valid_password($input_old_password);
+}
+
 if (isset($data['confirmPassword'])) {
   $input_confirm_password = trim($data['confirmPassword']);
   if (isset($input_password) && $input_password !== $input_confirm_password) {

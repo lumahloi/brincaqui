@@ -37,7 +37,7 @@ try {
       }
 
       $user_info = $db->selectWhere(
-        ['user_id', 'user_type', 'user_name'],
+        ['user_id', 'user_type', 'user_name', 'user_telephone', 'user_email'],
         'usuario',
         ['user_email', 'user_active'],
         [$input_email, 1]
@@ -45,13 +45,13 @@ try {
 
       not_null_or_false($user_info);
 
-      $_SESSION["user_id"] = $user_info['user_id'];
-      $_SESSION["user_type"] = $user_info['user_type'];
+      $_SESSION["user_id"] = $user_info["user_id"];
+      $_SESSION["user_type"] = $user_info["user_type"];
+      $_SESSION["user_name"] = $user_info["user_name"];
+      $_SESSION["user_telephone"] = $user_info["user_telephone"];
+      $_SESSION["user_email"] = $user_info["user_email"];
 
       $return = [
-        "logged_user_id" => $user_info['user_id'],
-        "logged_user_name" => $user_info['user_name'],
-        "logged_user_type" => $user_info['user_type'],
         "logged_session_id" => session_id()
       ];
 

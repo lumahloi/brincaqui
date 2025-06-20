@@ -27,7 +27,7 @@ $input_country = null;
 
 $uri = $_SERVER['REQUEST_URI'];
 $uri_parts = explode('/', trim($uri, '/'));
-$input_id = $uri_parts[4] ?? null;
+$input_id = $uri_parts[2] ?? null;
 
 if (!$input_id) {
   response_format(400, "ID do brinquedo não especificado.");
@@ -46,10 +46,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
   case 'DELETE':
     require_once "emp_delete.php";
-    break;
-
-  case 'GET':
-    require_once "emp_get.php";
     break;
 
   default:

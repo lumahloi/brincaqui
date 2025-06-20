@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS Brincaqui;
-
-USE Brincaqui;
-
 CREATE TABLE
   IF NOT EXISTS TipoUsuario (id INT PRIMARY KEY, nome VARCHAR(20) NOT NULL);
 
@@ -24,6 +20,12 @@ CREATE TABLE
     brin_id INT AUTO_INCREMENT PRIMARY KEY,
     brin_pictures JSON,
     brin_grade FLOAT,
+    brin_grade_2 FLOAT,
+    brin_grade_3 FLOAT,
+    brin_grade_4 FLOAT,
+    brin_grade_5 FLOAT,
+    brin_grade_6 FLOAT,
+    brin_grade_7 FLOAT,
     brin_socials JSON NOT NULL,
     brin_description TEXT,
     brin_times JSON NOT NULL,
@@ -42,7 +44,6 @@ CREATE TABLE
     FOREIGN KEY (Usuario_user_id) REFERENCES Usuario (user_id)
   ) ENGINE = InnoDB;
 
-
 CREATE TABLE
   IF NOT EXISTS Endereco (
     add_cep VARCHAR(8) NOT NULL,
@@ -54,8 +55,8 @@ CREATE TABLE
     add_state VARCHAR(30) NOT NULL,
     add_country VARCHAR(20) NOT NULL,
     PRIMARY KEY (Brinquedo_brin_id),
-    add_latitude DECIMAL(10,8) NOT NULL,
-    add_longitude DECIMAL(11,8) NOT NULL,
+    add_latitude DECIMAL(10, 8) NOT NULL,
+    add_longitude DECIMAL(11, 8) NOT NULL,
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo (brin_id)
   );
 
@@ -63,6 +64,7 @@ CREATE TABLE
   IF NOT EXISTS Favorito (
     Usuario_user_id INT NOT NULL,
     Brinquedo_brin_id INT NOT NULL,
+    fav_date DATE NOT NULL,
     PRIMARY KEY (Usuario_user_id, Brinquedo_brin_id),
     FOREIGN KEY (Usuario_user_id) REFERENCES Usuario (user_id),
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo (brin_id)
@@ -81,6 +83,7 @@ CREATE TABLE
     aval_grade_4 FLOAT NOT NULL,
     aval_grade_5 FLOAT NOT NULL,
     aval_grade_6 FLOAT NOT NULL,
+    aval_grade_7 FLOAT NOT NULL,
     PRIMARY KEY (aval_id),
     FOREIGN KEY (Usuario_user_id) REFERENCES Usuario (user_id),
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo (brin_id)

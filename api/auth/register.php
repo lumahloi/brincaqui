@@ -10,12 +10,12 @@ $input_email = null;
 $input_telephone = null;
 $input_password = null;
 $input_confirm_password = null;
-$cookie = null;
-
-require_once "./components/validation.php";
+$cookie = trim($_COOKIE['PHPSESSID'] ?? '');
+$input_old_password = null;
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'POST':
+    require_once "./components/validation.php";
     if (isset($data['email'])) {
       $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
       valid_email($input_email, 1);
@@ -24,10 +24,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
     break;
 
   case 'PUT':
+    require_once "./components/validation.php";
+    if (isset($data['email'])) {
+      $input_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+      valid_email($input_email);
+    }
     require_once "./components/register_put.php";
     break;
 
   case 'DELETE':
+    require_once "./components/validation.php";
     require_once "./components/register_delete.php";
     break;
 

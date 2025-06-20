@@ -1,11 +1,12 @@
 <?php
 require_once BASE_DIR . "/utils/db_functions.php";
+require_once BASE_DIR . "/utils/validate_infos.php";
 
 try {
 
   $uri = $_SERVER['REQUEST_URI'];
   $uri_parts = explode('/', trim($uri, '/'));
-  $input_id = $uri_parts[4] ?? null;
+  $input_id = $uri_parts[2] ?? null;
   
   if (!$input_id) {
     response_format(400, "ID do brinquedo não especificado.");
