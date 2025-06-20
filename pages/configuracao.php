@@ -3,7 +3,7 @@ require_once BASE_DIR . "/components/head.php";
 $status = $_GET['status'] ?? '';
 ?>
 <script>
-  if (typeof isAuthenticated !== "undefined" && isAuthenticated === false) {
+  if (isAuthenticated === 0) {
     window.location.href = "/";
   }
 </script>

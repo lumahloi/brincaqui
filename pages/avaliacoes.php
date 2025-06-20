@@ -5,7 +5,7 @@ require_once BASE_DIR . "/components/head.php";
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/pt-br.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
 <script>
-  if (typeof isAuthenticated !== "undefined" && isAuthenticated === false) {
+  if (isAuthenticated === 0) {
     window.location.href = "/";
   }
   const classificacoes = <?php echo file_get_contents(BASE_DIR . "/public/classificacao.json"); ?>;

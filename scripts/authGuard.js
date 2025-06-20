@@ -1,5 +1,5 @@
 $(document).on("click", ".auth-link", function (e) {
-  if (typeof isAuthenticated !== "undefined" && !isAuthenticated) {
+  if (isAuthenticated == 0) {
     e.preventDefault();
 
     const modalEl = document.getElementById("modal");

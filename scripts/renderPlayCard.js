@@ -86,7 +86,7 @@ function renderPlayCard(item, templateHtml, options = {}) {
         .off("click")
         .text("Avaliar experiência")
         .on("click", function (e) {
-          if (typeof isAuthenticated !== "undefined" && !isAuthenticated)
+          if (isAuthenticated == 0)
             return;
           const brinquedo = item.brin_name
             ? item.brin_name
@@ -111,7 +111,7 @@ function renderPlayCard(item, templateHtml, options = {}) {
       .off("click")
       .text("Ver mais informações")
       .on("click", function (e) {
-        if (typeof isAuthenticated !== "undefined" && !isAuthenticated) return;
+        if (isAuthenticated == 0) return;
         const brinquedo = $(this).data("name");
         saveSearchState();
         window.location.href = `/lugar/${brinquedo}-${item.brin_id}`;

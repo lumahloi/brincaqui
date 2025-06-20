@@ -2,7 +2,7 @@
 require_once BASE_DIR . "/components/head.php";
 ?>
 <script>
-  if (typeof isAuthenticated !== "undefined" && isAuthenticated === false) {
+  if (isAuthenticated === 0) {
     window.location.href = "/";
   }
 </script>
