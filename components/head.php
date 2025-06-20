@@ -27,14 +27,18 @@ session_start();
   $headerType = 0; 
   $isAuthenticated = 0;
   $userId = 0;
+  $userType = 0;
   if(isset($_SESSION['user_id'])){
     $isAuthenticated = 1;
     $userId = $_SESSION['user_id'];
+    $userType = $_SESSION['user_type'];
   }
+  
   ?>
 
   <script>
     const isAuthenticated = <?php echo $isAuthenticated ?>;
     const userId = <?php echo $userId ?>;
+    const userType = <?php echo $userType ?>;
   </script>
 </head>

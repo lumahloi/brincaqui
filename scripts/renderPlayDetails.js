@@ -92,7 +92,14 @@ function renderPlayDetails(item) {
         } km</span></div>
       </div>
       <div class="row">
-        <div class="col"><i id="btn-favorite"></i> <span>${
+        <div class="col"><i `;
+        
+        if(userType === 1){
+          html += `id="btn-favorite"`;
+        }
+
+        html += `
+        class="bi bi-heart-fill"></i> <span>${
           item.brinquedo[0].brin_faves
         } favoritos</span></div>
         <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits">${
@@ -338,14 +345,19 @@ function renderPlayDetails(item) {
   }, ${item.brinquedo[0].add_city} - ${
     item.brinquedo[0].add_state
   }, ${formatCep(item.brinquedo[0].add_cep)}</p>
-    </div>
-    <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1): ?>
+    </div>`
+
+    if(userType === 1){
+      html += `
       <button type="submit" class="btn btn-primary btn-visita bg-gradient-1 border-0" data-brin-id="${
         item.brinquedo[0].brin_id
       }">Visitarei este lugar</button>
-    <?php endif; ?>
+      `;
+    }
+
+    html += `
     </div>
-`;
+    `;
 
   return html;
 }
