@@ -6,6 +6,7 @@ require_once BASE_DIR . "/components/head.php";
     window.location.href = "/";
   }
   const classificacoes = <?php echo file_get_contents(BASE_DIR . "/public/classificacao.json"); ?>;
+  const comodidades = <?php echo file_get_contents(BASE_DIR . "/public/comodidade.json"); ?>;
 </script>
 </head>
 

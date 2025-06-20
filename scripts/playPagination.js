@@ -1,5 +1,6 @@
+let currentPage = 0;
+
 function createPlayPagination(fetchFunction, options = {}) {
-  let currentPage = 0;
   let totalPages = 0;
   let hasFetched = false;
   const storageKey = options.storageKey || 'lastSearch';

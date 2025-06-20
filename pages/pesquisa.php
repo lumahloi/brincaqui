@@ -1,6 +1,9 @@
 <?php
 require_once BASE_DIR . "/components/head.php";
 ?>
+<script>
+  const comodidades = <?php echo file_get_contents(BASE_DIR . "/public/comodidade.json"); ?>;
+</script>
 </head>
 
 <body>

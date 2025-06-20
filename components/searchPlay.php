@@ -98,7 +98,6 @@
 </div>
 
 <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
-<script src="<?php echo BASE_URL ?>/scripts/renderPlayCard.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/authGuard.js"></script>
 <!-- <script src="<?php echo BASE_URL ?>/scripts/localizator.js"></script> -->
 <script src="<?php echo BASE_URL ?>/scripts/toggleHiddenContent.js"></script>
@@ -106,3 +105,4 @@
 <script src="<?php echo BASE_URL ?>/scripts/getDiscounts.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
 <script src="<?php echo BASE_URL ?>/scripts/playPagination.js"></script>
+<script src="<?php echo BASE_URL ?>/scripts/renderPlayCard.js"></script>

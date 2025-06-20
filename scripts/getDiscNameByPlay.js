@@ -4,31 +4,19 @@ function getDiscNameByPlay(discountId, targetElement) {
     return;
   }
 
-  $.ajax({
-    type: "GET",
-    url: "../public/desconto.json", 
-    dataType: "json",
-    success: (response) => {
-      const discounts = Array.isArray(response) ? response : [];
+  const discount = descontos.find(
+    (item) => String(item.disc_id) === discountId
+  );
 
-      const discount = discounts.find(
-        (item) => String(item.disc_id) === discountId
-      );
-
-      if (discount) {
-        const element = $(`
-        <div class="col-12 d-flex align-items-center mb-1">
-          <i class="bi bi-check me-2 fs-5"></i>
-          <span>${discount.disc_title}</span>
-        </div>
-      `);
-        targetElement.append(element);
-      } else {
-        console.warn(`desconto com ID ${discountId} não encontrada.`);
-      }
-    },
-    error: (xhr) => {
-      console.error(`Erro ao buscar descontos:`, xhr);
-    },
-  });
+  if (discount) {
+    const element = $(`
+      <div class="col-12 d-flex align-items-center mb-1">
+        <i class="bi bi-check me-2 fs-5"></i>
+        <span>${discount.disc_title}</span>
+      </div>
+    `);
+    targetElement.append(element);
+  } else {
+    console.warn(`Desconto com ID ${discountId} não encontrado.`);
+  }
 }
