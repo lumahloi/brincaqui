@@ -44,25 +44,11 @@ function renderPrices(prices) {
   return html;
 }
 
-let classificacoes = null;
-
-function loadClassificacoesAndRender(item, renderCallback) {
-  if (classificacoes) {
-    renderCallback(item);
-    return;
-  }
-  $.getJSON("../public/classificacao.json", function (data) {
-    classificacoes = data;
-    renderCallback(item);
-  });
-}
-
 function getClassificacaoLabel(grade) {
-  if (!classificacoes) return "";
   grade = Number(grade);
   for (let i = 0; i < classificacoes.length; i++) {
     const c = classificacoes[i];
-    if (grade >= c.min && grade <= c.max) {
+    if (grade === c.value) {
       return c.label;
     }
   }
@@ -258,7 +244,9 @@ function renderPlayDetails(item) {
     </div>
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Preços</h5>
-      <div class="row d-flex gap-2 justify-content-center">${renderPrices(item.brin_prices)}</div>
+      <div class="row d-flex gap-2 justify-content-center">${renderPrices(
+        item.brin_prices
+      )}</div>
       <div id="play-discounts" class="row"></div>
     </div>
     <div class="d-grid gap-2">

@@ -5,6 +5,7 @@ require_once BASE_DIR . "/components/head.php";
   if (typeof isAuthenticated !== "undefined" && isAuthenticated === false) {
     window.location.href = "/";
   }
+  const classificacoes = <?php echo file_get_contents(BASE_DIR . "/public/classificacao.json"); ?>;
 </script>
 </head>
 

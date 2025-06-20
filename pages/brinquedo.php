@@ -5,6 +5,7 @@ require_once BASE_DIR . "/components/head.php";
   if (typeof isAuthenticated !== "undefined" && isAuthenticated === false) {
     window.location.href = "/";
   }
+  const classificacoes = <?php echo file_get_contents(BASE_DIR . "/public/classificacao.json"); ?>;
 </script>
 </head>
 
@@ -125,71 +126,69 @@ require_once BASE_DIR . "/components/head.php";
 
           let item = response.return[0];
 
-          loadClassificacoesAndRender(item, function (item) {
-            const html = renderPlayDetails(item);
-            container.html(html);
+          const html = renderPlayDetails(item);
+          container.html(html);
 
-            let commodities = item.brin_commodities;
-            commodities = (
-              Array.isArray(commodities)
-                ? commodities
-                : String(commodities || "").split(",")
-            )
-              .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
-              .filter((id) => !isNaN(id));
+          let commodities = item.brin_commodities;
+          commodities = (
+            Array.isArray(commodities)
+              ? commodities
+              : String(commodities || "").split(",")
+          )
+            .map((item) => parseInt(String(item).replace(/[^\d]/g, ""), 10))
+            .filter((id) => !isNaN(id));
 
-            let $commoditiesContainer = $("#play-commodities");
-            $commoditiesContainer.empty();
+          let $commoditiesContainer = $("#play-commodities");
+          $commoditiesContainer.empty();
 
-            for (let i = 0; i < commodities.length; i += 2) {
-              let row = $('<div class="row mb-2"></div>');
-              let col1 = $('<div class="col"></div>');
-              getComNameByPlay(String(commodities[i]), col1);
-              row.append(col1);
+          for (let i = 0; i < commodities.length; i += 2) {
+            let row = $('<div class="row mb-2"></div>');
+            let col1 = $('<div class="col"></div>');
+            getComNameByPlay(String(commodities[i]), col1);
+            row.append(col1);
 
-              if (commodities[i + 1] !== undefined) {
-                let col2 = $('<div class="col"></div>');
-                getComNameByPlay(String(commodities[i + 1]), col2);
-                row.append(col2);
-              }
-
-              $commoditiesContainer.append(row);
+            if (commodities[i + 1] !== undefined) {
+              let col2 = $('<div class="col"></div>');
+              getComNameByPlay(String(commodities[i + 1]), col2);
+              row.append(col2);
             }
 
-            let discounts = (
-              Array.isArray(item.brin_discounts)
-                ? item.brin_discounts
-                : String(item.brin_discounts || "").split(",")
-            )
-              .map((id) => parseInt(String(id).replace(/[^\d]/g, ""), 10))
-              .filter((id) => !isNaN(id));
+            $commoditiesContainer.append(row);
+          }
 
-            const $discountsContainer = $("#play-discounts");
-            if ($discountsContainer.length) {
-              if (item.brin_discounts && discounts.length > 0) {
-                $discountsContainer.append(
-                  '<p class="fw-bold mb-2 mt-3">Descontos:</p>'
-                );
-              }
-              discounts.forEach((discountId) => {
-                getDiscNameByPlay(String(discountId), $discountsContainer);
-              });
-            } else {
-              setTimeout(() => {
-                const $retryContainer = $("#play-discounts");
-                if ($retryContainer.length) {
-                  if (item.brin_discounts && discounts.length > 0) {
-                    $retryContainer.append(
-                      "<p>Este brinquedo possui os seguintes descontos:</p>"
-                    );
-                  }
-                  discounts.forEach((discountId) => {
-                    getDiscNameByPlay(String(discountId), $retryContainer);
-                  });
+          let discounts = (
+            Array.isArray(item.brin_discounts)
+              ? item.brin_discounts
+              : String(item.brin_discounts || "").split(",")
+          )
+            .map((id) => parseInt(String(id).replace(/[^\d]/g, ""), 10))
+            .filter((id) => !isNaN(id));
+
+          const $discountsContainer = $("#play-discounts");
+          if ($discountsContainer.length) {
+            if (item.brin_discounts && discounts.length > 0) {
+              $discountsContainer.append(
+                '<p class="fw-bold mb-2 mt-3">Descontos:</p>'
+              );
+            }
+            discounts.forEach((discountId) => {
+              getDiscNameByPlay(String(discountId), $discountsContainer);
+            });
+          } else {
+            setTimeout(() => {
+              const $retryContainer = $("#play-discounts");
+              if ($retryContainer.length) {
+                if (item.brin_discounts && discounts.length > 0) {
+                  $retryContainer.append(
+                    "<p>Este brinquedo possui os seguintes descontos:</p>"
+                  );
                 }
-              }, 50);
-            }
-          });
+                discounts.forEach((discountId) => {
+                  getDiscNameByPlay(String(discountId), $retryContainer);
+                });
+              }
+            }, 50);
+          }
 
           $(document).on("click", "#toggle-times", function () {
             const container = $("#times-container");

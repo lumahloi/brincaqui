@@ -1,11 +1,14 @@
 <?php
 require_once BASE_DIR . "/components/head.php";
 ?>
+<script>
+  const classificacoes = <?php echo file_get_contents(BASE_DIR . "/public/classificacao.json"); ?>;
+</script>
 </head>
 
 <body>
   <div id="initial-options" class="containerw pb-0">
-    <?php 
+    <?php
     $headerType = 1 ?>
     <?php
     require_once BASE_DIR . "/components/header.php";
@@ -196,12 +199,11 @@ require_once BASE_DIR . "/components/head.php";
             }
 
             response.return.forEach(function (item) {
-              loadClassificacoesAndRender(item, function (itemWithClass) {
-                const $card = renderPlayCard(itemWithClass, templateHtml, {
-                  detailsType: "default",
-                });
-                container.append($card);
+              const $card = renderPlayCard(item, templateHtml, {
+                detailsType: "default",
               });
+              container.append($card);
+
             });
           },
           error: (xhr) => {

@@ -1,22 +1,8 @@
-let classificacoes = null;
-
-function loadClassificacoesAndRender(item, renderCallback) {
-  if (classificacoes) {
-    renderCallback(item);
-    return;
-  }
-  $.getJSON("../public/classificacao.json", function (data) {
-    classificacoes = data;
-    renderCallback(item);
-  });
-}
-
 function getClassificacaoLabel(grade) {
-  if (!classificacoes) return "";
   grade = Number(grade);
   for (let i = 0; i < classificacoes.length; i++) {
     const c = classificacoes[i];
-    if (grade >= c.min && grade <= c.max) {
+    if (grade === c.value) {
       return c.label;
     }
   }
@@ -46,9 +32,9 @@ function renderPlayCard(item, templateHtml, options = {}) {
   const slug = item.brin_name
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") 
-    .replace(/[^a-z0-9]+/g, "-") 
-    .replace(/^-+|-+$/g, ""); 
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
   const href = `/lugar/${slug}-${item.brin_id}`;
   $card.find("#play-link").attr("href", href);

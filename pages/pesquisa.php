@@ -12,6 +12,9 @@ require_once BASE_DIR . "/components/head.php";
     require_once BASE_DIR . "/components/header.php";
     ?>
     <?php require_once BASE_DIR . "/components/searchPlay.php" ?>
+    <script>
+      const classificacoes = <?php echo file_get_contents(BASE_DIR . "/public/classificacao.json"); ?>;
+    </script>
   </div>
   
   <script>
