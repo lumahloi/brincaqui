@@ -20,6 +20,7 @@ try {
       "a.aval_grade_5",
       "a.aval_grade_6",
       "a.aval_grade_7",
+      "u.user_id",
       "u.user_name"
     ];
 

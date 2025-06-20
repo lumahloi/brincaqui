@@ -86,6 +86,7 @@ function createFeedbackPagination(
       }
 
       html += `</a>`;
+
       fbEl.innerHTML = html;
       container.appendChild(fbEl);
     });

@@ -26,9 +26,11 @@ session_start();
   <?php 
   $headerType = 0; 
   $isAuthenticated = isset($_SESSION['user_id']) ? 1 : 0;
+  $userId = isset($_SESSION['user_id']) ?: $_SESSION['user_id'];
   ?>
 
   <script>
-    const isAuthenticated = <?php echo isset($_SESSION['user_id']) ? 1 : 0; ?>;
+    const isAuthenticated = <?php echo $isAuthenticated ?>;
+    const userId = <?php echo $userId ?>;
   </script>
 </head>

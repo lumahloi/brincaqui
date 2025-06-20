@@ -21,6 +21,17 @@ switch ($_SERVER['REQUEST_METHOD']) {
     check_permission([1, 3], $cookie);
     require_once "./components/post.php";
     break;
+  case 'PUT':
+    $uri = $_SERVER['REQUEST_URI'];
+    $uri_parts = explode('/', trim($uri, '/'));
+    $input_id = $uri_parts[2] ?? null;
+
+    if (!$input_id) {
+      response_format(400, "ID do brinquedo não especificado.");
+    }
+    check_permission([1, 3], $cookie);
+    require_once "./components/put.php";
+    break;
   default:
     response_format(400, "Sessão inválida, realize login e tente novamente.");
     break;

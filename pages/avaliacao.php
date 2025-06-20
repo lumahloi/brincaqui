@@ -58,6 +58,41 @@ require_once BASE_DIR . "/components/head.php";
             const html = renderFeedbackDetails(item);
             container.html(html);
 
+            if (item.user_id == userId) {
+              const containerEl = document.querySelector('.card');
+
+              containerEl.querySelector('.edit-btn').addEventListener('click', () => {
+                containerEl.querySelectorAll('[data-edit]').forEach(el => el.classList.remove('d-none'));
+                containerEl.querySelectorAll('[data-key]').forEach(el => el.classList.add('d-none'));
+                containerEl.querySelector('.save-edit-btn').classList.remove('d-none');
+              });
+
+              containerEl.querySelector('.save-edit-btn').addEventListener('click', () => {
+                const payload = {
+                  description: containerEl.querySelector('[data-edit="aval_description"]').value.trim(),
+                  grade_2: Number(containerEl.querySelector('[data-edit="aval_grade_2"]').value),
+                  grade_3: Number(containerEl.querySelector('[data-edit="aval_grade_3"]').value),
+                  grade_4: Number(containerEl.querySelector('[data-edit="aval_grade_4"]').value),
+                  grade_5: Number(containerEl.querySelector('[data-edit="aval_grade_5"]').value),
+                  grade_6: Number(containerEl.querySelector('[data-edit="aval_grade_6"]').value),
+                  grade_7: Number(containerEl.querySelector('[data-edit="aval_grade_7"]').value),
+                };
+
+                $.ajax({
+                  type: "PUT",
+                  url: `${SERVER_URL}feedback/${playId}`, 
+                  data: JSON.stringify(payload),
+                  success: () => {
+                    location.reload(); 
+                  },
+                  error: (xhr) => {
+                    error_validation(xhr);
+                  }
+                });
+              });
+            }
+
+
             document.querySelectorAll(".date-relative").forEach((el) => {
               const dateStr = el.getAttribute("data-date");
               const relativeTime = dayjs(dateStr).fromNow();
