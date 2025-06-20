@@ -81,37 +81,28 @@ try {
   $whereSql = !empty($whereClauses) ? 'WHERE ' . implode(' AND ', $whereClauses) : '';
 
   $sql = "
-    SELECT
-      b.brin_pictures, b.brin_id, b.brin_name, b.brin_grade, b.brin_times, b.brin_commodities, b.brin_prices, b.brin_faves, b.brin_visits, $distanceCalculation AS distance,
+  SELECT
+    b.brin_pictures,
+    b.brin_id,
+    b.brin_name,
+    b.brin_grade,
+    b.brin_times,
+    b.brin_commodities,
+    b.brin_prices,
+    b.brin_faves,
+    b.brin_visits,
+    $distanceCalculation AS distance,
 
-      -- Menor preço extraído de brin_prices
-      CAST(
-        JSON_UNQUOTE(
-          JSON_EXTRACT(
-            b.brin_prices,
-            CONCAT(
-              '$[',
-              (
-                SELECT idx FROM (
-                  SELECT 
-                    n.n AS idx,
-                    JSON_UNQUOTE(JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price'))) AS price
-                  FROM (
-                    SELECT 0 n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION 
-                          SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9
-                  ) n
-                  WHERE JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price')) IS NOT NULL
-                ) prices
-                ORDER BY price + 0 ASC
-                LIMIT 1
-              ),
-              '].prices_price'
-            )
-          )
-        ) AS DECIMAL(10,2)
-      ) AS min_price,
+    -- Verifica se o usuário avaliou o brinquedo
+    EXISTS (
+      SELECT 1 
+      FROM brincaqui.avaliacao a 
+      WHERE a.Usuario_user_id = :user_id 
+        AND a.Brinquedo_brin_id = b.brin_id
+    ) AS user_has_rating,
 
-      -- Título relacionado ao menor preço
+    -- Menor preço extraído de brin_prices
+    CAST(
       JSON_UNQUOTE(
         JSON_EXTRACT(
           b.brin_prices,
@@ -123,7 +114,7 @@ try {
                   n.n AS idx,
                   JSON_UNQUOTE(JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price'))) AS price
                 FROM (
-                  SELECT 0 n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION 
+                  SELECT 0 AS n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION 
                         SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9
                 ) n
                 WHERE JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price')) IS NOT NULL
@@ -131,26 +122,53 @@ try {
               ORDER BY price + 0 ASC
               LIMIT 1
             ),
-            '].prices_title'
+            '].prices_price'
           )
         )
-      ) AS min_price_title,
+      ) AS DECIMAL(10,2)
+    ) AS min_price,
 
-      (
-        SELECT COUNT(*) 
-        FROM brincaqui.visita v2 
-        WHERE v2.Usuario_user_id = v.Usuario_user_id
-      ) AS total
+    -- Título relacionado ao menor preço
+    JSON_UNQUOTE(
+      JSON_EXTRACT(
+        b.brin_prices,
+        CONCAT(
+          '$[',
+          (
+            SELECT idx FROM (
+              SELECT 
+                n.n AS idx,
+                JSON_UNQUOTE(JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price'))) AS price
+              FROM (
+                SELECT 0 AS n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION 
+                      SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9
+              ) n
+              WHERE JSON_EXTRACT(b.brin_prices, CONCAT('$[', n.n, '].prices_price')) IS NOT NULL
+            ) prices
+            ORDER BY price + 0 ASC
+            LIMIT 1
+          ),
+          '].prices_title'
+        )
+      )
+    ) AS min_price_title,
 
-    FROM 
-      brincaqui.visita v
-      INNER JOIN brincaqui.brinquedo b ON v.Brinquedo_brin_id = b.brin_id
-      INNER JOIN brincaqui.endereco e ON b.brin_id = e.Brinquedo_brin_id
-    $whereSql
-    GROUP BY b.brin_id
-    ORDER BY 
-      MAX(v.visit_date) DESC, $orderField $orderDir
-    ";
+    -- Total de visitas do usuário
+    (
+      SELECT COUNT(*) 
+      FROM brincaqui.visita v2 
+      WHERE v2.Usuario_user_id = v.Usuario_user_id
+    ) AS total
+
+  FROM 
+    brincaqui.visita v
+    INNER JOIN brincaqui.brinquedo b ON v.Brinquedo_brin_id = b.brin_id
+    INNER JOIN brincaqui.endereco e ON b.brin_id = e.Brinquedo_brin_id
+  $whereSql
+  GROUP BY b.brin_id
+  ORDER BY MAX(v.visit_date) DESC, $orderField $orderDir
+  ";
+
       
   // HAVING distance <= :radius
 
