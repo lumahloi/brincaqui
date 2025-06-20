@@ -18,13 +18,13 @@ $status = $_GET['status'] ?? '';
 
     <div class="col d-flex flex-column justify-content-between" style="min-height: 90%;">
       <div class="col">
-        
-          <div class="row align-items-center">
-            <div class="col-auto"><i class="bi bi-person-circle fs-1"></i></div>
-            <div class="col-auto">
-              <h4><?php echo $_SESSION['user_name'] ?></h4>
-            </div>
+
+        <div class="row align-items-center">
+          <div class="col-auto"><i class="bi bi-person-circle fs-1"></i></div>
+          <div class="col-auto">
+            <h4><?php echo $_SESSION['user_name'] ?></h4>
           </div>
+        </div>
 
         <div class="col mt-3 me-2 ms-2 d-grid gap-3">
           <a href="/notificacoes" class="text-decoration-none text-black">
@@ -47,26 +47,30 @@ $status = $_GET['status'] ?? '';
               <div class="col-1"><i class="bi bi-caret-right-fill fs-6"></i></div>
             </div>
           </a>
-          <a href="/favoritos" class="text-decoration-none text-black">
-            <div class="row align-items-center">
-              <div class="col-1 me-2"><i class="bi bi-heart-fill fs-5"></i></div>
-              <div class="col w-100">
-                <div class="col">Lugares favoritos</div>
-                <div class="col small text-muted">Seus lugares favoritos</div>
+
+          <div id="user-links" style="display: none;">
+            <a href="/favoritos" class="text-decoration-none text-black">
+              <div class="row align-items-center">
+                <div class="col-1 me-2"><i class="bi bi-heart-fill fs-5"></i></div>
+                <div class="col w-100">
+                  <div class="col">Lugares favoritos</div>
+                  <div class="col small text-muted">Seus lugares favoritos</div>
+                </div>
+                <div class="col-1"><i class="bi bi-caret-right-fill fs-6"></i></div>
               </div>
-              <div class="col-1"><i class="bi bi-caret-right-fill fs-6"></i></div>
-            </div>
-          </a>
-          <a href="/visitados" class="text-decoration-none text-black">
-            <div class="row align-items-center">
-              <div class="col-1 me-2"><i class="bi bi-geo-fill fs-5"></i></div>
-              <div class="col w-100">
-                <div class="col">Lugares visitados</div>
-                <div class="col small text-muted">Os lugares que você já visitou</div>
+            </a>
+            <a href="/visitados" class="text-decoration-none text-black">
+              <div class="row align-items-center">
+                <div class="col-1 me-2"><i class="bi bi-geo-fill fs-5"></i></div>
+                <div class="col w-100">
+                  <div class="col">Lugares visitados</div>
+                  <div class="col small text-muted">Os lugares que você já visitou</div>
+                </div>
+                <div class="col-1"><i class="bi bi-caret-right-fill fs-6"></i></div>
               </div>
-              <div class="col-1"><i class="bi bi-caret-right-fill fs-6"></i></div>
-            </div>
-          </a>
+            </a>
+          </div>
+
         </div>
       </div>
 
@@ -94,13 +98,20 @@ $status = $_GET['status'] ?? '';
             <div class="col-1"><i class="bi bi-caret-right-fill fs-6"></i></div>
           </div>
         </a>
-        
+
       </div>
     </div>
 
   </div>
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/authGuard.js"></script>
+  <script>
+    if (userType === 1) {
+      const userLinks = document.getElementById("user-links");
+      if (userLinks) userLinks.style.display = "block";
+    }
+  </script>
+
 </body>
 
 </html>
