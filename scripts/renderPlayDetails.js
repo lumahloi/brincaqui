@@ -48,7 +48,7 @@ function getClassificacaoLabel(grade) {
   grade = Number(grade);
   for (let i = 0; i < classificacoes.length; i++) {
     const c = classificacoes[i];
-    if (grade === c.value) {
+    if (grade >= c.min && grade <= c.max) {
       return c.label;
     }
   }
@@ -63,8 +63,6 @@ function renderPlayDetails(item) {
 <div id="play-pictures" class="col">${item.brin_pictures}</div>`;
   }
 
-  const classificacao = getClassificacaoLabel(item.brin_grade);
-
   html += `
 <div class="d-grid gap-4">
   <div>
@@ -73,7 +71,7 @@ function renderPlayDetails(item) {
       <div class="row">
         <div class="col"><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
           item.brin_grade
-        } ${classificacao}</span></div>
+        } ${getClassificacaoLabel(item.brin_grade)}</span></div>
         <div class="col"><i class="bi bi-geo-alt-fill"></i> <span id="play-distance">${
           item.distance ?? 0
         } km</span></div>
@@ -253,7 +251,7 @@ function renderPlayDetails(item) {
       <h5 class="fw-bold text-gradient-1">Avaliações</h5>
       <h5><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
         item.brin_grade
-      } ${classificacao}</span></h5>
+      } ${getClassificacaoLabel(item.brin_grade)}</span></h5>
       <p class="mb-0">Com base em  ${
         item.total_avaliacoes
       } avaliações dos nossos usuários.</p>

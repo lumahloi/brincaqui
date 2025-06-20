@@ -2,7 +2,7 @@ function getClassificacaoLabel(grade) {
   grade = Number(grade);
   for (let i = 0; i < classificacoes.length; i++) {
     const c = classificacoes[i];
-    if (grade === c.value) {
+    if (grade >= c.min && grade <= c.max) {
       return c.label;
     }
   }

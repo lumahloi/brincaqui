@@ -148,7 +148,7 @@ require_once BASE_DIR . "/components/head.php";
         grade = Number(grade);
         for (let i = 0; i < classificacoes.length; i++) {
           const c = classificacoes[i];
-          if (grade === c.value) {
+          if (grade >= c.min && grade <= c.max) {
             return c.label;
           }
         }
@@ -214,7 +214,7 @@ require_once BASE_DIR . "/components/head.php";
 
             modalEl.addEventListener('hidden.bs.modal', function () {
               window.location.href = "/feed";
-            }, { once: true }); 
+            }, { once: true });
           },
           error: function (xhr) {
             error_validation(xhr);

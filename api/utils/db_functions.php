@@ -155,7 +155,7 @@ class Database
 
   public function getCount(string $table, string $whereColumn, $value): int
   {
-    $sql = "SELECT COUNT(*) FROM brincaqui.$table WHERE $whereColumn = :val";
+    $sql = "SELECT COUNT(*) FROM `$table` WHERE `$whereColumn` = :val";
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute([':val' => $value]);
     return (int) $stmt->fetchColumn();
