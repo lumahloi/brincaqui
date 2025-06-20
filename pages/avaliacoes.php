@@ -47,8 +47,8 @@ require_once BASE_DIR . "/components/head.php";
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const totalFeedbacks = localStorage.getItem("feedbackTotal");
-        const feedbackModule = createFeedbackPagination(playId, `/api/feedback/${playId}`, totalFeedbacks, {
-          perPage: 1,
+        const feedbackModule = createFeedbackPagination(playId, `${SERVER_URL}feedback/${playId}`, totalFeedbacks, {
+          perPage: 10,
           enablePagination: true
         });
         feedbackModule.init();
