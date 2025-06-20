@@ -170,6 +170,7 @@ require_once BASE_DIR . "/components/head.php";
   <script src="<?php echo BASE_URL ?>/scripts/getComName.js"></script>
 
   <script>
+    let currentPage = 0;
     $("#btn-register-type1").click(function () {
       sessionStorage.setItem("user_type", "1");
       window.location.href = "cadastro";
