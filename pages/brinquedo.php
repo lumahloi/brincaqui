@@ -127,21 +127,29 @@ require_once BASE_DIR . "/components/head.php";
           const container = $("#play");
           container.empty();
 
-          if (!response.return) {
+          if (!response.return.brinquedo[0]) {
             container.html(
               "<p class='text-muted mx-auto'>Lugar não encontrado.</p>"
             );
             return;
           }
 
-          let item = response.return[0];
+          let item = response.return;
 
           const html = renderPlayDetails(item);
           container.html(html);
 
-          getFeedback(playId);
+          localStorage.setItem("feedbackTotal", item.total_avaliacoes);
 
-          let commodities = item.brin_commodities;
+          totalFeedbacks = item.total_avaliacoes;
+
+          const feedbackModule = createFeedbackPagination(playId, `/api/feedback/${playId}`, totalFeedbacks, {
+            perPage: 3,
+            enablePagination: false
+          });
+          feedbackModule.init();
+
+          let commodities = item.brinquedo[0].brin_commodities;
           commodities = (
             Array.isArray(commodities)
               ? commodities
@@ -169,16 +177,16 @@ require_once BASE_DIR . "/components/head.php";
           }
 
           let discounts = (
-            Array.isArray(item.brin_discounts)
-              ? item.brin_discounts
-              : String(item.brin_discounts || "").split(",")
+            Array.isArray(item.brinquedo[0].brin_discounts)
+              ? item.brinquedo[0].brin_discounts
+              : String(item.brinquedo[0].brin_discounts || "").split(",")
           )
             .map((id) => parseInt(String(id).replace(/[^\d]/g, ""), 10))
             .filter((id) => !isNaN(id));
 
           const $discountsContainer = $("#play-discounts");
           if ($discountsContainer.length) {
-            if (item.brin_discounts && discounts.length > 0) {
+            if (item.brinquedo[0].brin_discounts && discounts.length > 0) {
               $discountsContainer.append(
                 '<p class="fw-bold mb-2 mt-3">Descontos:</p>'
               );
@@ -190,7 +198,7 @@ require_once BASE_DIR . "/components/head.php";
             setTimeout(() => {
               const $retryContainer = $("#play-discounts");
               if ($retryContainer.length) {
-                if (item.brin_discounts && discounts.length > 0) {
+                if (item.brinquedo[0].brin_discounts && discounts.length > 0) {
                   $retryContainer.append(
                     "<p>Este brinquedo possui os seguintes descontos:</p>"
                   );

@@ -89,7 +89,20 @@ try {
 
   $results = $db->selectWithPagination($sql, $filters, $per_page, $page);
 
-  response_format(200, "Informações extraídas com sucesso.", $results);
+  $pdo = DbConnection::connect();
+  $countStmt = $pdo->prepare("
+    SELECT COUNT(*) as total
+    FROM brincaqui.avaliacao
+    WHERE Brinquedo_brin_id = :brin_id
+  ");
+  $countStmt->bindValue(':brin_id', $input_id, PDO::PARAM_INT);
+  $countStmt->execute();
+  $totalCount = $countStmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+
+  response_format(200, "Informações extraídas com sucesso.", [
+    "total_avaliacoes" => intval($totalCount),
+    "avaliacoes" => $results
+  ]);
 } catch (PDOException $e) {
   response_format(500, "Erro no banco de dados: " . $e->getMessage());
 } catch (Exception $e) {

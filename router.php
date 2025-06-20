@@ -29,6 +29,11 @@ if (preg_match('#^/avaliacao/[\w\-]+$#', $path)) {
     exit;
 }
 
+if (preg_match('#^/avaliacoes/[\w\-]+$#', $path)) {
+    require BASE_DIR . '/pages/avaliacoes.php';
+    exit;
+}
+
 if ($path === '/' || $path === '') {
     $path = '/index';
 }

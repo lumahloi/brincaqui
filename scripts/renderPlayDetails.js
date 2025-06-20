@@ -58,39 +58,31 @@ function getClassificacaoLabel(grade) {
 function renderPlayDetails(item) {
   let html = "";
 
-  if (item.brin_pictures) {
+  if (item.brinquedo[0].brin_pictures) {
     html += `
-<div id="play-pictures" class="col">${item.brin_pictures}</div>`;
+<div id="play-pictures" class="col">${item.brinquedo[0].brin_pictures}</div>`;
   }
 
   html += `
 <div class="d-grid gap-4">
   <div>
-    <h4 id="play-name" class="fw-bold mb-2">${item.brin_name}</h4>
+    <h4 id="play-name" class="fw-bold mb-2">${item.brinquedo[0].brin_name}</h4>
     <div class="mt-3">
       <div class="row">
-        <div class="col"><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
-          item.brin_grade
-        } ${getClassificacaoLabel(item.brin_grade)}</span></div>
-        <div class="col"><i class="bi bi-geo-alt-fill"></i> <span id="play-distance">${
-          item.distance ?? 0
-        } km</span></div>
+        <div class="col"><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${item.brinquedo[0].brin_grade} ${getClassificacaoLabel(item.brinquedo[0].brin_grade)}</span></div>
+        <div class="col"><i class="bi bi-geo-alt-fill"></i> <span id="play-distance">${item.brinquedo[0].distance ?? 0} km</span></div>
       </div>
       <div class="row">
-        <div class="col"><i id="btn-favorite"></i> <span>${
-          item.brin_faves
-        } favoritos</span></div>
-        <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits">${
-          item.brin_visits
-        } visitas</span></div>
+        <div class="col"><i id="btn-favorite"></i> <span>${item.brinquedo[0].brin_faves} favoritos</span></div>
+        <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits">${item.brinquedo[0].brin_visits} visitas</span></div>
       </div>
     </div>
   </div>
   `;
 
-  if (item.brin_description) {
+  if (item.brinquedo[0].brin_description) {
     html += `
-  <p class="mb-0">${item.brin_description}</p>
+  <p class="mb-0">${item.brinquedo[0].brin_description}</p>
     `;
   }
 
@@ -98,10 +90,10 @@ function renderPlayDetails(item) {
   <div>
     <p class="fw-bold mb-2">Contato</p>
     <div class="d-flex align-items-center"><i class="bi bi-telephone-fill me-2"></i><span>${formatPhone(
-      item.brin_telephone
+      item.brinquedo[0].brin_telephone
     )}</span></div>
     <div class="d-flex align-items-center"><i class="bi bi-envelope-fill me-2"></i><span>${
-      item.brin_email
+      item.brinquedo[0].brin_email
     }</span></div>
   </div>
   <div>
@@ -109,13 +101,13 @@ function renderPlayDetails(item) {
   `;
 
   let socialsHtml = "";
-  if (item.brin_socials) {
+  if (item.brinquedo[0].brin_socials) {
     let socials;
     try {
       socials =
-        typeof item.brin_socials === "string"
-          ? JSON.parse(item.brin_socials)
-          : item.brin_socials;
+        typeof item.brinquedo[0].brin_socials === "string"
+          ? JSON.parse(item.brinquedo[0].brin_socials)
+          : item.brinquedo[0].brin_socials;
     } catch (e) {
       socials = [];
     }
@@ -152,8 +144,8 @@ function renderPlayDetails(item) {
   }
 
   let agesText = "";
-  if (item.brin_ages) {
-    let ages = item.brin_ages;
+  if (item.brinquedo[0].brin_ages) {
+    let ages = item.brinquedo[0].brin_ages;
     if (typeof ages === "string") {
       try {
         ages = JSON.parse(ages);
@@ -178,8 +170,8 @@ function renderPlayDetails(item) {
   `;
 
   let timesHtml = "";
-  if (item.brin_times) {
-    let times = item.brin_times;
+  if (item.brinquedo[0].brin_times) {
+    let times = item.brinquedo[0].brin_times;
     if (typeof times === "string") {
       try {
         times = JSON.parse(times);
@@ -243,15 +235,15 @@ function renderPlayDetails(item) {
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Preços</h5>
       <div class="row d-flex gap-2 justify-content-center">${renderPrices(
-        item.brin_prices
+        item.brinquedo[0].brin_prices
       )}</div>
       <div id="play-discounts" class="row"></div>
     </div>
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Avaliações</h5>
       <h5><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
-        item.brin_grade
-      } ${getClassificacaoLabel(item.brin_grade)}</span></h5>
+        item.brinquedo[0].brin_grade
+      } ${getClassificacaoLabel(item.brinquedo[0].brin_grade)}</span></h5>
       <p class="mb-0">Com base em  ${
         item.total_avaliacoes
       } avaliações dos nossos usuários.</p>
@@ -260,45 +252,46 @@ function renderPlayDetails(item) {
         <div class="col-auto card text-center p-2" style="min-width: 90px;">
           <div class="row text-center pb-1"><i class="bi bi-shield-fill fs-6"></i></div>
           <p class="text-center small mb-0">Segurança</p>
-          <span>${getClassificacaoLabel(item.brin_grade_2)}</span>
+          <span>${getClassificacaoLabel(item.brinquedo[0].brin_grade_2)}</span>
         </div>
         <div class="col-auto card text-center p-2" style="min-width: 90px;">
           <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-stars fs-6"></i></div>
           <p class="text-center small mb-0">Limpeza</p>
-          <span>${getClassificacaoLabel(item.brin_grade_3)}</span>
+          <span>${getClassificacaoLabel(item.brinquedo[0].brin_grade_3)}</span>
         </div>
         <div class="col-auto card text-center p-2">
           <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-emoji-grin-fill fs-6"></i></div>
           <p class="text-center small mb-0">Brinquedos e atrações</p>
-          <span>${getClassificacaoLabel(item.brin_grade_4)}</span>
+          <span>${getClassificacaoLabel(item.brinquedo[0].brin_grade_4)}</span>
         </div>
         <div class="col-auto card text-center p-2" style="min-width: 90px;">
           <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-geo-alt-fill fs-6"></i></div>
           <p class="text-center small mb-0">Localização</p>
-          <span>${getClassificacaoLabel(item.brin_grade_5)}</span>
+          <span>${getClassificacaoLabel(item.brinquedo[0].brin_grade_5)}</span>
         </div>
         <div class="col-auto card text-center p-2" style="min-width: 90px;">
           <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-currency-dollar fs-6"></i></div>
           <p class="text-center small mb-0">Preço</p>
-          <span>${getClassificacaoLabel(item.brin_grade_6)}</span>
+          <span>${getClassificacaoLabel(item.brinquedo[0].brin_grade_6)}</span>
         </div>
         <div class="col-auto card text-center p-2" style="min-width: 90px;">
           <div class="row text-center pb-1" id="no-gutter"><i class="bi bi-person-wheelchair fs-6"></i></div>
           <p class="text-center small mb-0">Acessibilidade</p>
-          <span>${getClassificacaoLabel(item.brin_grade_7)}</span>
+          <span>${getClassificacaoLabel(item.brinquedo[0].brin_grade_7)}</span>
         </div>
       </div>
     </div>
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Avaliações dos usuários</h5>
       <div id="feedbacks" class="d-flex flex-column gap-2"></div>
+      <span id="show-more" class="mt-1 text-center"></span>
     </div>
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Localização</h5>
 
       <a 
-        href="https://www.google.com/maps?q=${item.add_latitude},${
-    item.add_longitude
+        href="https://www.google.com/maps?q=${item.brinquedo[0].add_latitude},${
+    item.brinquedo[0].add_longitude
   }" 
         target="_blank" 
         rel="noopener noreferrer"
@@ -310,20 +303,20 @@ function renderPlayDetails(item) {
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=${item.add_latitude},${
-    item.add_longitude
+          src="https://www.google.com/maps?q=${item.brinquedo[0].add_latitude},${
+    item.brinquedo[0].add_longitude
   }&hl=pt-BR&z=16&output=embed"
         ></iframe>
       </a>
 
 
-      <p class="mb-0">${item.add_streetnum} - ${item.add_neighborhood}, ${
-    item.add_city
-  } - ${item.add_state}, ${formatCep(item.add_cep)}</p>
+      <p class="mb-0">${item.brinquedo[0].add_streetnum} - ${item.brinquedo[0].add_neighborhood}, ${
+    item.brinquedo[0].add_city
+  } - ${item.brinquedo[0].add_state}, ${formatCep(item.brinquedo[0].add_cep)}</p>
     </div>
     <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1): ?>
       <button type="submit" class="btn btn-primary btn-visita bg-gradient-1 border-0" data-brin-id="${
-        item.brin_id
+        item.brinquedo[0].brin_id
       }">Visitarei este lugar</button>
     <?php endif; ?>
     </div>
