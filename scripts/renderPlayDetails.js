@@ -291,7 +291,7 @@ function renderPlayDetails(item) {
     </div>
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Avaliações dos usuários</h5>
-      <div id="feedbacks"></div>
+      <div id="feedbacks" class="d-flex flex-column gap-2"></div>
     </div>
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Localização</h5>

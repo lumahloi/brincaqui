@@ -27,8 +27,12 @@ function getFeedback(playId) {
       fbEl.className = "p-3 card rounded";
 
       let html = `
-        <span class="col w-100 fw-bold mb-1">${fb.user_name}</span>
-        <span class="col w-100 small text-muted mb-3">${fb.aval_date}</span>
+        <a class="text-decoration-none text-black" href=""><div class="d-flex flex-row">
+          <span class="col w-100 fw-bold mb-1">${fb.user_name}</span>
+          <span class="col-3 small text-muted mb-3 date-relative" data-date="${
+            fb.aval_date
+          }"></span>
+        </div>
         <div class="d-flex flex-row gap-3">
           <div class="d-flex flex-row gap-2 align-items-center">
             <div class="col-auto">
@@ -44,13 +48,21 @@ function getFeedback(playId) {
         </div>        
       `;
 
-      if (fb.aval_description && fb.aval_description !== '') {
-        html += `<p class="small mt-3">${fb.aval_description}</p>`;
+      if (fb.aval_description && fb.aval_description !== "") {
+        html += `<p class="small mt-2 overflow-hidden mb-0" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; text-overflow: ellipsis;">${fb.aval_description}</p>`;
       }
+
+      html += `</a>`;
 
       fbEl.innerHTML = html;
 
       container.appendChild(fbEl);
+    });
+
+    document.querySelectorAll(".date-relative").forEach((el) => {
+      const dateStr = el.getAttribute("data-date");
+      const relativeTime = dayjs(dateStr).fromNow();
+      el.textContent = relativeTime;
     });
   }
 }
