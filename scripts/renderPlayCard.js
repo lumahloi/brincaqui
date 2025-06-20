@@ -12,8 +12,20 @@ function getClassificacaoLabel(grade) {
 function renderPlayCard(item, templateHtml, options = {}) {
   const $card = $(templateHtml);
 
-  $card.find("#play-name").text(item.brin_name);
-  let grade = Number(item.brin_grade ?? 0);
+  $card
+    .find("#play-name")
+    .text(item.brin_name)
+    .addClass("auth-link")
+    .off("click")
+    .on("click", function (){
+      if (isAuthenticated == 0) return;
+      const brinquedo = $(this).data("name");
+      saveSearchState();
+      window.location.href = `/lugar/${brinquedo}-${item.brin_id}`;
+    })
+  ;
+  
+    let grade = Number(item.brin_grade ?? 0);
   $card
     .find("#play-grade")
     .text(
@@ -35,9 +47,6 @@ function renderPlayCard(item, templateHtml, options = {}) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
-
-  const href = `/lugar/${slug}-${item.brin_id}`;
-  $card.find("#play-link").attr("href", href);
 
   if (item.brin_picture) {
     $card
