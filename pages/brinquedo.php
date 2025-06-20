@@ -22,9 +22,10 @@ require_once BASE_DIR . "/components/head.php";
 
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/renderPlayDetails.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/getDiscNameByPlay.js"></script>
+  <script src="<?php echo BASE_URL ?>/scripts/getComName.js"></script>
+  <script src="<?php echo BASE_URL ?>/scripts/getDiscName.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/apiVisit.js"></script>
+  <script src="<?php echo BASE_URL ?>/scripts/getFeedback.js"></script>
 
   <script>
     $(document).ready(function () {
@@ -131,6 +132,8 @@ require_once BASE_DIR . "/components/head.php";
           const html = renderPlayDetails(item);
           container.html(html);
 
+          getFeedback(playId);
+
           let commodities = item.brin_commodities;
           commodities = (
             Array.isArray(commodities)
@@ -146,12 +149,12 @@ require_once BASE_DIR . "/components/head.php";
           for (let i = 0; i < commodities.length; i += 2) {
             let row = $('<div class="row mb-2"></div>');
             let col1 = $('<div class="col"></div>');
-            getComNameByPlay(String(commodities[i]), col1);
+            getComName(String(commodities[i]), col1);
             row.append(col1);
 
             if (commodities[i + 1] !== undefined) {
               let col2 = $('<div class="col"></div>');
-              getComNameByPlay(String(commodities[i + 1]), col2);
+              getComName(String(commodities[i + 1]), col2);
               row.append(col2);
             }
 
@@ -174,7 +177,7 @@ require_once BASE_DIR . "/components/head.php";
               );
             }
             discounts.forEach((discountId) => {
-              getDiscNameByPlay(String(discountId), $discountsContainer);
+              getDiscName(String(discountId), $discountsContainer);
             });
           } else {
             setTimeout(() => {
@@ -186,7 +189,7 @@ require_once BASE_DIR . "/components/head.php";
                   );
                 }
                 discounts.forEach((discountId) => {
-                  getDiscNameByPlay(String(discountId), $retryContainer);
+                  getDiscName(String(discountId), $retryContainer);
                 });
               }
             }, 50);

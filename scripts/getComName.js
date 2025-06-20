@@ -1,4 +1,4 @@
-function getComNameByPlay(commodityId, targetElement) {
+function getComName(commodityId, targetElement) {
   if (!commodityId || typeof commodityId !== "string") {
     console.error("ID de commodity inválido:", commodityId);
     return;

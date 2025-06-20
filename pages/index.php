@@ -167,7 +167,7 @@ require_once BASE_DIR . "/components/head.php";
   <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/renderPlayCard.js"></script>
   <script src="<?php echo BASE_URL ?>/scripts/authGuard.js"></script>
-  <script src="<?php echo BASE_URL ?>/scripts/getComNameByPlay.js"></script>
+  <script src="<?php echo BASE_URL ?>/scripts/getComName.js"></script>
 
   <script>
     $("#btn-register-type1").click(function () {

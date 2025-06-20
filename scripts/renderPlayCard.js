@@ -56,8 +56,8 @@ function renderPlayCard(item, templateHtml, options = {}) {
 
   $card.find("#play-commodities").empty();
   commodities.forEach((commodityId) => {
-    if (typeof getComNameByPlay === "function") {
-      getComNameByPlay(String(commodityId), $card.find("#play-commodities"));
+    if (typeof getComName === "function") {
+      getComName(String(commodityId), $card.find("#play-commodities"));
     } else {
       $card
         .find("#play-commodities")

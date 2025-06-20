@@ -1,4 +1,4 @@
-function getDiscNameByPlay(discountId, targetElement) {
+function getDiscName(discountId, targetElement) {
   if (!discountId || typeof discountId !== "string") {
     console.error("ID de discount inválido:", discountId);
     return;
