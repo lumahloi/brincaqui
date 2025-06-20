@@ -26,20 +26,35 @@ function renderPrices(prices) {
     }
   }
   if (Array.isArray(prices)) {
-    prices.forEach((price) => {
+    if (prices.length === 1) {
       html += `
-        <div class="card col-auto">
-          <div class="card-body p-3 mx-auto text-center">
-            <span class="card-title small text-center">${
-              price.prices_title
-            }</span>
-            <h4 class="card-text text-center mt-2">R$ ${Number(
-              price.prices_price
-            ).toFixed(2)}</h4>
+          <div class="card col w-100">
+            <div class="card-body p-3 mx-auto text-center">
+              <span class="card-title small text-center">${
+                prices[0].prices_title
+              }</span>
+              <h4 class="card-text text-center mt-2">R$ ${Number(
+                prices[0].prices_price
+              ).toFixed(2)}</h4>
+            </div>
           </div>
-        </div>
-      `;
-    });
+        `;
+    } else {
+      prices.forEach((price) => {
+        html += `
+          <div class="card col-auto">
+            <div class="card-body p-3 mx-auto text-center">
+              <span class="card-title small text-center">${
+                price.prices_title
+              }</span>
+              <h4 class="card-text text-center mt-2">R$ ${Number(
+                price.prices_price
+              ).toFixed(2)}</h4>
+            </div>
+          </div>
+        `;
+      });
+    }
   }
   return html;
 }
@@ -69,12 +84,20 @@ function renderPlayDetails(item) {
     <h4 id="play-name" class="fw-bold mb-2">${item.brinquedo[0].brin_name}</h4>
     <div class="mt-3">
       <div class="row">
-        <div class="col"><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${item.brinquedo[0].brin_grade} ${getClassificacaoLabel(item.brinquedo[0].brin_grade)}</span></div>
-        <div class="col"><i class="bi bi-geo-alt-fill"></i> <span id="play-distance">${item.brinquedo[0].distance ?? 0} km</span></div>
+        <div class="col"><i class="bi bi-star-fill"></i> <span id="play-grade" class="brin-grade">${
+          item.brinquedo[0].brin_grade
+        } ${getClassificacaoLabel(item.brinquedo[0].brin_grade)}</span></div>
+        <div class="col"><i class="bi bi-geo-alt-fill"></i> <span id="play-distance">${
+          item.brinquedo[0].distance ?? 0
+        } km</span></div>
       </div>
       <div class="row">
-        <div class="col"><i id="btn-favorite"></i> <span>${item.brinquedo[0].brin_faves} favoritos</span></div>
-        <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits">${item.brinquedo[0].brin_visits} visitas</span></div>
+        <div class="col"><i id="btn-favorite"></i> <span>${
+          item.brinquedo[0].brin_faves
+        } favoritos</span></div>
+        <div class="col"><i class="bi bi-emoji-smile-fill"></i> <span id="play-visits">${
+          item.brinquedo[0].brin_visits
+        } visitas</span></div>
       </div>
     </div>
   </div>
@@ -234,7 +257,7 @@ function renderPlayDetails(item) {
     </div>
     <div class="d-grid gap-2">
       <h5 class="fw-bold text-gradient-1">Preços</h5>
-      <div class="row d-flex gap-2 justify-content-center">${renderPrices(
+      <div class="d-flex flex-row gap-2 justify-content-center">${renderPrices(
         item.brinquedo[0].brin_prices
       )}</div>
       <div id="play-discounts" class="row"></div>
@@ -303,16 +326,18 @@ function renderPlayDetails(item) {
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=${item.brinquedo[0].add_latitude},${
-    item.brinquedo[0].add_longitude
-  }&hl=pt-BR&z=16&output=embed"
+          src="https://www.google.com/maps?q=${
+            item.brinquedo[0].add_latitude
+          },${item.brinquedo[0].add_longitude}&hl=pt-BR&z=16&output=embed"
         ></iframe>
       </a>
 
 
-      <p class="mb-0">${item.brinquedo[0].add_streetnum} - ${item.brinquedo[0].add_neighborhood}, ${
-    item.brinquedo[0].add_city
-  } - ${item.brinquedo[0].add_state}, ${formatCep(item.brinquedo[0].add_cep)}</p>
+      <p class="mb-0">${item.brinquedo[0].add_streetnum} - ${
+    item.brinquedo[0].add_neighborhood
+  }, ${item.brinquedo[0].add_city} - ${
+    item.brinquedo[0].add_state
+  }, ${formatCep(item.brinquedo[0].add_cep)}</p>
     </div>
     <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1): ?>
       <button type="submit" class="btn btn-primary btn-visita bg-gradient-1 border-0" data-brin-id="${

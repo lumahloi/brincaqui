@@ -160,7 +160,7 @@ require_once BASE_DIR . "/components/head.php";
           $commoditiesContainer.empty();
 
           for (let i = 0; i < commodities.length; i += 2) {
-            let row = $('<div class="row mb-2"></div>');
+            let row = $('<div class="d-flex flex-row mb-2"></div>');
             let col1 = $('<div class="col"></div>');
             getComName(String(commodities[i]), col1);
             row.append(col1);
