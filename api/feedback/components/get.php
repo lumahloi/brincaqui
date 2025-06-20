@@ -21,13 +21,15 @@ try {
       "a.aval_grade_6",
       "a.aval_grade_7",
       "u.user_id",
-      "u.user_name"
+      "u.user_name",
+      "b.brin_id"
     ];
 
     $sql = "
       SELECT " . implode(", ", $selectedColumns) . "
       FROM brincaqui.avaliacao a
       JOIN brincaqui.usuario u ON a.Usuario_user_id = u.user_id
+      JOIN brincaqui.brinquedo b ON a.Brinquedo_brin_id = b.brin_id
       WHERE a.aval_id = :aval_id
       LIMIT 1
     ";

@@ -1,6 +1,10 @@
 <?php
 require_once BASE_DIR . "/components/head.php";
 ?>
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>/stars.css">
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/pt-br.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
 <script>
   if (typeof isAuthenticated !== "undefined" && isAuthenticated === false) {
     window.location.href = "/";
@@ -8,13 +12,9 @@ require_once BASE_DIR . "/components/head.php";
   const classificacoes = <?php echo file_get_contents(BASE_DIR . "/public/classificacao.json"); ?>;
   const comodidades = <?php echo file_get_contents(BASE_DIR . "/public/comodidade.json"); ?>;
   const descontos = <?php echo file_get_contents(BASE_DIR . "/public/desconto.json"); ?>;
-</script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/pt-br.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
-<script>
   dayjs.extend(dayjs_plugin_relativeTime);
   dayjs.locale('pt-br');
+  let playId;
 </script>
 </head>
 
@@ -30,6 +30,15 @@ require_once BASE_DIR . "/components/head.php";
     <script src="<?php echo BASE_URL ?>/scripts/renderFeedbackDetails.js"></script>
 
     <script>
+      document.querySelectorAll('.star-rating:not(.readonly) label').forEach(star => {
+        star.addEventListener('click', function () {
+          this.style.transform = 'scale(1.2)';
+          setTimeout(() => {
+            this.style.transform = 'scale(1)';
+          }, 200);
+        });
+      });
+
       $(document).ready(function () {
         const path = window.location.pathname;
         const match = path.match(/(\d+)$/);
@@ -62,28 +71,43 @@ require_once BASE_DIR . "/components/head.php";
               const containerEl = document.querySelector('.card');
 
               containerEl.querySelector('.edit-btn').addEventListener('click', () => {
-                containerEl.querySelectorAll('[data-edit]').forEach(el => el.classList.remove('d-none'));
+                containerEl.querySelectorAll('[data-edit]').forEach(el => {
+                  el.classList.remove('d-none');
+
+                  if (el.classList.contains('star-rating')) {
+                    const key = el.getAttribute('data-edit');
+                    const valor = Number(item[key]);
+
+                    const input = el.querySelector(`input[value="${valor}"]`);
+                    if (input) input.checked = true;
+                  }
+                });
+
                 containerEl.querySelectorAll('[data-key]').forEach(el => el.classList.add('d-none'));
+
                 containerEl.querySelector('.save-edit-btn').classList.remove('d-none');
               });
 
               containerEl.querySelector('.save-edit-btn').addEventListener('click', () => {
                 const payload = {
                   description: containerEl.querySelector('[data-edit="aval_description"]').value.trim(),
-                  grade_2: Number(containerEl.querySelector('[data-edit="aval_grade_2"]').value),
-                  grade_3: Number(containerEl.querySelector('[data-edit="aval_grade_3"]').value),
-                  grade_4: Number(containerEl.querySelector('[data-edit="aval_grade_4"]').value),
-                  grade_5: Number(containerEl.querySelector('[data-edit="aval_grade_5"]').value),
-                  grade_6: Number(containerEl.querySelector('[data-edit="aval_grade_6"]').value),
-                  grade_7: Number(containerEl.querySelector('[data-edit="aval_grade_7"]').value),
                 };
+
+                for (let i = 2; i <= 7; i++) {
+                  const radioName = `rating-${i}`;
+                  const selected = containerEl.querySelector(`[name="rating-${i}"]:checked`);
+                  payload[`grade_${i}`] = selected ? Number(selected.value) : 0;
+                }
+
+                payload['brin_id'] = playId;
+
 
                 $.ajax({
                   type: "PUT",
-                  url: `${SERVER_URL}feedback/${playId}`, 
+                  url: `${SERVER_URL}feedback/${fbId}`,
                   data: JSON.stringify(payload),
                   success: () => {
-                    location.reload(); 
+                    location.reload();
                   },
                   error: (xhr) => {
                     error_validation(xhr);

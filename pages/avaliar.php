@@ -6,7 +6,7 @@ require_once BASE_DIR . "/components/head.php";
     window.location.href = "/";
   }
 </script>
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>/hearts.css">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>/stars.css">
 </head>
 
 <body>
@@ -22,102 +22,102 @@ require_once BASE_DIR . "/components/head.php";
 
     <div class="col d-flex flex-column gap-1 card p-3">
       <h5 class="text-center">Segurança</h5>
-      <div class="heart-rating animated-hearts text-center w-100">
-        <input type="radio" id="heart5-seguranca" name="rating-seguranca" value="5">
-        <label for="heart5-seguranca" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart4-seguranca" name="rating-seguranca" value="4">
-        <label for="heart4-seguranca" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart3-seguranca" name="rating-seguranca" value="3">
-        <label for="heart3-seguranca" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart2-seguranca" name="rating-seguranca" value="2">
-        <label for="heart2-seguranca" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart1-seguranca" name="rating-seguranca" value="1">
-        <label for="heart1-seguranca" class="bi bi-heart-fill fs-3"></label>
+      <div class="star-rating animated-stars text-center w-100">
+        <input type="radio" id="star5-seguranca" name="rating-seguranca" value="5">
+        <label for="star5-seguranca" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star4-seguranca" name="rating-seguranca" value="4">
+        <label for="star4-seguranca" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star3-seguranca" name="rating-seguranca" value="3">
+        <label for="star3-seguranca" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star2-seguranca" name="rating-seguranca" value="2">
+        <label for="star2-seguranca" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star1-seguranca" name="rating-seguranca" value="1">
+        <label for="star1-seguranca" class="bi bi-star-fill fs-3"></label>
       </div>
       <div class="rating-label text-center text-muted small mb-2"></div>
     </div>
 
     <div class="col d-flex flex-column gap-1 card p-3">
       <h5 class="text-center">Limpeza</h5>
-      <div class="heart-rating animated-hearts text-center w-100">
-        <input type="radio" id="heart5-limpeza" name="rating-limpeza" value="5">
-        <label for="heart5-limpeza" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart4-limpeza" name="rating-limpeza" value="4">
-        <label for="heart4-limpeza" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart3-limpeza" name="rating-limpeza" value="3">
-        <label for="heart3-limpeza" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart2-limpeza" name="rating-limpeza" value="2">
-        <label for="heart2-limpeza" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart1-limpeza" name="rating-limpeza" value="1">
-        <label for="heart1-limpeza" class="bi bi-heart-fill fs-3"></label>
+      <div class="star-rating animated-stars text-center w-100">
+        <input type="radio" id="star5-limpeza" name="rating-limpeza" value="5">
+        <label for="star5-limpeza" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star4-limpeza" name="rating-limpeza" value="4">
+        <label for="star4-limpeza" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star3-limpeza" name="rating-limpeza" value="3">
+        <label for="star3-limpeza" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star2-limpeza" name="rating-limpeza" value="2">
+        <label for="star2-limpeza" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star1-limpeza" name="rating-limpeza" value="1">
+        <label for="star1-limpeza" class="bi bi-star-fill fs-3"></label>
       </div>
       <div class="rating-label text-center text-muted small mb-2"></div>
     </div>
 
     <div class="col d-flex flex-column gap-1 card p-3">
       <h5 class="text-center">Variedade e/ou qualidade de brinquedos e atrações</h5>
-      <div class="heart-rating animated-hearts text-center w-100">
-        <input type="radio" id="heart5-atracoes" name="rating-atracoes" value="5">
-        <label for="heart5-atracoes" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart4-atracoes" name="rating-atracoes" value="4">
-        <label for="heart4-atracoes" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart3-atracoes" name="rating-atracoes" value="3">
-        <label for="heart3-atracoes" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart2-atracoes" name="rating-atracoes" value="2">
-        <label for="heart2-atracoes" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart1-atracoes" name="rating-atracoes" value="1">
-        <label for="heart1-atracoes" class="bi bi-heart-fill fs-3"></label>
+      <div class="star-rating animated-stars text-center w-100">
+        <input type="radio" id="star5-atracoes" name="rating-atracoes" value="5">
+        <label for="star5-atracoes" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star4-atracoes" name="rating-atracoes" value="4">
+        <label for="star4-atracoes" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star3-atracoes" name="rating-atracoes" value="3">
+        <label for="star3-atracoes" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star2-atracoes" name="rating-atracoes" value="2">
+        <label for="star2-atracoes" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star1-atracoes" name="rating-atracoes" value="1">
+        <label for="star1-atracoes" class="bi bi-star-fill fs-3"></label>
       </div>
       <div class="rating-label text-center text-muted small mb-2"></div>
     </div>
 
     <div class="col d-flex flex-column gap-1 card p-3">
       <h5 class="text-center">Localização e/ou facilidade de acesso</h5>
-      <div class="heart-rating animated-hearts text-center w-100">
-        <input type="radio" id="heart5-localizacao" name="rating-localizacao" value="5">
-        <label for="heart5-localizacao" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart4-localizacao" name="rating-localizacao" value="4">
-        <label for="heart4-localizacao" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart3-localizacao" name="rating-localizacao" value="3">
-        <label for="heart3-localizacao" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart2-localizacao" name="rating-localizacao" value="2">
-        <label for="heart2-localizacao" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart1-localizacao" name="rating-localizacao" value="1">
-        <label for="heart1-localizacao" class="bi bi-heart-fill fs-3"></label>
+      <div class="star-rating animated-stars text-center w-100">
+        <input type="radio" id="star5-localizacao" name="rating-localizacao" value="5">
+        <label for="star5-localizacao" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star4-localizacao" name="rating-localizacao" value="4">
+        <label for="star4-localizacao" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star3-localizacao" name="rating-localizacao" value="3">
+        <label for="star3-localizacao" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star2-localizacao" name="rating-localizacao" value="2">
+        <label for="star2-localizacao" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star1-localizacao" name="rating-localizacao" value="1">
+        <label for="star1-localizacao" class="bi bi-star-fill fs-3"></label>
       </div>
       <div class="rating-label text-center text-muted small mb-2"></div>
     </div>
 
     <div class="col d-flex flex-column gap-1 card p-3">
       <h5 class="text-center">Preços e/ou descontos oferecidos</h5>
-      <div class="heart-rating animated-hearts text-center w-100">
-        <input type="radio" id="heart5-preco" name="rating-preco" value="5">
-        <label for="heart5-preco" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart4-preco" name="rating-preco" value="4">
-        <label for="heart4-preco" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart3-preco" name="rating-preco" value="3">
-        <label for="heart3-preco" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart2-preco" name="rating-preco" value="2">
-        <label for="heart2-preco" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart1-preco" name="rating-preco" value="1">
-        <label for="heart1-preco" class="bi bi-heart-fill fs-3"></label>
+      <div class="star-rating animated-stars text-center w-100">
+        <input type="radio" id="star5-preco" name="rating-preco" value="5">
+        <label for="star5-preco" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star4-preco" name="rating-preco" value="4">
+        <label for="star4-preco" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star3-preco" name="rating-preco" value="3">
+        <label for="star3-preco" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star2-preco" name="rating-preco" value="2">
+        <label for="star2-preco" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star1-preco" name="rating-preco" value="1">
+        <label for="star1-preco" class="bi bi-star-fill fs-3"></label>
       </div>
       <div class="rating-label text-center text-muted small mb-2"></div>
     </div>
 
     <div class="col d-flex flex-column gap-1 card p-3">
       <h5 class="text-center">Acessibilidade e/ou assistência</h5>
-      <div class="heart-rating animated-hearts text-center w-100">
-        <input type="radio" id="heart5-acessibilidade" name="rating-acessibilidade" value="5">
-        <label for="heart5-acessibilidade" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart4-acessibilidade" name="rating-acessibilidade" value="4">
-        <label for="heart4-acessibilidade" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart3-acessibilidade" name="rating-acessibilidade" value="3">
-        <label for="heart3-acessibilidade" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart2-acessibilidade" name="rating-acessibilidade" value="2">
-        <label for="heart2-acessibilidade" class="bi bi-heart-fill fs-3"></label>
-        <input type="radio" id="heart1-acessibilidade" name="rating-acessibilidade" value="1">
-        <label for="heart1-acessibilidade" class="bi bi-heart-fill fs-3"></label>
+      <div class="star-rating animated-stars text-center w-100">
+        <input type="radio" id="star5-acessibilidade" name="rating-acessibilidade" value="5">
+        <label for="star5-acessibilidade" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star4-acessibilidade" name="rating-acessibilidade" value="4">
+        <label for="star4-acessibilidade" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star3-acessibilidade" name="rating-acessibilidade" value="3">
+        <label for="star3-acessibilidade" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star2-acessibilidade" name="rating-acessibilidade" value="2">
+        <label for="star2-acessibilidade" class="bi bi-star-fill fs-3"></label>
+        <input type="radio" id="star1-acessibilidade" name="rating-acessibilidade" value="1">
+        <label for="star1-acessibilidade" class="bi bi-star-fill fs-3"></label>
       </div>
       <div class="rating-label text-center text-muted small mb-2"></div>
     </div>
@@ -133,8 +133,8 @@ require_once BASE_DIR . "/components/head.php";
     <script src="<?php echo BASE_URL ?>/scripts/errorValidation.js"></script>
 
     <script>
-      document.querySelectorAll('.heart-rating:not(.readonly) label').forEach(heart => {
-        heart.addEventListener('click', function () {
+      document.querySelectorAll('.star-rating:not(.readonly) label').forEach(star => {
+        star.addEventListener('click', function () {
           this.style.transform = 'scale(1.2)';
           setTimeout(() => {
             this.style.transform = 'scale(1)';
@@ -158,7 +158,7 @@ require_once BASE_DIR . "/components/head.php";
       $.getJSON("../public/classificacao.json", function (data) {
         classificacoes = data;
 
-        document.querySelectorAll('.heart-rating').forEach(function (group) {
+        document.querySelectorAll('.star-rating').forEach(function (group) {
           const inputs = group.querySelectorAll('input[type="radio"]');
           const output = group.parentElement.querySelector('.rating-label');
 
