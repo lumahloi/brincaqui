@@ -26,7 +26,7 @@ $status = $_GET['status'] ?? '';
       <div class="mb-3">
         <label for="form-email" class="form-label">E-mail</label>
         <div class="input-group">
-          <input type="text" class="form-control" id="form-email" disabled readonly
+          <input type="text" class="form-control" id="form-email"  readonly
             value="<?php echo $_SESSION['user_email'] ?>">
           <button type="button" class="input-group-text" onclick="handleUpdate('email')">
             Atualizar <i class="bi bi-pencil ms-2"></i>
@@ -38,7 +38,7 @@ $status = $_GET['status'] ?? '';
       <div class="mb-3">
         <label for="form-telephone" class="form-label">Telefone</label>
         <div class="input-group">
-          <input type="text" class="form-control" id="form-telephone" disabled readonly
+          <input type="text" class="form-control" id="form-telephone"  readonly
             value="<?php echo $_SESSION['user_telephone'] ?>">
           <button type="button" class="input-group-text" onclick="handleUpdate('telephone')">
             Atualizar <i class="bi bi-pencil ms-2"></i>
@@ -50,7 +50,7 @@ $status = $_GET['status'] ?? '';
       <div class="mb-3">
         <label for="form-password" class="form-label">Senha</label>
         <div class="input-group">
-          <input type="password" class="form-control" id="form-password" disabled readonly value="****************">
+          <input type="password" class="form-control" id="form-password"  readonly value="****************">
           <button type="button" class="input-group-text" onclick="handleUpdate('password')">
             Atualizar <i class="bi bi-pencil ms-2"></i>
           </button>

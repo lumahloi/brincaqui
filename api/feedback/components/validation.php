@@ -6,10 +6,6 @@ if (isset($data['description'])) {
   valid_characters(10, 200, $input_description, 'Descrição');
 }
 
-if (isset($data['grade_1'])) {
-  $input_g1 = filter_var($data['grade_1'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-}
-
 if (isset($data['grade_2'])) {
   $input_g2 = filter_var($data['grade_2'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 }

@@ -87,6 +87,7 @@ CREATE TABLE
     aval_grade_4 FLOAT NOT NULL,
     aval_grade_5 FLOAT NOT NULL,
     aval_grade_6 FLOAT NOT NULL,
+    aval_grade_7 FLOAT NOT NULL,
     PRIMARY KEY (aval_id),
     FOREIGN KEY (Usuario_user_id) REFERENCES Usuario (user_id),
     FOREIGN KEY (Brinquedo_brin_id) REFERENCES Brinquedo (brin_id)

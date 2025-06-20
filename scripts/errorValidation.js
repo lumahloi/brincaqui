@@ -12,7 +12,7 @@ function error_validation(response) {
   const modal = new bootstrap.Modal("#modal", {});
   $("#modal-title").html("Ocorreu um erro");
   $("#modal-body").html(
-    switch_code(response.responseJSON.message, response.code)
+    switch_code(response.message, response.code)
   );
   modal.show();
 }

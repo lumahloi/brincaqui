@@ -6,7 +6,6 @@ try {
   $data = json_decode(file_get_contents('php://input'), true);
   
   $input_description = null;
-  $input_g1 = null;
   $input_g2 = null;
   $input_g3 = null;
   $input_g4 = null;
@@ -28,11 +27,15 @@ try {
   require_once "validation.php";
   
   $db = new Database();
+
+  $grades = [$input_g2, $input_g3, $input_g4, $input_g5, $input_g6, $input_g7];
+  $grades_numeric = array_filter($grades, fn($v) => is_numeric($v));
+  $calculated_g1 = count($grades_numeric) ? round(array_sum($grades_numeric) / count($grades_numeric), 1) : null;
   
   $insert_fb = $db->insertInto(
     'avaliacao',
-    ['Usuario_user_id', 'Brinquedo_brin_id', 'aval_description', 'aval_date', 'aval_grade_1', 'aval_grade_2', 'aval_grade_3', 'aval_grade_4', 'aval_grade_5', 'aval_grade_6'],
-    [$_SESSION['user_id'], $input_id, $input_description, $date, $input_g1, $input_g2, $input_g3, $input_g4, $input_g5, $input_g6]
+    ['Usuario_user_id', 'Brinquedo_brin_id', 'aval_description', 'aval_date', 'aval_grade_1', 'aval_grade_2', 'aval_grade_3', 'aval_grade_4', 'aval_grade_5', 'aval_grade_6', 'aval_grade_7'],
+    [$_SESSION['user_id'], $input_id, $input_description, $date, $calculated_g1, $input_g2, $input_g3, $input_g4, $input_g5, $input_g6, $input_g7]
   );
   
   not_null_or_false($insert_fb);
@@ -45,7 +48,7 @@ try {
       'aval_grade_1',
       'Brinquedo_brin_id',
       $input_id
-      )],
+    )],
     ['brin_id'],
     [$input_id]
   );

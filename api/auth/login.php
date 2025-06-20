@@ -1,7 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:8000");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type");
 session_start();
 require_once "../base_dir.php";
 require_once BASE_DIR . "/utils/response_format.php";
